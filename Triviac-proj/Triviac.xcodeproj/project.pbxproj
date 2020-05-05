@@ -3,27 +3,33 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		415CC4DE2461187F004CC7F9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415CC4DD2461187F004CC7F9 /* TabBarController.swift */; };
+		415CC4E624611C37004CC7F9 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415CC4E524611C37004CC7F9 /* CreateViewController.swift */; };
+		415CC4E824611C3F004CC7F9 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415CC4E724611C3F004CC7F9 /* SavedViewController.swift */; };
 		417E1916245FB8E10008DABD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417E1915245FB8E10008DABD /* AppDelegate.swift */; };
 		417E1918245FB8E10008DABD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417E1917245FB8E10008DABD /* SceneDelegate.swift */; };
-		417E191A245FB8E10008DABD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417E1919245FB8E10008DABD /* ViewController.swift */; };
-		417E191D245FB8E10008DABD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 417E191B245FB8E10008DABD /* Main.storyboard */; };
 		417E191F245FB8E20008DABD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 417E191E245FB8E20008DABD /* Assets.xcassets */; };
 		417E1922245FB8E20008DABD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 417E1920245FB8E20008DABD /* LaunchScreen.storyboard */; };
+		7CFC89DEC6785B6D5D8C7590 /* Pods_Triviac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97D214F22E18EA6F2F948A0F /* Pods_Triviac.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		415CC4DD2461187F004CC7F9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		415CC4E524611C37004CC7F9 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
+		415CC4E724611C3F004CC7F9 /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
 		417E1912245FB8E10008DABD /* Triviac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Triviac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		417E1915245FB8E10008DABD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		417E1917245FB8E10008DABD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		417E1919245FB8E10008DABD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		417E191C245FB8E10008DABD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		417E191E245FB8E20008DABD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		417E1921245FB8E20008DABD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		417E1923245FB8E20008DABD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8673069DFB06EC73BA6A8C8A /* Pods-Triviac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triviac.release.xcconfig"; path = "Target Support Files/Pods-Triviac/Pods-Triviac.release.xcconfig"; sourceTree = "<group>"; };
+		97D214F22E18EA6F2F948A0F /* Pods_Triviac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Triviac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFBF17785A6CAD993F68E0BA /* Pods-Triviac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triviac.debug.xcconfig"; path = "Target Support Files/Pods-Triviac/Pods-Triviac.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CFC89DEC6785B6D5D8C7590 /* Pods_Triviac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +49,8 @@
 			children = (
 				417E1914245FB8E10008DABD /* Triviac */,
 				417E1913245FB8E10008DABD /* Products */,
+				8B70FB3AC450AE6280F85D0D /* Pods */,
+				75B6106250F507A02620DE7C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,13 +67,31 @@
 			children = (
 				417E1915245FB8E10008DABD /* AppDelegate.swift */,
 				417E1917245FB8E10008DABD /* SceneDelegate.swift */,
-				417E1919245FB8E10008DABD /* ViewController.swift */,
-				417E191B245FB8E10008DABD /* Main.storyboard */,
+				415CC4DD2461187F004CC7F9 /* TabBarController.swift */,
 				417E191E245FB8E20008DABD /* Assets.xcassets */,
 				417E1920245FB8E20008DABD /* LaunchScreen.storyboard */,
 				417E1923245FB8E20008DABD /* Info.plist */,
+				415CC4E524611C37004CC7F9 /* CreateViewController.swift */,
+				415CC4E724611C3F004CC7F9 /* SavedViewController.swift */,
 			);
 			path = Triviac;
+			sourceTree = "<group>";
+		};
+		75B6106250F507A02620DE7C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				97D214F22E18EA6F2F948A0F /* Pods_Triviac.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8B70FB3AC450AE6280F85D0D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CFBF17785A6CAD993F68E0BA /* Pods-Triviac.debug.xcconfig */,
+				8673069DFB06EC73BA6A8C8A /* Pods-Triviac.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +101,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 417E1926245FB8E20008DABD /* Build configuration list for PBXNativeTarget "Triviac" */;
 			buildPhases = (
+				AE39725BFAD2D37E0885C4A6 /* [CP] Check Pods Manifest.lock */,
 				417E190E245FB8E10008DABD /* Sources */,
 				417E190F245FB8E10008DABD /* Frameworks */,
 				417E1910245FB8E10008DABD /* Resources */,
+				B6BF5C772263AD8D1852BFBF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -127,19 +156,62 @@
 			files = (
 				417E1922245FB8E20008DABD /* LaunchScreen.storyboard in Resources */,
 				417E191F245FB8E20008DABD /* Assets.xcassets in Resources */,
-				417E191D245FB8E10008DABD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AE39725BFAD2D37E0885C4A6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Triviac-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B6BF5C772263AD8D1852BFBF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Triviac/Pods-Triviac-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Triviac/Pods-Triviac-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Triviac/Pods-Triviac-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		417E190E245FB8E10008DABD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				417E191A245FB8E10008DABD /* ViewController.swift in Sources */,
+				415CC4E624611C37004CC7F9 /* CreateViewController.swift in Sources */,
+				415CC4DE2461187F004CC7F9 /* TabBarController.swift in Sources */,
 				417E1916245FB8E10008DABD /* AppDelegate.swift in Sources */,
+				415CC4E824611C3F004CC7F9 /* SavedViewController.swift in Sources */,
 				417E1918245FB8E10008DABD /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,14 +219,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		417E191B245FB8E10008DABD /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				417E191C245FB8E10008DABD /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		417E1920245FB8E20008DABD /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -282,6 +346,7 @@
 		};
 		417E1927245FB8E20008DABD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CFBF17785A6CAD993F68E0BA /* Pods-Triviac.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -300,6 +365,7 @@
 		};
 		417E1928245FB8E20008DABD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8673069DFB06EC73BA6A8C8A /* Pods-Triviac.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
