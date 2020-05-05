@@ -173,7 +173,7 @@ class CreateViewController: UIViewController {
         //numLabel
         numLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(gap)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(gap*2.5)
             make.height.equalTo(ht)
             make.width.equalTo(lwd)
         }
@@ -241,7 +241,7 @@ class CreateViewController: UIViewController {
         //gen
         gen.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(typ.snp.bottom).offset(gap*5)
+            make.top.equalTo(typ.snp.bottom).offset(gap*5.5)
             make.height.equalTo(60)
             make.width.equalTo(200)
         }
