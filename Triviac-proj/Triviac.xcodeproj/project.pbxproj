@@ -14,6 +14,13 @@
 		417E1918245FB8E10008DABD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417E1917245FB8E10008DABD /* SceneDelegate.swift */; };
 		417E191F245FB8E20008DABD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 417E191E245FB8E20008DABD /* Assets.xcassets */; };
 		417E1922245FB8E20008DABD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 417E1920245FB8E20008DABD /* LaunchScreen.storyboard */; };
+		4180B06E24623D9100FA04C4 /* CatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B06D24623D9100FA04C4 /* CatTableViewCell.swift */; };
+		4180B0702462444B00FA04C4 /* Cat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B06F2462444B00FA04C4 /* Cat.swift */; };
+		4180B07424624D7D00FA04C4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B07324624D7D00FA04C4 /* NetworkManager.swift */; };
+		4180B07624625D5800FA04C4 /* SavedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B07524625D5800FA04C4 /* SavedCollectionViewCell.swift */; };
+		4180B07A24625FFB00FA04C4 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B07924625FFB00FA04C4 /* EditViewController.swift */; };
+		4180B07C246267BC00FA04C4 /* EditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B07B246267BC00FA04C4 /* EditTableViewCell.swift */; };
+		4180B07F2462691100FA04C4 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B07E2462691100FA04C4 /* Question.swift */; };
 		7CFC89DEC6785B6D5D8C7590 /* Pods_Triviac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97D214F22E18EA6F2F948A0F /* Pods_Triviac.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +34,13 @@
 		417E191E245FB8E20008DABD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		417E1921245FB8E20008DABD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		417E1923245FB8E20008DABD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4180B06D24623D9100FA04C4 /* CatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatTableViewCell.swift; sourceTree = "<group>"; };
+		4180B06F2462444B00FA04C4 /* Cat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cat.swift; sourceTree = "<group>"; };
+		4180B07324624D7D00FA04C4 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		4180B07524625D5800FA04C4 /* SavedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCollectionViewCell.swift; sourceTree = "<group>"; };
+		4180B07924625FFB00FA04C4 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
+		4180B07B246267BC00FA04C4 /* EditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTableViewCell.swift; sourceTree = "<group>"; };
+		4180B07E2462691100FA04C4 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		8673069DFB06EC73BA6A8C8A /* Pods-Triviac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triviac.release.xcconfig"; path = "Target Support Files/Pods-Triviac/Pods-Triviac.release.xcconfig"; sourceTree = "<group>"; };
 		97D214F22E18EA6F2F948A0F /* Pods_Triviac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Triviac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFBF17785A6CAD993F68E0BA /* Pods-Triviac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triviac.debug.xcconfig"; path = "Target Support Files/Pods-Triviac/Pods-Triviac.debug.xcconfig"; sourceTree = "<group>"; };
@@ -65,16 +79,47 @@
 		417E1914245FB8E10008DABD /* Triviac */ = {
 			isa = PBXGroup;
 			children = (
+				4180B07824625ED600FA04C4 /* Saved */,
+				4180B07724625EBE00FA04C4 /* Create */,
 				417E1915245FB8E10008DABD /* AppDelegate.swift */,
 				417E1917245FB8E10008DABD /* SceneDelegate.swift */,
 				415CC4DD2461187F004CC7F9 /* TabBarController.swift */,
 				417E191E245FB8E20008DABD /* Assets.xcassets */,
 				417E1920245FB8E20008DABD /* LaunchScreen.storyboard */,
 				417E1923245FB8E20008DABD /* Info.plist */,
-				415CC4E524611C37004CC7F9 /* CreateViewController.swift */,
-				415CC4E724611C3F004CC7F9 /* SavedViewController.swift */,
+				4180B07324624D7D00FA04C4 /* NetworkManager.swift */,
 			);
 			path = Triviac;
+			sourceTree = "<group>";
+		};
+		4180B07724625EBE00FA04C4 /* Create */ = {
+			isa = PBXGroup;
+			children = (
+				4180B06D24623D9100FA04C4 /* CatTableViewCell.swift */,
+				4180B06F2462444B00FA04C4 /* Cat.swift */,
+				415CC4E524611C37004CC7F9 /* CreateViewController.swift */,
+			);
+			path = Create;
+			sourceTree = "<group>";
+		};
+		4180B07824625ED600FA04C4 /* Saved */ = {
+			isa = PBXGroup;
+			children = (
+				4180B07D246268FA00FA04C4 /* Edit */,
+				4180B07524625D5800FA04C4 /* SavedCollectionViewCell.swift */,
+				415CC4E724611C3F004CC7F9 /* SavedViewController.swift */,
+			);
+			path = Saved;
+			sourceTree = "<group>";
+		};
+		4180B07D246268FA00FA04C4 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				4180B07B246267BC00FA04C4 /* EditTableViewCell.swift */,
+				4180B07924625FFB00FA04C4 /* EditViewController.swift */,
+				4180B07E2462691100FA04C4 /* Question.swift */,
+			);
+			path = Edit;
 			sourceTree = "<group>";
 		};
 		75B6106250F507A02620DE7C /* Frameworks */ = {
@@ -208,10 +253,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4180B07A24625FFB00FA04C4 /* EditViewController.swift in Sources */,
+				4180B07424624D7D00FA04C4 /* NetworkManager.swift in Sources */,
+				4180B06E24623D9100FA04C4 /* CatTableViewCell.swift in Sources */,
+				4180B07624625D5800FA04C4 /* SavedCollectionViewCell.swift in Sources */,
 				415CC4E624611C37004CC7F9 /* CreateViewController.swift in Sources */,
 				415CC4DE2461187F004CC7F9 /* TabBarController.swift in Sources */,
 				417E1916245FB8E10008DABD /* AppDelegate.swift in Sources */,
+				4180B0702462444B00FA04C4 /* Cat.swift in Sources */,
 				415CC4E824611C3F004CC7F9 /* SavedViewController.swift in Sources */,
+				4180B07F2462691100FA04C4 /* Question.swift in Sources */,
+				4180B07C246267BC00FA04C4 /* EditTableViewCell.swift in Sources */,
 				417E1918245FB8E10008DABD /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

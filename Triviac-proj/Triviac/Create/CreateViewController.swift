@@ -28,10 +28,13 @@ class CreateViewController: UIViewController {
     let lwd = CGFloat(300)
     let bwd = CGFloat(130)
     
-
+    public static var endpoint = "https://opentdb.com/api.php?amount="
+    let ed = "https://opentdb.com/api.php?amount="
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = UIColor.init(red: 1.00, green: 0.89, blue: 0.71, alpha: 1.00)
         self.title = "Generate a trivia!"
         
@@ -108,7 +111,7 @@ class CreateViewController: UIViewController {
         dif.layer.cornerRadius = 15
         dif.layer.borderWidth = 1
         dif.layer.borderColor = UIColor.white.cgColor
-
+        
         
         //type
         typLabel = UILabel()
@@ -121,7 +124,7 @@ class CreateViewController: UIViewController {
         typ.setTitle("Multiple Choice", for: .normal)
         typ.backgroundColor = .orange
         typ.setTitleColor(.white, for: .normal)
-        typ.addTarget(self, action: #selector(diff), for: .touchUpInside)
+        typ.addTarget(self, action: #selector(typf), for: .touchUpInside)
         typ.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls-5)
         typ.titleLabel?.textAlignment = .center
         typ.layer.cornerRadius = 15
@@ -152,18 +155,18 @@ class CreateViewController: UIViewController {
         view.addSubview(typLabel)
         view.addSubview(typ)
         view.addSubview(gen)
-
-        numLabel.translatesAutoresizingMaskIntoConstraints = false
-        numText.translatesAutoresizingMaskIntoConstraints = false
-        add.translatesAutoresizingMaskIntoConstraints = false
-        sub.translatesAutoresizingMaskIntoConstraints = false
-        catLabel.translatesAutoresizingMaskIntoConstraints = false
-        cat.translatesAutoresizingMaskIntoConstraints = false
-        difLabel.translatesAutoresizingMaskIntoConstraints = false
-        dif.translatesAutoresizingMaskIntoConstraints = false
-        typLabel.translatesAutoresizingMaskIntoConstraints = false
-        typ.translatesAutoresizingMaskIntoConstraints = false
-        gen.translatesAutoresizingMaskIntoConstraints = false
+        
+//        numLabel.translatesAutoresizingMaskIntoConstraints = false
+//        numText.translatesAutoresizingMaskIntoConstraints = false
+//        add.translatesAutoresizingMaskIntoConstraints = false
+//        sub.translatesAutoresizingMaskIntoConstraints = false
+//        catLabel.translatesAutoresizingMaskIntoConstraints = false
+//        cat.translatesAutoresizingMaskIntoConstraints = false
+//        difLabel.translatesAutoresizingMaskIntoConstraints = false
+//        dif.translatesAutoresizingMaskIntoConstraints = false
+//        typLabel.translatesAutoresizingMaskIntoConstraints = false
+//        typ.translatesAutoresizingMaskIntoConstraints = false
+//        gen.translatesAutoresizingMaskIntoConstraints = false
         
         setup()
         
@@ -249,28 +252,84 @@ class CreateViewController: UIViewController {
     }
     
     @objc func addf(){
-
+        let add1 = (Int(numText.text ?? "10") ?? 10) + 1
+        if add1 > 50 || add1 <= 0 {
+            numText.text = "10"
+        } else{
+            numText.text = "\(add1)"
+        }
     }
     
     @objc func subf(){
-        
+        let sub1 = (Int(numText.text ?? "10") ?? 10) - 1
+        if sub1 > 50 || sub1 <= 0 {
+            numText.text = "10"
+        } else{
+            numText.text = "\(sub1)"
+        }
     }
     
     @objc func catf(){
-        
+        parseJSON()
     }
     
     @objc func diff(){
-        
+        if dif.titleLabel?.text == "Easy" {
+            dif.setTitle("Medium", for: .normal)
+        } else if dif.titleLabel?.text == "Medium"{
+             dif.setTitle("Hard", for: .normal)
+        } else{
+             dif.setTitle("Easy", for: .normal)
+        }
     }
     
     @objc func typf(){
-        
+        if typ.titleLabel?.text == "Multiple Choice" {
+            typ.setTitle("True/False", for: .normal)
+        } else{
+             typ.setTitle("Multiple Choice", for: .normal)
+        }
     }
     @objc func genf(){
+        //needs to fill in cat
+        let chosendif = (dif.titleLabel?.text)?.lowercased()
+        let chosentyp = typ.titleLabel?.text == "Multiple Choice" ? "multiple" : "boolean"
+        CreateViewController.endpoint = "\(ed)\(numText.text ?? "10")&difficulty=\(chosendif!)&type=\(chosentyp)"
+        print(CreateViewController.endpoint)
+    }
+    
+    func parseJSON(){
+        print("a")
         
+        if let path = Bundle.main.path(forResource: "category", ofType: "json") {
+
+            do { print("here")
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                let jsonResult = try JSONDecoder().decode(CatResponse.self, from: data)
+
+                let catsArray = jsonResult.cats
+
+                for cat in catsArray{
+
+                     
+
+                    if let validName = cat.catnum{
+                         print("Name = \(validName)")
+                    }
+
+                    if let validTitle = cat.catname{
+                        print("Title = \(validTitle)")
+                    }
+
+
+                }
+
+            } catch {
+               print(error)
+            }
+        }
     }
     
     
-
+    
 }
