@@ -21,6 +21,7 @@
 		4180B07A24625FFB00FA04C4 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B07924625FFB00FA04C4 /* EditViewController.swift */; };
 		4180B07C246267BC00FA04C4 /* EditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B07B246267BC00FA04C4 /* EditTableViewCell.swift */; };
 		4180B07F2462691100FA04C4 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B07E2462691100FA04C4 /* Question.swift */; };
+		4180B08324632BEC00FA04C4 /* category.json in Resources */ = {isa = PBXBuildFile; fileRef = 4180B0822463299C00FA04C4 /* category.json */; };
 		7CFC89DEC6785B6D5D8C7590 /* Pods_Triviac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97D214F22E18EA6F2F948A0F /* Pods_Triviac.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		4180B07924625FFB00FA04C4 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		4180B07B246267BC00FA04C4 /* EditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTableViewCell.swift; sourceTree = "<group>"; };
 		4180B07E2462691100FA04C4 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		4180B0822463299C00FA04C4 /* category.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = category.json; sourceTree = "<group>"; };
 		8673069DFB06EC73BA6A8C8A /* Pods-Triviac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triviac.release.xcconfig"; path = "Target Support Files/Pods-Triviac/Pods-Triviac.release.xcconfig"; sourceTree = "<group>"; };
 		97D214F22E18EA6F2F948A0F /* Pods_Triviac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Triviac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFBF17785A6CAD993F68E0BA /* Pods-Triviac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triviac.debug.xcconfig"; path = "Target Support Files/Pods-Triviac/Pods-Triviac.debug.xcconfig"; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 			children = (
 				4180B06D24623D9100FA04C4 /* CatTableViewCell.swift */,
 				4180B06F2462444B00FA04C4 /* Cat.swift */,
+				4180B0822463299C00FA04C4 /* category.json */,
 				415CC4E524611C37004CC7F9 /* CreateViewController.swift */,
 			);
 			path = Create;
@@ -199,6 +202,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4180B08324632BEC00FA04C4 /* category.json in Resources */,
 				417E1922245FB8E20008DABD /* LaunchScreen.storyboard in Resources */,
 				417E191F245FB8E20008DABD /* Assets.xcassets in Resources */,
 			);

@@ -28,6 +28,10 @@ class CreateViewController: UIViewController {
     let lwd = CGFloat(300)
     let bwd = CGFloat(130)
     
+    let bgcolor = UIColor(red: 0.34, green: 0.34, blue: 0.38, alpha: 1.00)
+    let gencolor = UIColor(red: 1.00, green: 0.75, blue: 0.27, alpha: 1.00)
+    let btcolor = UIColor(red: 0.39, green: 0.51, blue: 0.51, alpha: 1.00)
+    
     public static var endpoint = "https://opentdb.com/api.php?amount="
     let ed = "https://opentdb.com/api.php?amount="
     
@@ -35,7 +39,7 @@ class CreateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.init(red: 1.00, green: 0.89, blue: 0.71, alpha: 1.00)
+        view.backgroundColor = bgcolor
         self.title = "Generate a trivia!"
         
         //number of questions
@@ -56,18 +60,17 @@ class CreateViewController: UIViewController {
         add = UIButton()
         add.setTitle("+", for: .normal)
         add.titleLabel?.text = "+"
-        add.backgroundColor = .orange
+        add.backgroundColor = btcolor
         add.setTitleColor(.white, for: .normal)
         add.addTarget(self, action: #selector(addf), for: .touchUpInside)
         add.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls-10)
-        add.contentHorizontalAlignment = .center                                        //NOT CENTERED?
         add.layer.cornerRadius = 5
         add.layer.borderWidth = 1
         add.layer.borderColor = UIColor.white.cgColor
         
         sub = UIButton()
         sub.setTitle("-", for: .normal)
-        sub.backgroundColor = .orange
+        sub.backgroundColor = btcolor
         sub.setTitleColor(.white, for: .normal)
         sub.addTarget(self, action: #selector(subf), for: .touchUpInside)
         sub.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls-10)
@@ -85,7 +88,7 @@ class CreateViewController: UIViewController {
         
         cat = UIButton()
         cat.setTitle("Any", for: .normal)
-        cat.backgroundColor = .orange
+        cat.backgroundColor = btcolor
         cat.setTitleColor(.white, for: .normal)
         cat.addTarget(self, action: #selector(catf), for: .touchUpInside)
         cat.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
@@ -103,7 +106,7 @@ class CreateViewController: UIViewController {
         
         dif = UIButton()
         dif.setTitle("Easy", for: .normal)
-        dif.backgroundColor = .orange
+        dif.backgroundColor = btcolor
         dif.setTitleColor(.white, for: .normal)
         dif.addTarget(self, action: #selector(diff), for: .touchUpInside)
         dif.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
@@ -122,7 +125,7 @@ class CreateViewController: UIViewController {
         
         typ = UIButton()
         typ.setTitle("Multiple Choice", for: .normal)
-        typ.backgroundColor = .orange
+        typ.backgroundColor = btcolor
         typ.setTitleColor(.white, for: .normal)
         typ.addTarget(self, action: #selector(typf), for: .touchUpInside)
         typ.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls-5)
@@ -134,7 +137,7 @@ class CreateViewController: UIViewController {
         //gen
         gen = UIButton()
         gen.setTitle("Generate!", for: .normal)
-        gen.backgroundColor = .lightGray
+        gen.backgroundColor = gencolor
         gen.setTitleColor(.white, for: .normal)
         gen.addTarget(self, action: #selector(genf), for: .touchUpInside)
         gen.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
@@ -155,18 +158,6 @@ class CreateViewController: UIViewController {
         view.addSubview(typLabel)
         view.addSubview(typ)
         view.addSubview(gen)
-        
-//        numLabel.translatesAutoresizingMaskIntoConstraints = false
-//        numText.translatesAutoresizingMaskIntoConstraints = false
-//        add.translatesAutoresizingMaskIntoConstraints = false
-//        sub.translatesAutoresizingMaskIntoConstraints = false
-//        catLabel.translatesAutoresizingMaskIntoConstraints = false
-//        cat.translatesAutoresizingMaskIntoConstraints = false
-//        difLabel.translatesAutoresizingMaskIntoConstraints = false
-//        dif.translatesAutoresizingMaskIntoConstraints = false
-//        typLabel.translatesAutoresizingMaskIntoConstraints = false
-//        typ.translatesAutoresizingMaskIntoConstraints = false
-//        gen.translatesAutoresizingMaskIntoConstraints = false
         
         setup()
         
@@ -193,12 +184,18 @@ class CreateViewController: UIViewController {
             make.height.width.equalTo(ht/2)
             make.trailing.equalTo(numText.snp.leading).offset(-gap)
         }
+        add.titleLabel?.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview().offset(-3)
+        }
         //sub
         sub.snp.makeConstraints{ make in
             make.centerY.equalTo(numText.snp.centerY)
             make.height.width.equalTo(ht/2)
             make.leading.equalTo(numText.snp.trailing).offset(gap)
         }
+        sub.titleLabel?.snp.makeConstraints{ make in
+                   make.centerY.equalToSuperview().offset(-3)
+               }
         //catLabel
         catLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
@@ -213,6 +210,9 @@ class CreateViewController: UIViewController {
             make.height.equalTo(ht)
             make.width.equalTo(bwd)
         }
+        cat.titleLabel?.snp.makeConstraints{ make in
+                   make.centerY.equalToSuperview().offset(-3)
+               }
         //difLabel
         difLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
@@ -227,6 +227,9 @@ class CreateViewController: UIViewController {
             make.height.equalTo(ht)
             make.width.equalTo(bwd)
         }
+        dif.titleLabel?.snp.makeConstraints{ make in
+                   make.centerY.equalToSuperview().offset(-3)
+               }
         //typLabel
         typLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
@@ -241,6 +244,9 @@ class CreateViewController: UIViewController {
             make.height.equalTo(ht)
             make.width.equalTo(bwd*2)
         }
+        typ.titleLabel?.snp.makeConstraints{ make in
+                   make.centerY.equalToSuperview().offset(-3)
+               }
         //gen
         gen.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
@@ -248,6 +254,9 @@ class CreateViewController: UIViewController {
             make.height.equalTo(60)
             make.width.equalTo(200)
         }
+        gen.titleLabel?.snp.makeConstraints{ make in
+                   make.centerY.equalToSuperview().offset(-3)
+               }
         
     }
     
@@ -296,32 +305,28 @@ class CreateViewController: UIViewController {
         let chosentyp = typ.titleLabel?.text == "Multiple Choice" ? "multiple" : "boolean"
         CreateViewController.endpoint = "\(ed)\(numText.text ?? "10")&difficulty=\(chosendif!)&type=\(chosentyp)"
         print(CreateViewController.endpoint)
+        tabBarController?.tabBar.isHidden = true
     }
     
     func parseJSON(){
-        print("a")
-        
+
         if let path = Bundle.main.path(forResource: "category", ofType: "json") {
 
             do { print("here")
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
                 let jsonResult = try JSONDecoder().decode(CatResponse.self, from: data)
 
-                let catsArray = jsonResult.cats
+                let catsArray = jsonResult.category
 
-                for cat in catsArray{
-
+                for cate in catsArray{
                      
-
-                    if let validName = cat.catnum{
+                    if let validName = cate.num{
                          print("Name = \(validName)")
                     }
 
-                    if let validTitle = cat.catname{
+                    if let validTitle = cate.cat{
                         print("Title = \(validTitle)")
                     }
-
-
                 }
 
             } catch {

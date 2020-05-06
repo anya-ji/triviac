@@ -8,12 +8,12 @@
 
 import Foundation
 struct Cat: Decodable {
-    var catnum: String?
-    var catname: String?
+    var num: String?
+    var cat: String?
 }
 
 struct CatResponse: Decodable{
-    var cats: [Cat]
+    var category: [Cat]
 }
 
 

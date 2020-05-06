@@ -1,0 +1,104 @@
+{
+    "category": [
+        {
+        "num": "any",
+        "cat": "Any Category"
+        },
+        {
+        "num": "9",
+        "cat": "General Knowledge"
+        },
+        {
+        "num": "10",
+        "cat": "Entertainment: Books"
+        },
+        {
+        "num": "11",
+        "cat": "Entertainment: Film"
+        },
+        {
+        "num": "12",
+        "cat": "Entertainment: Music"
+        },
+        {
+        "num": "13",
+        "cat": "Entertainment: Musicals & Theatres"
+        },
+        {
+        "num": "14",
+        "cat": "Entertainment: Television"
+        },
+        {
+        "num": "15",
+        "cat": "Entertainment: Video Games"
+        },
+        {
+        "num": "16",
+        "cat": "Entertainment: Board Games"
+        },
+        {
+        "num": "17",
+        "cat": "Science & Nature"
+        },
+        {
+        "num": "18",
+        "cat": "Science: Computers"
+        },
+        {
+        "num": "19",
+        "cat": "Science: Mathematics"
+        },
+        {
+        "num": "20",
+        "cat": "Mythology"
+        },
+        {
+        "num": "21",
+        "cat": "Sports"
+        },
+        {
+        "num": "22",
+        "cat": "Geography"
+        },
+        {
+        "num": "23",
+        "cat": "History"
+        },
+        {
+        "num": "24",
+        "cat": "Politics"
+        },
+        {
+        "num": "25",
+        "cat": "Art"
+        },
+        {
+        "num": "26",
+        "cat": "Celebrities"
+        },
+        {
+        "num": "27",
+        "cat": "Animals"
+        },
+        {
+        "num": "28",
+        "cat": "Vehicles"
+        },
+        {
+        "num": "29",
+        "cat": "Entertainment: Comics"
+        },
+        {
+        "num": "30",
+        "cat": "Science: Gadgets"
+        },
+        {
+        "num": "31",
+        "cat": "Entertainment: Japanese Anime & Manga"
+        },
+        {
+        "num": "32",
+        "cat": "Entertainment: Cartoon & Animations"
+        }
+    ]
+}

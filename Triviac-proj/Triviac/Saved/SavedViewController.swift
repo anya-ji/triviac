@@ -16,11 +16,13 @@ class SavedViewController: UIViewController {
     
     let savedrid = "savedrid"
     
+    let bgcolor = UIColor(red: 0.34, green: 0.34, blue: 0.38, alpha: 1.00)
+    let btcolor = UIColor(red: 0.39, green: 0.51, blue: 0.51, alpha: 1.00)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.init(red: 1.00, green: 0.89, blue: 0.71, alpha: 1.00)
+        view.backgroundColor = bgcolor
         self.title = "Saved"
         
         //add button

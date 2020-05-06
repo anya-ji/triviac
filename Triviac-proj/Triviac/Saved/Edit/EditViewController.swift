@@ -10,6 +10,9 @@ import UIKit
 
 class EditViewController: UIViewController {
     
+    let bgcolor = UIColor(red: 0.34, green: 0.34, blue: 0.38, alpha: 1.00)
+    let btcolor = UIColor(red: 0.39, green: 0.51, blue: 0.51, alpha: 1.00)
+    
     var titleView: UIView!
     var titleLabel: UILabel!
     var titleText: UITextField!
@@ -28,7 +31,7 @@ class EditViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = bgcolor
         
         let q1 = Question(q: "a", tf: true)
         let q2 = Question(q: "b", tf: true)
@@ -41,7 +44,7 @@ class EditViewController: UIViewController {
         //MARK: Title
         //titleView
         titleView = UIView()
-        titleView.backgroundColor = .orange
+        titleView.backgroundColor = btcolor
         view.addSubview(titleView)
         
         //titlelabel
@@ -106,7 +109,8 @@ class EditViewController: UIViewController {
         //           if let changedName = nameField.text, changedName != ""{
         //               delegate?.redTextChanged(to: changedName)
         //           }
-        dismiss(animated: true, completion: nil)
+        //dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
 }

@@ -10,6 +10,10 @@ import UIKit
 
 class EditTableViewCell: UITableViewCell {
     
+    let cellcolor = UIColor(red: 0.67, green: 0.78, blue: 0.75, alpha: 1.00)
+    let btcolor = UIColor(red: 0.39, green: 0.51, blue: 0.51, alpha: 1.00)
+       
+    
     var qLabel: UILabel!
     var qText: UITextField!
     var tfButton: UIButton!
@@ -19,7 +23,7 @@ class EditTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = UIColor.init(red: 1.00, green: 0.89, blue: 0.71, alpha: 1.00)
+        contentView.backgroundColor = cellcolor
         
         qLabel = UILabel()
         qLabel.text = "Question"
@@ -39,7 +43,7 @@ class EditTableViewCell: UITableViewCell {
         
         tfButton = UIButton()
         tfButton.setTitle("F", for: .normal)
-        tfButton.backgroundColor = .orange
+        tfButton.backgroundColor = btcolor
         tfButton.setTitleColor(.white, for: .normal)
         tfButton.addTarget(self, action: #selector(tf), for: .touchUpInside)
         tfButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 30)
@@ -58,8 +62,8 @@ class EditTableViewCell: UITableViewCell {
         qText.snp.makeConstraints{ make in
             make.bottom.equalTo(contentView.safeAreaLayoutGuide).offset(-gap*1.5)
             make.height.equalTo(60)
-            make.width.equalTo(250)
-            make.leading.equalTo(contentView.safeAreaLayoutGuide).offset(gap*2)
+            make.width.equalTo(300)
+            make.leading.equalTo(contentView.safeAreaLayoutGuide).offset(gap*2.5)
         }
         //qLabel
         qLabel.snp.makeConstraints{ make in
