@@ -14,7 +14,7 @@ class NetworkManager {
 
     var link = CreateViewController.endpoint
 
-//    static func getCourses(completion: @escaping (([Course])) -> Void) {
+//    static func getTrivia(completion: @escaping (([Course])) -> Void) {
 //        AF.request(endpoint, method: .get).validate().responseData{
 //            response in switch response.result{
 //            case .success(let data):

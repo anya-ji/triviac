@@ -9,6 +9,10 @@
 import UIKit
 import SnapKit
 
+protocol CatChangeTextDelegate: class {
+    func catTextChanged(to newCat: String)
+}
+
 class CreateViewController: UIViewController {
     var numLabel: UILabel!
     var numText: UITextField!
@@ -32,15 +36,19 @@ class CreateViewController: UIViewController {
     let gencolor = UIColor(red: 1.00, green: 0.75, blue: 0.27, alpha: 1.00)
     let btcolor = UIColor(red: 0.39, green: 0.51, blue: 0.51, alpha: 1.00)
     
+    
     public static var endpoint = "https://opentdb.com/api.php?amount="
     let ed = "https://opentdb.com/api.php?amount="
     
+    public static var catdic:[String:String] = [:]
+    public static var catarr:[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = bgcolor
         self.title = "Generate a trivia!"
+        parseJSON()
         
         //number of questions
         numLabel = UILabel()
@@ -87,12 +95,14 @@ class CreateViewController: UIViewController {
         catLabel.textAlignment = .center
         
         cat = UIButton()
-        cat.setTitle("Any", for: .normal)
+        cat.setTitle("Any Category", for: .normal)
         cat.backgroundColor = btcolor
         cat.setTitleColor(.white, for: .normal)
         cat.addTarget(self, action: #selector(catf), for: .touchUpInside)
         cat.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
         cat.titleLabel?.textAlignment = .center
+        cat.titleLabel?.adjustsFontSizeToFitWidth = true
+        //cat.sizeToFit()
         cat.layer.cornerRadius = 15
         cat.layer.borderWidth = 1
         cat.layer.borderColor = UIColor.white.cgColor
@@ -194,8 +204,8 @@ class CreateViewController: UIViewController {
             make.leading.equalTo(numText.snp.trailing).offset(gap)
         }
         sub.titleLabel?.snp.makeConstraints{ make in
-                   make.centerY.equalToSuperview().offset(-3)
-               }
+            make.centerY.equalToSuperview().offset(-3)
+        }
         //catLabel
         catLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
@@ -208,11 +218,11 @@ class CreateViewController: UIViewController {
             make.centerX.equalTo(view.snp.centerX)
             make.top.equalTo(catLabel.snp.bottom).offset(gap)
             make.height.equalTo(ht)
-            make.width.equalTo(bwd)
+            make.width.equalTo(bwd*2)
         }
         cat.titleLabel?.snp.makeConstraints{ make in
-                   make.centerY.equalToSuperview().offset(-3)
-               }
+            make.centerY.equalToSuperview().offset(-3)
+        }
         //difLabel
         difLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
@@ -228,8 +238,8 @@ class CreateViewController: UIViewController {
             make.width.equalTo(bwd)
         }
         dif.titleLabel?.snp.makeConstraints{ make in
-                   make.centerY.equalToSuperview().offset(-3)
-               }
+            make.centerY.equalToSuperview().offset(-3)
+        }
         //typLabel
         typLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
@@ -245,8 +255,8 @@ class CreateViewController: UIViewController {
             make.width.equalTo(bwd*2)
         }
         typ.titleLabel?.snp.makeConstraints{ make in
-                   make.centerY.equalToSuperview().offset(-3)
-               }
+            make.centerY.equalToSuperview().offset(-3)
+        }
         //gen
         gen.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
@@ -255,8 +265,8 @@ class CreateViewController: UIViewController {
             make.width.equalTo(200)
         }
         gen.titleLabel?.snp.makeConstraints{ make in
-                   make.centerY.equalToSuperview().offset(-3)
-               }
+            make.centerY.equalToSuperview().offset(-3)
+        }
         
     }
     
@@ -278,17 +288,19 @@ class CreateViewController: UIViewController {
         }
     }
     
-    @objc func catf(){
-        parseJSON()
+    @objc func catf(){        
+        let catVC = CatViewController(placeholder: "")
+        catVC!.delegate = self
+        present(catVC!, animated: true, completion: nil)
     }
     
     @objc func diff(){
         if dif.titleLabel?.text == "Easy" {
             dif.setTitle("Medium", for: .normal)
         } else if dif.titleLabel?.text == "Medium"{
-             dif.setTitle("Hard", for: .normal)
+            dif.setTitle("Hard", for: .normal)
         } else{
-             dif.setTitle("Easy", for: .normal)
+            dif.setTitle("Easy", for: .normal)
         }
     }
     
@@ -296,45 +308,61 @@ class CreateViewController: UIViewController {
         if typ.titleLabel?.text == "Multiple Choice" {
             typ.setTitle("True/False", for: .normal)
         } else{
-             typ.setTitle("Multiple Choice", for: .normal)
+            typ.setTitle("Multiple Choice", for: .normal)
         }
     }
     @objc func genf(){
-        //needs to fill in cat
         let chosendif = (dif.titleLabel?.text)?.lowercased()
         let chosentyp = typ.titleLabel?.text == "Multiple Choice" ? "multiple" : "boolean"
-        CreateViewController.endpoint = "\(ed)\(numText.text ?? "10")&difficulty=\(chosendif!)&type=\(chosentyp)"
+        let tpcat = CreateViewController.catdic[(cat.titleLabel?.text)!]
+        let chosencat = tpcat == "any" ?  "" : "&category=\(tpcat!)"
+        CreateViewController.endpoint = "\(ed)\(numText.text ?? "10")\(chosencat)&difficulty=\(chosendif!)&type=\(chosentyp)"
         print(CreateViewController.endpoint)
-        tabBarController?.tabBar.isHidden = true
+        
+        let playViewController = PlayViewController()
+        navigationController?.pushViewController(playViewController, animated: true)
+        //tabBarController?.tabBar.isHidden = true
     }
     
     func parseJSON(){
-
+        var rs: [String:String] = [:]
+        var ra: [String] = []
+        
         if let path = Bundle.main.path(forResource: "category", ofType: "json") {
-
-            do { print("here")
+            
+            do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
                 let jsonResult = try JSONDecoder().decode(CatResponse.self, from: data)
-
+                
                 let catsArray = jsonResult.category
-
+                
+                
                 for cate in catsArray{
-                     
-                    if let validName = cate.num{
-                         print("Name = \(validName)")
-                    }
-
-                    if let validTitle = cate.cat{
-                        print("Title = \(validTitle)")
-                    }
+                    
+                    //                    if let validName = cate.num{
+                    //                         print("Name = \(validName)")
+                    //                    }
+                    //
+                    //                    if let validTitle = cate.cat{
+                    //                        print("Title = \(validTitle)")
+                    //                    }
+                    rs[cate.cat!] = cate.num
+                    ra.append(cate.cat!)
                 }
-
+                
+                
             } catch {
-               print(error)
+                print(error)
             }
         }
+        CreateViewController.catdic = rs
+        CreateViewController.catarr = ra
     }
     
-    
-    
+}
+
+extension CreateViewController: CatChangeTextDelegate{
+    func catTextChanged(to newCat: String){
+        cat.setTitle(newCat, for: .normal)
+    }
 }

@@ -9,16 +9,38 @@
 import UIKit
 
 class CatTableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    
+    var catLabel: UILabel!
+    
+    let bgcolor = UIColor(red: 0.34, green: 0.34, blue: 0.38, alpha: 1.00)
+  
+    let gap: CGFloat = 10
+    let ls: CGFloat = 20
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.backgroundColor = bgcolor
+        
+        catLabel = UILabel()
+        catLabel.textColor = .white
+        catLabel.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
+        catLabel.textAlignment = .center
+        contentView.addSubview(catLabel)
+      
+        catLabel.snp.makeConstraints{ make in
+            make.centerX.centerY.equalToSuperview()
+            make.leading.equalToSuperview().offset(gap)
+            make.trailing.equalToSuperview().offset(-gap)
+            make.height.equalToSuperview()
+        }
+        
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-
+    
+    func config(for cat: String){
+        catLabel.text = cat
+    }
 }
