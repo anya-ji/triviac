@@ -19,6 +19,9 @@ class SavedViewController: UIViewController {
     let bgcolor = UIColor(red: 0.34, green: 0.34, blue: 0.38, alpha: 1.00)
     let btcolor = UIColor(red: 0.39, green: 0.51, blue: 0.51, alpha: 1.00)
     
+//    // instantiate UserDefaults
+//    let userDefaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,6 +32,27 @@ class SavedViewController: UIViewController {
         addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add))
         self.navigationItem.leftBarButtonItem = addButton
         
+        //filter layout, view
+        let flayout = UICollectionViewFlowLayout()
+        flayout.scrollDirection = .horizontal
+        flayout.minimumInteritemSpacing = padding
+        flayout.minimumLineSpacing = padding
+        
+       savedView = UICollectionView(frame: .zero, collectionViewLayout: flayout)
+        savedView.backgroundColor = .white
+        view.addSubview(savedView)
+        
+        savedView.register(SavedCollectionViewCell.self, forCellWithReuseIdentifier: savedrid)
+        //savedView.dataSource = self
+        //savedView.delegate = self
+        
+        setup()
+    }
+    
+    func setup(){
+        savedView.snp.makeConstraints{ make in
+            make.top.bottom.leading.trailing.equalToSuperview()
+        }
     }
     
     //push edit
@@ -45,3 +69,30 @@ class SavedViewController: UIViewController {
     
     
 }
+extension SavedViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            let w = (savedView.frame.width - 3 * padding)/2.0
+            let h = savedView.frame.height - 2 * padding
+            return CGSize(width: w, height: h)
+    }
+}
+
+//extension SavedViewController: UICollectionViewDataSource{
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = savedView.dequeueReusableCell(withReuseIdentifier: savedrid, for: indexPath) as! SavedCollectionViewCell
+//         let saved = saved[indexPath.item]
+//
+//         cell.config(for: filter)
+//         return cell
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return 0
+//    }
+//}
+//
+//extension SavedViewController: UICollectionViewDelegate{
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        <#code#>
+//    }
+//}

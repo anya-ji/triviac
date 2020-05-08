@@ -12,34 +12,39 @@ class EditViewController: UIViewController {
     
     let bgcolor = UIColor(red: 0.34, green: 0.34, blue: 0.38, alpha: 1.00)
     let btcolor = UIColor(red: 0.39, green: 0.51, blue: 0.51, alpha: 1.00)
+    let createcolor = UIColor(red: 1.00, green: 0.75, blue: 0.27, alpha: 1.00)
     
     var titleView: UIView!
     var titleLabel: UILabel!
     var titleText: UITextField!
+    var createView: UIView!
     
     var tableView: UITableView!
     let editrid = "editrid"
     
     
-    var doneButton: UIBarButtonItem!
+    var doneButton: UIButton!
+    var addButton: UIBarButtonItem!
     
     let gap: CGFloat = 10
     let ls: CGFloat = 25
     
     var questions: [Question]!
+    let q = Question(q: "", tf: true)
+    
+    // instantiate UserDefaults
+    let userDefaults = UserDefaults.standard
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = bgcolor
         
-        let q1 = Question(q: "a", tf: true)
-        let q2 = Question(q: "b", tf: true)
-        questions = [q1, q2]
+        questions = [q]
         
-        //MARK: saveButton
-        doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
-        self.navigationItem.rightBarButtonItem = doneButton
+        //MARK: addButton
+        addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add))
+        self.navigationItem.rightBarButtonItem = addButton
         
         //MARK: Title
         //titleView
@@ -73,6 +78,24 @@ class EditViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
+        //MARK: createView
+        createView = UIView()
+        createView.backgroundColor = btcolor
+        view.addSubview(createView)
+        
+        //MARK: doneButton
+        doneButton = UIButton()
+        doneButton.setTitle("Create!", for: .normal)
+        doneButton.backgroundColor = createcolor
+        doneButton.setTitleColor(.white, for: .normal)
+        doneButton.addTarget(self, action: #selector(create), for: .touchUpInside)
+        doneButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
+        doneButton.titleLabel?.textAlignment = .center
+        doneButton.layer.cornerRadius = 20
+        doneButton.layer.borderWidth = 3
+        doneButton.layer.borderColor = UIColor.gray.cgColor
+        createView.addSubview(doneButton)
+        
         setup()
     }
     
@@ -96,20 +119,58 @@ class EditViewController: UIViewController {
             make.trailing.equalTo(titleView.snp.trailing).offset(-gap*3)
         }
         
-        tableView.snp.makeConstraints{ make in
-            make.top.equalTo(titleView.snp.bottom)
+        createView.snp.makeConstraints{ make in
+            make.height.equalTo(100)
             make.leading.equalTo(view.safeAreaLayoutGuide)
             make.trailing.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
+        
+        doneButton.snp.makeConstraints{make in
+            make.centerX.equalTo(view.snp.centerX)
+            make.top.equalTo(createView.snp.top).offset(gap)
+            make.bottom.equalTo(createView.snp.bottom).offset(-gap)
+            make.leading.equalTo(createView.snp.leading).offset(gap*3)
+            make.trailing.equalTo(createView.snp.trailing).offset(-gap*3)
+        }
+        
+        tableView.snp.makeConstraints{ make in
+            make.top.equalTo(titleView.snp.bottom)
+            make.leading.equalTo(view.safeAreaLayoutGuide)
+            make.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(createView.snp.top)
+        }
     }
     
     
-    @objc func done(){
+    @objc func add(){
         //           if let changedName = nameField.text, changedName != ""{
         //               delegate?.redTextChanged(to: changedName)
         //           }
         //dismiss(animated: true, completion: nil)
+        questions.append(q)
+    }
+    
+//MARK: build up the set
+    func make_set() -> [Trivia]{
+        var set: [Trivia] = []
+        for qn in questions{
+            set.append(Trivia.init(question: qn.q, correct_answer: qn.tf))
+        }
+        //MARK: make sure titles are not empty or overlap!
+        return set
+    }
+    
+    
+    
+//MARK: store the created set to userdefaults
+    @objc func create(){
+        let createdset = make_set()
+        // let encoded = try? NSKeyedArchiver.archivedData(withRootObject: createdset, requiringSecureCoding: false)
+        let encoded = try? PropertyListEncoder().encode(createdset)
+        print(encoded)
+        let createdtitle = titleText.text
+        userDefaults.set(encoded, forKey: createdtitle!)
         navigationController?.popViewController(animated: true)
     }
     
