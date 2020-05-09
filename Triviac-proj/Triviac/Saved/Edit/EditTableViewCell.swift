@@ -21,6 +21,10 @@ class EditTableViewCell: UITableViewCell {
     let gap: CGFloat = 10
     let ls: CGFloat = 20
     
+    //delegate: cell -> edit
+    weak var delegate: QuestionChangedDelegate?
+    
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = cellcolor
@@ -40,9 +44,10 @@ class EditTableViewCell: UITableViewCell {
         qText.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
         qText.textAlignment = .center
         contentView.addSubview(qText)
+        qText.addTarget(self, action: #selector(instantSave), for: .editingChanged)
         
         tfButton = UIButton()
-        tfButton.setTitle("F", for: .normal)
+        //tfButton.setTitle("F", for: .normal)
         tfButton.backgroundColor = btcolor
         tfButton.setTitleColor(.white, for: .normal)
         tfButton.addTarget(self, action: #selector(tf), for: .touchUpInside)
@@ -80,12 +85,19 @@ class EditTableViewCell: UITableViewCell {
         }
     }
     
+    //save question and tf on change
+    @objc func instantSave(){
+        let updatedQuestion = Question.init(q: qText.text ?? "", tf: tfButton.titleLabel?.text == "T" ? true : false)
+        delegate!.questionChanged(to: updatedQuestion, for: self)
+    }
+    
     @objc func tf(){
         if tfButton.titleLabel?.text == "T" {
             tfButton.setTitle("F", for: .normal)
         } else{
              tfButton.setTitle("T", for: .normal)
         }
+        instantSave()
     }
     
     func config(for question: Question){

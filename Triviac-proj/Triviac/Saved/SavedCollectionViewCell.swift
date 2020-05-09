@@ -34,17 +34,17 @@ class SavedCollectionViewCell: UICollectionViewCell {
        
        func setup(){
         titleLabel.snp.makeConstraints{make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(gap)
-            make.bottom.equalToSuperview().offset(-gap)
-            make.leading.equalToSuperview().offset(gap)
-            make.trailing.equalToSuperview().offset(-gap)
+            make.centerX.equalTo(contentView.snp.centerX)
+            make.top.equalTo(contentView.snp.top).offset(gap)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-gap)
+            make.leading.equalTo(contentView.snp.leading).offset(gap)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-gap)
         }
        
        }
        
-       func config(for title: String){
-           titleLabel.text = title
+       func config(for info: TriviaObj){
+        titleLabel.text = info.title
        }
        
 }

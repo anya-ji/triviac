@@ -27,7 +27,13 @@ struct Trivia: Codable{
 
 //for saved
 struct TriviaObj: Codable {
+    var title: String
     var set: [Trivia]
+    
+    init(set: [Trivia], title: String){
+        self.set = set
+        self.title = title
+    }
 }
 
 struct TriviaResponse: Codable {

@@ -194,18 +194,18 @@ class CreateViewController: UIViewController {
             make.height.width.equalTo(ht/2)
             make.trailing.equalTo(numText.snp.leading).offset(-gap)
         }
-        add.titleLabel?.snp.makeConstraints{ make in
-            make.centerY.equalToSuperview().offset(-3)
-        }
+//        add.titleLabel?.snp.makeConstraints{ make in
+//            make.centerY.equalToSuperview().offset(-3)
+//        }
         //sub
         sub.snp.makeConstraints{ make in
             make.centerY.equalTo(numText.snp.centerY)
             make.height.width.equalTo(ht/2)
             make.leading.equalTo(numText.snp.trailing).offset(gap)
         }
-        sub.titleLabel?.snp.makeConstraints{ make in
-            make.centerY.equalToSuperview().offset(-3)
-        }
+//        sub.titleLabel?.snp.makeConstraints{ make in
+//            make.centerY.equalToSuperview().offset(-3)
+//        }
         //catLabel
         catLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
@@ -220,9 +220,9 @@ class CreateViewController: UIViewController {
             make.height.equalTo(ht)
             make.width.equalTo(bwd*2)
         }
-        cat.titleLabel?.snp.makeConstraints{ make in
-            make.centerY.equalToSuperview().offset(-3)
-        }
+//        cat.titleLabel?.snp.makeConstraints{ make in
+//            make.centerY.equalToSuperview().offset(-3)
+//        }
         //difLabel
         difLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
@@ -237,9 +237,9 @@ class CreateViewController: UIViewController {
             make.height.equalTo(ht)
             make.width.equalTo(bwd)
         }
-        dif.titleLabel?.snp.makeConstraints{ make in
-            make.centerY.equalToSuperview().offset(-3)
-        }
+//        dif.titleLabel?.snp.makeConstraints{ make in
+//            make.centerY.equalToSuperview().offset(-3)
+//        }
         //typLabel
         typLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
@@ -254,9 +254,9 @@ class CreateViewController: UIViewController {
             make.height.equalTo(ht)
             make.width.equalTo(bwd*2)
         }
-        typ.titleLabel?.snp.makeConstraints{ make in
-            make.centerY.equalToSuperview().offset(-3)
-        }
+//        typ.titleLabel?.snp.makeConstraints{ make in
+//            make.centerY.equalToSuperview().offset(-3)
+//        }
         //gen
         gen.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
@@ -264,9 +264,9 @@ class CreateViewController: UIViewController {
             make.height.equalTo(60)
             make.width.equalTo(200)
         }
-        gen.titleLabel?.snp.makeConstraints{ make in
-            make.centerY.equalToSuperview().offset(-3)
-        }
+//        gen.titleLabel?.snp.makeConstraints{ make in
+//            make.centerY.equalToSuperview().offset(-3)
+//        }
         
     }
     
@@ -321,7 +321,6 @@ class CreateViewController: UIViewController {
         
         let playViewController = PlayViewController()
         navigationController?.pushViewController(playViewController, animated: true)
-        //tabBarController?.tabBar.isHidden = true
     }
     
     func parseJSON(){

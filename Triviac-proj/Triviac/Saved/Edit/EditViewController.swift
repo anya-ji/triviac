@@ -8,6 +8,12 @@
 
 import UIKit
 
+//update cell on change, cell -> edit
+protocol QuestionChangedDelegate: class{
+    func questionChanged(to newQuestion: Question, for cell: EditTableViewCell)
+}
+
+
 class EditViewController: UIViewController {
     
     let bgcolor = UIColor(red: 0.34, green: 0.34, blue: 0.38, alpha: 1.00)
@@ -22,6 +28,7 @@ class EditViewController: UIViewController {
     var tableView: UITableView!
     let editrid = "editrid"
     
+    var placeholder: TriviaObj!
     
     var doneButton: UIButton!
     var addButton: UIBarButtonItem!
@@ -30,17 +37,39 @@ class EditViewController: UIViewController {
     let ls: CGFloat = 25
     
     var questions: [Question]!
-    let q = Question(q: "", tf: true)
+    var q = Question(q: "", tf: true)
     
     // instantiate UserDefaults
     let userDefaults = UserDefaults.standard
+    
+    //delegate: pass created game to saved, edit->saved
+    weak var delegate: GameChangedDelegate?
+    
+    //initialization
+    init?(placeholder: TriviaObj){
+        self.placeholder = placeholder
+        func objtoquestion(for obj: TriviaObj) -> [Question] {
+            var rs: [Question] = []
+            for t in obj.set{
+                rs.append(Question.init(q: t.question, tf: t.correct_answer == "True" ? true : false))
+            }
+            return rs
+        }
+        questions = objtoquestion(for: placeholder)
+        if questions == [] {questions = [q]}
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = bgcolor
         
-        questions = [q]
+        //questions = [q]
         
         //MARK: addButton
         addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add))
@@ -69,6 +98,7 @@ class EditViewController: UIViewController {
         titleText.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
         titleText.textAlignment = .center
         titleView.addSubview(titleText)
+        
         
         //MARK: TableView
         tableView = UITableView()
@@ -142,41 +172,54 @@ class EditViewController: UIViewController {
         }
     }
     
-    
+    //MARK: add a new question
     @objc func add(){
-        //           if let changedName = nameField.text, changedName != ""{
-        //               delegate?.redTextChanged(to: changedName)
-        //           }
-        //dismiss(animated: true, completion: nil)
         questions.append(q)
+        tableView.reloadData()
     }
     
-//MARK: build up the set
-    func make_set() -> [Trivia]{
+    //MARK: build up the set
+    func make_set() -> TriviaObj{
         var set: [Trivia] = []
         for qn in questions{
             set.append(Trivia.init(question: qn.q, correct_answer: qn.tf))
         }
         //MARK: make sure titles are not empty or overlap!
-        return set
+        return TriviaObj.init(set: set, title: titleText.text!)
     }
     
     
-    
-//MARK: store the created set to userdefaults
+    //MARK: store the created set to userdefaults
     @objc func create(){
         let createdset = make_set()
         // let encoded = try? NSKeyedArchiver.archivedData(withRootObject: createdset, requiringSecureCoding: false)
         let encoded = try? PropertyListEncoder().encode(createdset)
-        print(encoded)
         let createdtitle = titleText.text
         userDefaults.set(encoded, forKey: createdtitle!)
+        
+        //change saved view
+        if let data = UserDefaults.standard.value(forKey: titleText.text!) as? Data  {
+            var newgame: TriviaObj!
+            newgame = try? PropertyListDecoder().decode(TriviaObj.self, from: data)
+            delegate?.gameChanged(to: newgame)
+        }
+        
         navigationController?.popViewController(animated: true)
     }
     
 }
 
-//MARK: DataSource
+//MARK: delegate extension, update questions array
+extension EditViewController: QuestionChangedDelegate{
+    func questionChanged(to newQuestion: Question, for cell: EditTableViewCell){
+        if let indexPath = self.tableView.indexPath(for: cell){
+            questions![indexPath.row] = newQuestion
+        }
+    }
+}
+
+
+//MARK: Tableview DataSource
 extension EditViewController: UITableViewDataSource{
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return questions.count
@@ -185,7 +228,8 @@ extension EditViewController: UITableViewDataSource{
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: editrid, for: indexPath) as! EditTableViewCell
         let question = questions[indexPath.row]
-        
+        //MARK: register the delegate!
+        cell.delegate = self
         cell.config(for: question)
         
         cell.selectionStyle = .none
@@ -195,7 +239,7 @@ extension EditViewController: UITableViewDataSource{
     }
 }
 
-//MARK: Delegate
+//MARK: Tableview Delegate
 extension EditViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
