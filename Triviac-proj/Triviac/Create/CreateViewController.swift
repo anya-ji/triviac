@@ -43,6 +43,13 @@ class CreateViewController: UIViewController {
     public static var catdic:[String:String] = [:]
     public static var catarr:[String] = []
     
+    //ensure top and bottom bars are always present
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+        tabBarController?.tabBar.isHidden = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

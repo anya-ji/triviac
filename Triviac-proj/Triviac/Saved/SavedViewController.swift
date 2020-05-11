@@ -18,17 +18,30 @@ class SavedViewController: UIViewController {
     var savedView: UICollectionView!
     var addButton: UIBarButtonItem!
     
-    let padding: CGFloat = 5
+    let padding: CGFloat = 20
     
     let savedrid = "savedrid"
     
     let bgcolor = UIColor(red: 0.34, green: 0.34, blue: 0.38, alpha: 1.00)
     let btcolor = UIColor(red: 0.39, green: 0.51, blue: 0.51, alpha: 1.00)
     
+    // Instantiate UserDefaults
+    let userDefaults = UserDefaults.standard
     var saved: [TriviaObj] = []
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        savedView.reloadData()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //MARK: load saved data
+        let savedData = userDefaults.array(forKey: "data") as? [Data] ?? []
+        for d in savedData {
+            let triviaDecoded = try? PropertyListDecoder().decode(TriviaObj.self, from: d)
+            saved.append(triviaDecoded!)
+        }
         
         //view.backgroundColor = bgcolor
         self.title = "Saved"
@@ -43,7 +56,7 @@ class SavedViewController: UIViewController {
         flayout.minimumInteritemSpacing = padding
         flayout.minimumLineSpacing = padding
         
-       savedView = UICollectionView(frame: .zero, collectionViewLayout: flayout)
+        savedView = UICollectionView(frame: .zero, collectionViewLayout: flayout)
         savedView.backgroundColor = bgcolor
         view.addSubview(savedView)
         
@@ -62,10 +75,10 @@ class SavedViewController: UIViewController {
     
     //push edit
     @objc func pushEdit(){
-//        let editViewController = EditViewController(placeholder: "Triviac")
+        //        let editViewController = EditViewController(placeholder: "Triviac")
         let obj = TriviaObj(set: [], title: "Triviac")
-        let editViewController = EditViewController(placeholder: obj)
-        editViewController!.delegate = self
+        let editViewController = EditViewController(placeholder: obj, reedit: false)
+       // editViewController!.delegate = self
         navigationController?.pushViewController(editViewController!, animated: true)
     }
     //addButton function
@@ -75,30 +88,30 @@ class SavedViewController: UIViewController {
     
 }
 //MARK: Gamechange delegate (saved created)
-extension SavedViewController: GameChangedDelegate{
-    func gameChanged(to newGame: TriviaObj) {
-        saved.append(newGame)
-        savedView.reloadData()
-        print(saved)
-    }
-}
+//extension SavedViewController: GameChangedDelegate{
+//    func gameChanged(to newGame: TriviaObj) {
+//        //saved.append(newGame)
+//        savedView.reloadData()
+//        //print(saved)
+//    }
+//}
 
 //MARK: Collectionview extensions
 extension SavedViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            let w = (savedView.frame.width - 3 * padding)/2.0
-            return CGSize(width: w, height: 200)
+        let w = (savedView.frame.width - 3 * padding)/2.0
+        return CGSize(width: w, height: 180)
     }
 }
 
 extension SavedViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = savedView.dequeueReusableCell(withReuseIdentifier: savedrid, for: indexPath) as! SavedCollectionViewCell
-         let game = saved[indexPath.item]
-         cell.config(for: game)
-         return cell
+        let game = saved[indexPath.item]
+        cell.config(for: game)
+        return cell
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return saved.count
     }
@@ -107,8 +120,8 @@ extension SavedViewController: UICollectionViewDataSource{
 extension SavedViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selected = saved[indexPath.item]
-        let editViewController = EditViewController(placeholder: selected)
-        editViewController!.delegate = self
+        let editViewController = EditViewController(placeholder: selected, reedit: true)
+       // editViewController!.delegate = self
         navigationController?.pushViewController(editViewController!, animated: true)
     }
 }

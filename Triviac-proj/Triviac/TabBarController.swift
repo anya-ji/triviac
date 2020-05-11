@@ -21,7 +21,6 @@ class TabBarController: UITabBarController {
         savedVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
 
         let VCList = [createVC,savedVC]
-
         viewControllers = VCList.map { UINavigationController(rootViewController: $0) }
         
     }

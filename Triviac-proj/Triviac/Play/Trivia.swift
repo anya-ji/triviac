@@ -15,9 +15,9 @@ struct Trivia: Codable{
     var correct_answer: String
     var incorrect_answers: [String]
     
-    init(question: String, correct_answer: Bool) {
+    init(question: String, correct_answer: String) {
         self.question = question
-        self.correct_answer = String(correct_answer)
+        self.correct_answer = correct_answer
         self.category = ""
         self.type = ""
         self.difficulty = ""

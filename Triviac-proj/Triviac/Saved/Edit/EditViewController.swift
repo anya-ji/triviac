@@ -39,6 +39,8 @@ class EditViewController: UIViewController {
     var questions: [Question]!
     var q = Question(q: "", tf: true)
     
+    var reedit: Bool
+    
     // instantiate UserDefaults
     let userDefaults = UserDefaults.standard
     
@@ -46,8 +48,9 @@ class EditViewController: UIViewController {
     weak var delegate: GameChangedDelegate?
     
     //initialization
-    init?(placeholder: TriviaObj){
+    init?(placeholder: TriviaObj, reedit: Bool){
         self.placeholder = placeholder
+        self.reedit = reedit
         func objtoquestion(for obj: TriviaObj) -> [Question] {
             var rs: [Question] = []
             for t in obj.set{
@@ -83,7 +86,11 @@ class EditViewController: UIViewController {
         
         //titlelabel
         titleLabel = UILabel()
+        if reedit {
+            titleLabel.text = placeholder.title
+        } else {
         titleLabel.text = "Title"
+        }
         titleLabel.textColor = .white
         titleLabel.font = UIFont.init(name: "Chalkduster", size: ls)
         titleLabel.textAlignment = .center
@@ -92,12 +99,14 @@ class EditViewController: UIViewController {
         //titleText
         titleText = UITextField()
         titleText.backgroundColor = .white
-        titleText.text = "Triviac"
+        titleText.text = placeholder.title
         titleText.borderStyle = UITextField.BorderStyle.roundedRect
         titleText.textAlignment = .center
         titleText.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
         titleText.textAlignment = .center
+        if !reedit {
         titleView.addSubview(titleText)
+        }
         
         
         //MARK: TableView
@@ -115,10 +124,18 @@ class EditViewController: UIViewController {
         
         //MARK: doneButton
         doneButton = UIButton()
-        doneButton.setTitle("Create!", for: .normal)
+        if reedit {
+            doneButton.setTitle("Save", for: .normal)
+        } else {
+            doneButton.setTitle("Create!", for: .normal)
+        }
         doneButton.backgroundColor = createcolor
         doneButton.setTitleColor(.white, for: .normal)
-        doneButton.addTarget(self, action: #selector(create), for: .touchUpInside)
+        if reedit {
+            doneButton.addTarget(self, action: #selector(save), for: .touchUpInside)
+        } else {
+            doneButton.addTarget(self, action: #selector(create), for: .touchUpInside)
+        }
         doneButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
         doneButton.titleLabel?.textAlignment = .center
         doneButton.layer.cornerRadius = 20
@@ -138,15 +155,22 @@ class EditViewController: UIViewController {
         }
         titleLabel.snp.makeConstraints{ make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(gap)
+            if reedit{
+                make.centerY.equalTo(titleView.snp.centerY)
+            } else {
             make.height.equalTo(30)
+            }
             make.centerX.equalTo(view.snp.centerX)
         }
+        
+        if !reedit {
         titleText.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
             make.top.equalTo(titleLabel.snp.bottom).offset(gap)
             make.bottom.equalTo(titleView.snp.bottom).offset(-gap)
             make.leading.equalTo(titleView.snp.leading).offset(gap*3)
             make.trailing.equalTo(titleView.snp.trailing).offset(-gap*3)
+        }
         }
         
         createView.snp.makeConstraints{ make in
@@ -172,6 +196,8 @@ class EditViewController: UIViewController {
         }
     }
     
+    
+    
     //MARK: add a new question
     @objc func add(){
         questions.append(q)
@@ -182,10 +208,14 @@ class EditViewController: UIViewController {
     func make_set() -> TriviaObj{
         var set: [Trivia] = []
         for qn in questions{
-            set.append(Trivia.init(question: qn.q, correct_answer: qn.tf))
+            set.append(Trivia.init(question: qn.q, correct_answer: qn.tf ? "True" : "False"))
         }
         //MARK: make sure titles are not empty or overlap!
+        if reedit{
+            return TriviaObj.init(set: set, title: titleLabel.text!)
+        } else {
         return TriviaObj.init(set: set, title: titleText.text!)
+        }
     }
     
     
@@ -193,21 +223,46 @@ class EditViewController: UIViewController {
     @objc func create(){
         let createdset = make_set()
         // let encoded = try? NSKeyedArchiver.archivedData(withRootObject: createdset, requiringSecureCoding: false)
-        let encoded = try? PropertyListEncoder().encode(createdset)
-        let createdtitle = titleText.text
-        userDefaults.set(encoded, forKey: createdtitle!)
+        var data = userDefaults.array(forKey: "data") as? [Data] ?? []
+        let createdsetEncoded = try? PropertyListEncoder().encode(createdset)
+        data.append(createdsetEncoded!)
+        //print(data)
+        userDefaults.set(data, forKey: "data")
         
         //change saved view
-        if let data = UserDefaults.standard.value(forKey: titleText.text!) as? Data  {
-            var newgame: TriviaObj!
-            newgame = try? PropertyListDecoder().decode(TriviaObj.self, from: data)
-            delegate?.gameChanged(to: newgame)
-        }
+        //        if let data = UserDefaults.standard.value(forKey: "data") as? Data  {
+        //            var newgame: TriviaObj!
+        //            newgame = try? PropertyListDecoder().decode(TriviaObj.self, from: data)
+        delegate?.gameChanged(to: createdset)
+        // }
         
         navigationController?.popViewController(animated: true)
     }
     
+    //MARK: reedit
+    @objc func save(){
+        let createdset = make_set()
+        //find the altered triviaObj
+        var data = userDefaults.array(forKey: "data") as? [Data] ?? []
+        var i = 0
+        while i < data.count{
+            let t = try? PropertyListDecoder().decode(TriviaObj.self, from: data[i])
+            if titleLabel.text == t?.title{
+                data.remove(at: i)
+                break
+            }
+            i = i+1
+        }
+        let createdsetEncoded = try? PropertyListEncoder().encode(createdset)
+        data.append(createdsetEncoded!)
+        userDefaults.set(data, forKey: "data")
+        //delegate?.gameChanged(to: createdset)
+        navigationController?.popViewController(animated: true)
+    }
+    
 }
+
+
 
 //MARK: delegate extension, update questions array
 extension EditViewController: QuestionChangedDelegate{

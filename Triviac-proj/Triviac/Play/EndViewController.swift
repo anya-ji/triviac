@@ -60,12 +60,31 @@ class EndViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-gap)
         }
         
+        quitButton = UIButton()
+        view.addSubview(quitButton)
+        quitButton.setTitle("Quit", for: .normal)
+        quitButton.backgroundColor = .black
+        quitButton.setTitleColor(.white, for: .normal)
+        quitButton.addTarget(self, action: #selector(quit), for: .touchUpInside)
+        quitButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 50)
+        quitButton.titleLabel?.textAlignment = .center
+        quitButton.layer.cornerRadius = 20
+        quitButton.layer.borderWidth = 3
+        quitButton.layer.borderColor = UIColor.gray.cgColor
+        quitButton.snp.makeConstraints{ make in
+            make.centerX.equalTo(view.snp.centerX)
+            make.bottom.equalToSuperview().offset(-gap*5)
+            make.height.equalTo(100)
+            make.width.equalTo(150)
+        }
+        
     }
     
-    
-    
-}
 
+@objc func quit(){
+    navigationController?.popToRootViewController(animated: true)
+}
+}
 extension EndViewController: getStateDelegate{
     func getState(state: State) {
         PlayViewController().delegate = self
