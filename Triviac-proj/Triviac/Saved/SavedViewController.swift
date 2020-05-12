@@ -14,7 +14,7 @@ protocol GameChangedDelegate: class {
 }
 
 
-class SavedViewController: UIViewController {
+class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
     var savedView: UICollectionView!
     var addButton: UIBarButtonItem!
     
@@ -29,10 +29,17 @@ class SavedViewController: UIViewController {
     let userDefaults = UserDefaults.standard
     var saved: [TriviaObj] = []
     
+    //handle long pressed
+//    var longPressedEnabled = false
+
+
+    
+    //reload data each time
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         savedView.reloadData()
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,6 +62,10 @@ class SavedViewController: UIViewController {
         flayout.scrollDirection = .vertical
         flayout.minimumInteritemSpacing = padding
         flayout.minimumLineSpacing = padding
+        flayout.sectionInset.left = padding
+        flayout.sectionInset.right = padding
+        flayout.sectionInset.top = padding
+        flayout.sectionInset.bottom = padding
         
         savedView = UICollectionView(frame: .zero, collectionViewLayout: flayout)
         savedView.backgroundColor = bgcolor
@@ -65,7 +76,55 @@ class SavedViewController: UIViewController {
         savedView.delegate = self
         
         setup()
+        
+        //MARK: long pressed
+        // Add gesture recognizer to collection view cell
+//        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTap(_:)))
+//        savedView.addGestureRecognizer(longPressGesture)
+        
+
+
     }
+    
+//    @objc func longTap(_ gesture: UIGestureRecognizer){
+//
+//        switch(gesture.state) {
+//        case .began:
+//            guard let selectedIndexPath = savedView.indexPathForItem(at: gesture.location(in: savedView)) else {
+//                return
+//            }
+//            savedView.beginInteractiveMovementForItem(at: selectedIndexPath)
+//        case .changed:
+//            savedView.updateInteractiveMovementTargetPosition(gesture.location(in: gesture.view!))
+//        case .ended:
+//            savedView.endInteractiveMovement()
+//            //doneBtn.isHidden = false
+//            longPressedEnabled = true
+//            self.savedView.reloadData()
+//        default:
+//            savedView.cancelInteractiveMovement()
+//        }
+//    }
+//
+    
+//    @IBAction func removeBtnClick(_ sender: UIButton)   {
+//        let hitPoint = sender.convert(CGPoint.zero, to: savedView)
+//        let hitIndex = savedView.indexPathForItem(at: hitPoint)
+//
+//        //remove the image and refresh the collection view
+//        //self.imgArr.remove(at: (hitIndex?.row)!)
+//        self.savedView.reloadData()
+//    }
+//
+//    @IBAction func doneBtnClick(_ sender: UIButton) {
+//        //disable the shake and hide done button
+//        //doneBtn.isHidden = true
+//        longPressedEnabled = false
+//
+//        self.savedView.reloadData()
+//    }
+    
+    
     
     func setup(){
         savedView.snp.makeConstraints{ make in
@@ -109,12 +168,22 @@ extension SavedViewController: UICollectionViewDataSource{
         let cell = savedView.dequeueReusableCell(withReuseIdentifier: savedrid, for: indexPath) as! SavedCollectionViewCell
         let game = saved[indexPath.item]
         cell.config(for: game)
+        
+        //MARK: long pressed and delete
+//        cell.removeBtn.addTarget(self, action: #selector(removeBtnClick(_:)), for: .touchUpInside)
+//
+//        if longPressedEnabled   {
+//            cell.startAnimate()
+//        }else{
+//            cell.stopAnimate()
+//        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return saved.count
     }
+    
 }
 
 extension SavedViewController: UICollectionViewDelegate{
@@ -125,6 +194,8 @@ extension SavedViewController: UICollectionViewDelegate{
         navigationController?.pushViewController(editViewController!, animated: true)
     }
 }
+
+
 
 
 
