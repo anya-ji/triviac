@@ -1,0 +1,7 @@
+1. play for multiple choice
+2. end view show the scores
+3. delete stuff from user defaults
+delete button when cell shakes
+4. create multiple choice
+5. better cell preview
+6. option to save a game
