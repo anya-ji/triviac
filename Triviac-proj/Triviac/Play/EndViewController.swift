@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol getStateDelegate: class {
-    func getState(state: State)
-}
-
 class EndViewController: UIViewController {
     
     var scoreLabel: UILabel!
@@ -23,6 +19,16 @@ class EndViewController: UIViewController {
     
     var score: Int!
     var total: Int!
+    
+    init(state: State){
+        super.init(nibName: nil, bundle: nil)
+        self.score = state.correct
+        self.total = state.all
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +54,7 @@ class EndViewController: UIViewController {
         rsLabel = UILabel()
         view.addSubview(rsLabel)
         rsLabel.lineBreakMode = .byWordWrapping
+        rsLabel.text = "\(score!) / \(total!)"
         rsLabel.numberOfLines = 2
         rsLabel.textColor = .white
         rsLabel.font = UIFont.init(name: "Chalkduster", size: 80)
@@ -80,16 +87,8 @@ class EndViewController: UIViewController {
         
     }
     
-
-@objc func quit(){
-    navigationController?.popToRootViewController(animated: true)
-}
-}
-extension EndViewController: getStateDelegate{
-    func getState(state: State) {
-        PlayViewController().delegate = self
-        self.score = state.correct
-        self.total = state.all
-        //rsLabel.text = "\(self.score) / \(self.total)"
+    
+    @objc func quit(){
+        navigationController?.popToRootViewController(animated: true)
     }
 }

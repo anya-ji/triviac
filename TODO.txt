@@ -5,3 +5,5 @@ delete button when cell shakes
 4. create multiple choice
 5. better cell preview
 6. option to save a game
+7. prevent press button before change
+8. compatibility constraints 

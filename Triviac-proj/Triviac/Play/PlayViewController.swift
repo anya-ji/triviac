@@ -27,9 +27,6 @@ class PlayViewController: UIViewController {
     
     var state: State!
     
-    //delegate: pass state to end
-    weak var delegate: getStateDelegate?
-    
     //hide navigation bar & tab
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -138,8 +135,7 @@ class PlayViewController: UIViewController {
         let seconds = 2.0
         if turnsleft == 0 {
             DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                let endViewController = EndViewController()
-                self.delegate?.getState(state: self.state)
+                let endViewController = EndViewController(state: self.state)
                 self.navigationController?.pushViewController(endViewController, animated: true)
             }
         } else {
@@ -158,14 +154,10 @@ class PlayViewController: UIViewController {
     func getTrivia() {
         NetworkManager.getTrivia(){
             triviaset in
-            //            DispatchQueue.global().sync{
             self.triviaset = triviaset
             self.turnsleft = self.triviaset.count
             self.state = State.init(all: self.turnsleft)
-            //                print(self.turns)
-            //                print(self.triviaset[nth].question)
             self.qLabel.text = self.triviaset[0].question.decodingHTMLEntities()
-            //}
         }
         
     }
