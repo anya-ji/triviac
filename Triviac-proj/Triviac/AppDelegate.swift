@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             "data": [Data()],
             "lastUpdated": Date()
         ])
+
         return true
     }
     

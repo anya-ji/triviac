@@ -37,19 +37,19 @@ class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
     //reload data each time
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        //MARK: load saved data
+        saved = []
+        let savedData = userDefaults.array(forKey: "data") as? [Data] ?? []
+        for d in savedData {
+            if let triviaDecoded = try? PropertyListDecoder().decode(TriviaObj.self, from: d){
+                saved.append(triviaDecoded)}
+        }
         savedView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //MARK: load saved data
-        let savedData = userDefaults.array(forKey: "data") as? [Data] ?? []
-        for d in savedData {
-            let triviaDecoded = try? PropertyListDecoder().decode(TriviaObj.self, from: d)
-            saved.append(triviaDecoded!)
-        }
-        
+
         //view.backgroundColor = bgcolor
         self.title = "Saved"
         
