@@ -1,9 +1,11 @@
-1. play for multiple choice
-2. end view show the scores
+1.
+2.
 3. delete stuff from user defaults
 delete button when cell shakes
 4. create multiple choice
 5. better cell preview
-6. option to save a game
+6. option to save a game, savedview=game&created
 7. prevent press button before change
-8. compatibility constraints 
+8. compatibility constraints
+9. two players
+10. complete README

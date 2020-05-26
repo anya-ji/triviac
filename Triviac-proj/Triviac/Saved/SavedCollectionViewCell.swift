@@ -12,7 +12,7 @@ class SavedCollectionViewCell: UICollectionViewCell {
     var titleLabel: UILabel!
     let gap: CGFloat = 10
     
-    let cellcolor = UIColor(red: 1.00, green: 0.75, blue: 0.27, alpha: 1.00)
+    let cellcolor = UIColor(red: 0.96, green: 0.83, blue: 0.37, alpha: 1.00)
     
     var isAnimate: Bool! = true
 //    @IBOutlet weak var removeBtn: UIButton!

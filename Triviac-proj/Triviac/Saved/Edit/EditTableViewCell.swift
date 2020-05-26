@@ -10,8 +10,8 @@ import UIKit
 
 class EditTableViewCell: UITableViewCell {
     
-    let cellcolor = UIColor(red: 0.67, green: 0.78, blue: 0.75, alpha: 1.00)
-    let btcolor = UIColor(red: 0.39, green: 0.51, blue: 0.51, alpha: 1.00)
+    let cellcolor = UIColor(red: 0.77, green: 0.76, blue: 0.78, alpha: 1.00)
+    let btcolor = UIColor(red: 0.27, green: 0.29, blue: 0.30, alpha: 1.00)
        
     
     var qLabel: UILabel!

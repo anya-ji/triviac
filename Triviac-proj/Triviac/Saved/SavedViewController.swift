@@ -22,8 +22,8 @@ class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
     
     let savedrid = "savedrid"
     
-    let bgcolor = UIColor(red: 0.34, green: 0.34, blue: 0.38, alpha: 1.00)
-    let btcolor = UIColor(red: 0.39, green: 0.51, blue: 0.51, alpha: 1.00)
+    let bgcolor = UIColor(red: 0.27, green: 0.29, blue: 0.30, alpha: 1.00)
+    let barcolor = UIColor(red: 0.96, green: 0.83, blue: 0.37, alpha: 1.00)
     
     // Instantiate UserDefaults
     let userDefaults = UserDefaults.standard
@@ -49,6 +49,12 @@ class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.navigationBar.barTintColor = barcolor
+        navigationController?.navigationBar.titleTextAttributes = [
+                  // NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20),
+                   NSAttributedString.Key.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.tintColor = .white
 
         //view.backgroundColor = bgcolor
         self.title = "Saved"

@@ -11,8 +11,8 @@ import UIKit
 
 class PlayViewController: UIViewController {
     
-    let bgcolor = UIColor(red: 0.54, green: 0.80, blue: 0.53, alpha: 1.00)
-    let btcolor = UIColor(red: 0.89, green: 0.99, blue: 0.88, alpha: 1.00)
+    let bgcolor = UIColor(red: 0.27, green: 0.29, blue: 0.30, alpha: 1.00)
+    let btcolor = UIColor(red: 0.77, green: 0.76, blue: 0.78, alpha: 1.00)
     let slcolor = UIColor(red: 1.00, green: 0.75, blue: 0.27, alpha: 1.00)
     
     var qLabel: UILabel!
@@ -20,12 +20,28 @@ class PlayViewController: UIViewController {
     var fButton: UIButton!
     var rsLabel: UILabel!
     
+    var choices: [String] = []
+    var aButton: UIButton!
+    var bButton: UIButton!
+    var cButton: UIButton!
+    var dButton: UIButton!
+    
     let gap: CGFloat = 30
     
     var triviaset = [Trivia]()
     var turnsleft: Int = 0
     
     var state: State!
+    var mode: String!
+    
+    init(mode: String){
+        super.init(nibName: nil, bundle: nil)
+        self.mode = mode
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     //hide navigation bar & tab
     override func viewWillAppear(_ animated: Bool) {
@@ -47,29 +63,81 @@ class PlayViewController: UIViewController {
         qLabel.textAlignment = .center
         view.addSubview(qLabel)
         
-        tButton = UIButton()
-        tButton.setTitle("T", for: .normal)
-        tButton.backgroundColor = btcolor
-        tButton.setTitleColor(.white, for: .normal)
-        tButton.addTarget(self, action: #selector(sl), for: .touchUpInside)
-        tButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 50)
-        tButton.titleLabel?.textAlignment = .center
-        tButton.layer.cornerRadius = 15
-        tButton.layer.borderWidth = 1
-        tButton.layer.borderColor = UIColor.white.cgColor
-        view.addSubview(tButton)
-        
-        fButton = UIButton()
-        fButton.setTitle("F", for: .normal)
-        fButton.backgroundColor = btcolor
-        fButton.setTitleColor(.white, for: .normal)
-        fButton.addTarget(self, action: #selector(sl), for: .touchUpInside)
-        fButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 50)
-        fButton.titleLabel?.textAlignment = .center
-        fButton.layer.cornerRadius = 15
-        fButton.layer.borderWidth = 1
-        fButton.layer.borderColor = UIColor.white.cgColor
-        view.addSubview(fButton)
+        if mode == "multiple" {
+            aButton = UIButton()
+            aButton.backgroundColor = btcolor
+            aButton.setTitleColor(.white, for: .normal)
+            aButton.addTarget(self, action: #selector(sl), for: .touchUpInside)
+            aButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
+            aButton.titleLabel?.adjustsFontSizeToFitWidth = true
+            aButton.titleLabel?.textAlignment = .center
+            aButton.layer.cornerRadius = 15
+            aButton.layer.borderWidth = 1
+            aButton.layer.borderColor = UIColor.white.cgColor
+            view.addSubview(aButton)
+            
+            bButton = UIButton()
+            bButton.backgroundColor = btcolor
+            bButton.setTitleColor(.white, for: .normal)
+            bButton.addTarget(self, action: #selector(sl), for: .touchUpInside)
+            bButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
+            bButton.titleLabel?.textAlignment = .center
+            bButton.titleLabel?.adjustsFontSizeToFitWidth = true
+            bButton.layer.cornerRadius = 15
+            bButton.layer.borderWidth = 1
+            bButton.layer.borderColor = UIColor.white.cgColor
+            view.addSubview(bButton)
+            
+            cButton = UIButton()
+            cButton.backgroundColor = btcolor
+            cButton.setTitleColor(.white, for: .normal)
+            cButton.addTarget(self, action: #selector(sl), for: .touchUpInside)
+            cButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
+            cButton.titleLabel?.textAlignment = .center
+            cButton.titleLabel?.adjustsFontSizeToFitWidth = true
+            cButton.layer.cornerRadius = 15
+            cButton.layer.borderWidth = 1
+            cButton.layer.borderColor = UIColor.white.cgColor
+            view.addSubview(cButton)
+            
+            dButton = UIButton()
+            dButton.backgroundColor = btcolor
+            dButton.setTitleColor(.white, for: .normal)
+            dButton.addTarget(self, action: #selector(sl), for: .touchUpInside)
+            dButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
+            dButton.titleLabel?.textAlignment = .center
+            dButton.titleLabel?.adjustsFontSizeToFitWidth = true
+            dButton.layer.cornerRadius = 15
+            dButton.layer.borderWidth = 1
+            dButton.layer.borderColor = UIColor.white.cgColor
+            view.addSubview(dButton)
+            
+        }
+        else {
+            tButton = UIButton()
+            tButton.setTitle("T", for: .normal)
+            tButton.backgroundColor = btcolor
+            tButton.setTitleColor(.white, for: .normal)
+            tButton.addTarget(self, action: #selector(sl), for: .touchUpInside)
+            tButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 50)
+            tButton.titleLabel?.textAlignment = .center
+            tButton.layer.cornerRadius = 15
+            tButton.layer.borderWidth = 1
+            tButton.layer.borderColor = UIColor.white.cgColor
+            view.addSubview(tButton)
+            
+            fButton = UIButton()
+            fButton.setTitle("F", for: .normal)
+            fButton.backgroundColor = btcolor
+            fButton.setTitleColor(.white, for: .normal)
+            fButton.addTarget(self, action: #selector(sl), for: .touchUpInside)
+            fButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 50)
+            fButton.titleLabel?.textAlignment = .center
+            fButton.layer.cornerRadius = 15
+            fButton.layer.borderWidth = 1
+            fButton.layer.borderColor = UIColor.white.cgColor
+            view.addSubview(fButton)
+        }
         
         rsLabel = UILabel()
         rsLabel.font = UIFont.init(name: "Helvetica", size: 40)
@@ -81,34 +149,79 @@ class PlayViewController: UIViewController {
     }
     
     func setup(){
-        
-        tButton.snp.makeConstraints{make in
-            make.top.equalTo(view.snp.centerY).offset(gap*3)
-            make.height.equalTo(80)
-            make.width.equalTo(120)
-            make.leading.equalToSuperview().offset(gap*2)
-        }
-        //        tButton.titleLabel?.snp.makeConstraints{ make in
-        //            make.centerY.equalToSuperview().offset(-3)
-        //        }
-        
-        fButton.snp.makeConstraints{make in
-            make.top.equalTo(view.snp.centerY).offset(gap*3)
-            make.height.equalTo(80)
-            make.width.equalTo(120)
-            make.trailing.equalToSuperview().offset(-gap*2)
-        }
-        //        fButton.titleLabel?.snp.makeConstraints{ make in
-        //            make.centerY.equalToSuperview().offset(-3)
-        //        }
-        //
         qLabel.snp.makeConstraints{make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(gap)
             make.leading.equalToSuperview().offset(gap)
             make.trailing.equalToSuperview().offset(-gap)
-            make.bottom.equalTo(tButton.snp.top).offset(-gap)
+            make.bottom.equalTo(view.snp.centerY).offset(-gap)
         }
+        
+        if mode == "multiple"{
+            aButton.snp.makeConstraints{make in
+                make.top.equalTo(view.snp.centerY).offset(gap*2.5)
+                make.height.equalTo(40)
+                make.leading.equalToSuperview().offset(gap)
+                make.trailing.equalToSuperview().offset(-gap)
+            }
+            aButton.titleLabel?.snp.makeConstraints{ make in
+                make.centerY.equalToSuperview().offset(-3)
+            }
+            
+            bButton.snp.makeConstraints{make in
+                make.top.equalTo(aButton.snp.bottom).offset(gap)
+                make.height.equalTo(40)
+                make.leading.equalToSuperview().offset(gap)
+                make.trailing.equalToSuperview().offset(-gap)
+            }
+            bButton.titleLabel?.snp.makeConstraints{ make in
+                make.centerY.equalToSuperview().offset(-3)
+            }
+            
+            cButton.snp.makeConstraints{make in
+                make.top.equalTo(bButton.snp.bottom).offset(gap)
+                make.height.equalTo(40)
+                make.leading.equalToSuperview().offset(gap)
+                make.trailing.equalToSuperview().offset(-gap)
+            }
+            cButton.titleLabel?.snp.makeConstraints{ make in
+                make.centerY.equalToSuperview().offset(-3)
+            }
+            
+            dButton.snp.makeConstraints{make in
+                make.top.equalTo(cButton.snp.bottom).offset(gap)
+                make.height.equalTo(40)
+                make.leading.equalToSuperview().offset(gap)
+                make.trailing.equalToSuperview().offset(-gap)
+            }
+            dButton.titleLabel?.snp.makeConstraints{ make in
+                make.centerY.equalToSuperview().offset(-3)
+            }
+        }
+        else
+        {
+            tButton.snp.makeConstraints{make in
+                make.top.equalTo(view.snp.centerY).offset(gap*3)
+                make.height.equalTo(80)
+                make.width.equalTo(120)
+                make.leading.equalToSuperview().offset(gap*2)
+            }
+            tButton.titleLabel?.snp.makeConstraints{ make in
+                make.centerY.equalToSuperview().offset(-3)
+            }
+            
+            fButton.snp.makeConstraints{make in
+                make.top.equalTo(view.snp.centerY).offset(gap*3)
+                make.height.equalTo(80)
+                make.width.equalTo(120)
+                make.trailing.equalToSuperview().offset(-gap*2)
+            }
+            fButton.titleLabel?.snp.makeConstraints{ make in
+                make.centerY.equalToSuperview().offset(-3)
+            }
+        }
+        
+        
         
         rsLabel.snp.makeConstraints{ make in
             make.centerX.equalToSuperview()
@@ -121,29 +234,66 @@ class PlayViewController: UIViewController {
         sender.backgroundColor = slcolor
         let current = triviaset[self.triviaset.count - self.turnsleft]
         //update state
-        let correctans = current.correct_answer == "True" ? true : false
-        let yourans = sender.titleLabel?.text == "T" ? true : false
-        if correctans == yourans {
-            state.update_correct()
-            rsLabel.text = "✅"
-        }else{
-            rsLabel.text = "❌"
-        }
-        
-        turnsleft = turnsleft - 1
-        
-        let seconds = 2.0
-        if turnsleft == 0 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                let endViewController = EndViewController(state: self.state)
-                self.navigationController?.pushViewController(endViewController, animated: true)
+        if mode == "multiple"{
+            let correctans = current.correct_answer
+            let yourans = sender.titleLabel?.text
+            if correctans == yourans {
+                state.update_correct()
+                rsLabel.text = "✅"
+            }else{
+                rsLabel.text = "❌"
             }
-        } else {
-            let next = triviaset[self.triviaset.count - self.turnsleft]
-            DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                self.qLabel.text = next.question.decodingHTMLEntities()
-                self.rsLabel.text = ""
-                sender.backgroundColor = self.btcolor
+            turnsleft = turnsleft - 1
+            
+            let seconds = 2.0
+            if turnsleft == 0 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                    let endViewController = EndViewController(state: self.state)
+                    self.navigationController?.pushViewController(endViewController, animated: true)
+                }
+            } else {
+                let next = triviaset[self.triviaset.count - self.turnsleft]
+                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                    self.qLabel.text = next.question.decodingHTMLEntities()
+                    self.rsLabel.text = ""
+                    sender.backgroundColor = self.btcolor
+                    var c = next.incorrect_answers
+                    c.append(next.correct_answer)
+                    self.choices = c
+                    self.choices.shuffle()
+                    self.aButton.setTitle(self.choices[0], for: .normal)
+                    self.bButton.setTitle(self.choices[1], for: .normal)
+                    self.cButton.setTitle(self.choices[2], for: .normal)
+                    self.dButton.setTitle(self.choices[3], for: .normal)
+                }
+            }
+        }
+        else
+        {
+            let correctans = current.correct_answer == "True" ? true : false
+            let yourans = sender.titleLabel?.text == "T" ? true : false
+            if correctans == yourans {
+                state.update_correct()
+                rsLabel.text = "✅"
+            }else{
+                rsLabel.text = "❌"
+            }
+            
+            turnsleft = turnsleft - 1
+            
+            let seconds = 2.0
+            if turnsleft == 0 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                    let endViewController = EndViewController(state: self.state)
+                    self.navigationController?.pushViewController(endViewController, animated: true)
+                }
+            } else {
+                let next = triviaset[self.triviaset.count - self.turnsleft]
+                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                    self.qLabel.text = next.question.decodingHTMLEntities()
+                    self.rsLabel.text = ""
+                    sender.backgroundColor = self.btcolor
+                }
             }
         }
     }
@@ -155,9 +305,23 @@ class PlayViewController: UIViewController {
         NetworkManager.getTrivia(){
             triviaset in
             self.triviaset = triviaset
+            
+            
             self.turnsleft = self.triviaset.count
             self.state = State.init(all: self.turnsleft)
             self.qLabel.text = self.triviaset[0].question.decodingHTMLEntities()
+            
+            //mc
+            if self.mode == "multiple"{
+                var c = self.triviaset[0].incorrect_answers
+                c.append(self.triviaset[0].correct_answer)
+                self.choices = c
+                self.choices.shuffle()
+                self.aButton.setTitle(self.choices[0], for: .normal)
+                self.bButton.setTitle(self.choices[1], for: .normal)
+                self.cButton.setTitle(self.choices[2], for: .normal)
+                self.dButton.setTitle(self.choices[3], for: .normal)
+            }
         }
         
     }

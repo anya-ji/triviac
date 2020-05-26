@@ -27,14 +27,11 @@ class CreateViewController: UIViewController {
     var gen: UIButton!
     
     let ls = CGFloat(30)
-    let ht = CGFloat(50)
-    let gap = CGFloat(10)
-    let lwd = CGFloat(300)
-    let bwd = CGFloat(130)
-    
-    let bgcolor = UIColor(red: 0.34, green: 0.34, blue: 0.38, alpha: 1.00)
-    let gencolor = UIColor(red: 1.00, green: 0.75, blue: 0.27, alpha: 1.00)
-    let btcolor = UIColor(red: 0.39, green: 0.51, blue: 0.51, alpha: 1.00)
+
+    let bgcolor = UIColor(red: 0.27, green: 0.29, blue: 0.30, alpha: 1.00)
+    let gencolor = UIColor(red: 0.96, green: 0.83, blue: 0.37, alpha: 1.00)
+    let btcolor = UIColor(red: 0.77, green: 0.76, blue: 0.78, alpha: 1.00)
+    let textcolor = UIColor.white
     
     
     public static var endpoint = "https://opentdb.com/api.php?amount="
@@ -55,14 +52,19 @@ class CreateViewController: UIViewController {
         
         view.backgroundColor = bgcolor
         self.title = "Generate a trivia!"
+        navigationController?.navigationBar.barTintColor = gencolor
+        navigationController?.navigationBar.titleTextAttributes = [
+           // NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20),
+            NSAttributedString.Key.foregroundColor: UIColor.white]
         parseJSON()
         
         //number of questions
         numLabel = UILabel()
         numLabel.text = "# Questions"
-        numLabel.textColor = .white
+        numLabel.textColor = textcolor
         numLabel.font = UIFont.init(name: "Chalkduster", size: ls)
         numLabel.textAlignment = .center
+        numLabel.adjustsFontSizeToFitWidth = true
         
         numText = UITextField()
         numText.backgroundColor = .white
@@ -71,6 +73,7 @@ class CreateViewController: UIViewController {
         numText.textAlignment = .center
         numText.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
         numText.textAlignment = .center
+        numText.adjustsFontSizeToFitWidth = true
         
         add = UIButton()
         add.setTitle("+", for: .normal)
@@ -82,6 +85,7 @@ class CreateViewController: UIViewController {
         add.layer.cornerRadius = 5
         add.layer.borderWidth = 1
         add.layer.borderColor = UIColor.white.cgColor
+        add.titleLabel?.adjustsFontSizeToFitWidth = true
         
         sub = UIButton()
         sub.setTitle("-", for: .normal)
@@ -93,13 +97,15 @@ class CreateViewController: UIViewController {
         sub.layer.cornerRadius = 5
         sub.layer.borderWidth = 1
         sub.layer.borderColor = UIColor.white.cgColor
+        sub.titleLabel?.adjustsFontSizeToFitWidth = true
         
         //category
         catLabel = UILabel()
         catLabel.text = "Category"
-        catLabel.textColor = .white
+        catLabel.textColor = textcolor
         catLabel.font = UIFont.init(name: "Chalkduster", size: ls)
         catLabel.textAlignment = .center
+        catLabel.adjustsFontSizeToFitWidth = true
         
         cat = UIButton()
         cat.setTitle("Any Category", for: .normal)
@@ -117,9 +123,10 @@ class CreateViewController: UIViewController {
         //difficulty
         difLabel = UILabel()
         difLabel.text = "Difficulty"
-        difLabel.textColor = .white
+        difLabel.textColor = textcolor
         difLabel.font = UIFont.init(name: "Chalkduster", size: ls)
         difLabel.textAlignment = .center
+        difLabel.adjustsFontSizeToFitWidth = true
         
         dif = UIButton()
         dif.setTitle("Easy", for: .normal)
@@ -131,14 +138,16 @@ class CreateViewController: UIViewController {
         dif.layer.cornerRadius = 15
         dif.layer.borderWidth = 1
         dif.layer.borderColor = UIColor.white.cgColor
+        dif.titleLabel?.adjustsFontSizeToFitWidth = true
         
         
         //type
         typLabel = UILabel()
         typLabel.text = "Type"
-        typLabel.textColor = .white
+        typLabel.textColor = textcolor
         typLabel.font = UIFont.init(name: "Chalkduster", size: ls)
         typLabel.textAlignment = .center
+        typLabel.adjustsFontSizeToFitWidth = true
         
         typ = UIButton()
         typ.setTitle("Multiple Choice", for: .normal)
@@ -150,6 +159,7 @@ class CreateViewController: UIViewController {
         typ.layer.cornerRadius = 15
         typ.layer.borderWidth = 1
         typ.layer.borderColor = UIColor.white.cgColor
+        typ.titleLabel?.adjustsFontSizeToFitWidth = true
         
         //gen
         gen = UIButton()
@@ -161,7 +171,8 @@ class CreateViewController: UIViewController {
         gen.titleLabel?.textAlignment = .center
         gen.layer.cornerRadius = 20
         gen.layer.borderWidth = 3
-        gen.layer.borderColor = UIColor.gray.cgColor
+        gen.layer.borderColor = UIColor.white.cgColor
+        gen.titleLabel?.adjustsFontSizeToFitWidth = true
         
         //constraints
         view.addSubview(numLabel)
@@ -181,10 +192,14 @@ class CreateViewController: UIViewController {
     }
     
     func setup(){
+            let ht = CGFloat(50)
+            let lwd = CGFloat(300)
+            let bwd = CGFloat(130)
+        let gap = view.frame.height / 70
         //numLabel
         numLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(gap*2.5)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(gap)
             make.height.equalTo(ht)
             make.width.equalTo(lwd)
         }
@@ -201,22 +216,22 @@ class CreateViewController: UIViewController {
             make.height.width.equalTo(ht/2)
             make.trailing.equalTo(numText.snp.leading).offset(-gap)
         }
-//        add.titleLabel?.snp.makeConstraints{ make in
-//            make.centerY.equalToSuperview().offset(-3)
-//        }
+        add.titleLabel?.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview().offset(-3)
+        }
         //sub
         sub.snp.makeConstraints{ make in
             make.centerY.equalTo(numText.snp.centerY)
             make.height.width.equalTo(ht/2)
             make.leading.equalTo(numText.snp.trailing).offset(gap)
         }
-//        sub.titleLabel?.snp.makeConstraints{ make in
-//            make.centerY.equalToSuperview().offset(-3)
-//        }
+        sub.titleLabel?.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview().offset(-3)
+        }
         //catLabel
         catLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(numText.snp.bottom).offset(gap*2.5)
+            make.top.equalTo(numText.snp.bottom).offset(gap*2)
             make.height.equalTo(ht)
             make.width.equalTo(lwd)
         }
@@ -227,13 +242,13 @@ class CreateViewController: UIViewController {
             make.height.equalTo(ht)
             make.width.equalTo(bwd*2)
         }
-//        cat.titleLabel?.snp.makeConstraints{ make in
-//            make.centerY.equalToSuperview().offset(-3)
-//        }
+        cat.titleLabel?.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview().offset(-3)
+        }
         //difLabel
         difLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(cat.snp.bottom).offset(gap*2.5)
+            make.top.equalTo(cat.snp.bottom).offset(gap*2)
             make.height.equalTo(ht)
             make.width.equalTo(lwd)
         }
@@ -244,13 +259,13 @@ class CreateViewController: UIViewController {
             make.height.equalTo(ht)
             make.width.equalTo(bwd)
         }
-//        dif.titleLabel?.snp.makeConstraints{ make in
-//            make.centerY.equalToSuperview().offset(-3)
-//        }
+        dif.titleLabel?.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview().offset(-3)
+        }
         //typLabel
         typLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(dif.snp.bottom).offset(gap*2.5)
+            make.top.equalTo(dif.snp.bottom).offset(gap*2)
             make.height.equalTo(ht)
             make.width.equalTo(lwd)
         }
@@ -261,19 +276,20 @@ class CreateViewController: UIViewController {
             make.height.equalTo(ht)
             make.width.equalTo(bwd*2)
         }
-//        typ.titleLabel?.snp.makeConstraints{ make in
-//            make.centerY.equalToSuperview().offset(-3)
-//        }
+        typ.titleLabel?.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview().offset(-3)
+        }
         //gen
         gen.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(typ.snp.bottom).offset(gap*5.5)
-            make.height.equalTo(60)
+           make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-gap*2)
+            //make.top.equalTo(typ.snp.bottom).offset(gap*3)
+            //make.height.equalTo(60)
             make.width.equalTo(200)
         }
-//        gen.titleLabel?.snp.makeConstraints{ make in
-//            make.centerY.equalToSuperview().offset(-3)
-//        }
+        gen.titleLabel?.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview().offset(-3)
+        }
         
     }
     
@@ -326,7 +342,7 @@ class CreateViewController: UIViewController {
         CreateViewController.endpoint = "\(ed)\(numText.text ?? "10")\(chosencat)&difficulty=\(chosendif!)&type=\(chosentyp)"
         print(CreateViewController.endpoint)
         
-        let playViewController = PlayViewController()
+        let playViewController = PlayViewController(mode: chosentyp)
         navigationController?.pushViewController(playViewController, animated: true)
     }
     

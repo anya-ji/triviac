@@ -16,8 +16,8 @@ protocol QuestionChangedDelegate: class{
 
 class EditViewController: UIViewController {
     
-    let bgcolor = UIColor(red: 0.34, green: 0.34, blue: 0.38, alpha: 1.00)
-    let btcolor = UIColor(red: 0.39, green: 0.51, blue: 0.51, alpha: 1.00)
+    let bgcolor = UIColor(red: 0.27, green: 0.29, blue: 0.30, alpha: 1.00)
+    let btcolor =  UIColor(red: 0.27, green: 0.29, blue: 0.30, alpha: 1.00)
     let createcolor = UIColor(red: 1.00, green: 0.75, blue: 0.27, alpha: 1.00)
     
     var titleView: UIView!
@@ -136,11 +136,12 @@ class EditViewController: UIViewController {
         } else {
             doneButton.addTarget(self, action: #selector(create), for: .touchUpInside)
         }
-        doneButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
+        doneButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 40)
         doneButton.titleLabel?.textAlignment = .center
+        doneButton.titleLabel?.adjustsFontSizeToFitWidth = true
         doneButton.layer.cornerRadius = 20
         doneButton.layer.borderWidth = 3
-        doneButton.layer.borderColor = UIColor.gray.cgColor
+        doneButton.layer.borderColor = UIColor.white.cgColor
         createView.addSubview(doneButton)
         
         setup()
@@ -186,6 +187,9 @@ class EditViewController: UIViewController {
             make.bottom.equalTo(createView.snp.bottom).offset(-gap)
             make.leading.equalTo(createView.snp.leading).offset(gap*3)
             make.trailing.equalTo(createView.snp.trailing).offset(-gap*3)
+        }
+        doneButton.titleLabel?.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview().offset(-3)
         }
         
         tableView.snp.makeConstraints{ make in

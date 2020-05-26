@@ -12,7 +12,7 @@ class CatTableViewCell: UITableViewCell {
     
     var catLabel: UILabel!
     
-    let bgcolor = UIColor(red: 0.34, green: 0.34, blue: 0.38, alpha: 1.00)
+    let bgcolor = UIColor(red: 0.27, green: 0.29, blue: 0.30, alpha: 1.00)
   
     let gap: CGFloat = 10
     let ls: CGFloat = 20
