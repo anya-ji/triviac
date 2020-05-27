@@ -18,9 +18,6 @@
 		4180B0702462444B00FA04C4 /* Cat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B06F2462444B00FA04C4 /* Cat.swift */; };
 		4180B07424624D7D00FA04C4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B07324624D7D00FA04C4 /* NetworkManager.swift */; };
 		4180B07624625D5800FA04C4 /* SavedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B07524625D5800FA04C4 /* SavedCollectionViewCell.swift */; };
-		4180B07A24625FFB00FA04C4 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B07924625FFB00FA04C4 /* EditViewController.swift */; };
-		4180B07C246267BC00FA04C4 /* EditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B07B246267BC00FA04C4 /* EditTableViewCell.swift */; };
-		4180B07F2462691100FA04C4 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B07E2462691100FA04C4 /* Question.swift */; };
 		4180B08324632BEC00FA04C4 /* category.json in Resources */ = {isa = PBXBuildFile; fileRef = 4180B0822463299C00FA04C4 /* category.json */; };
 		4180B0872463CE0500FA04C4 /* CatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B0862463CE0500FA04C4 /* CatViewController.swift */; };
 		4180B0892463D7FF00FA04C4 /* Trivia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B0882463D7FF00FA04C4 /* Trivia.swift */; };
@@ -44,9 +41,6 @@
 		4180B06F2462444B00FA04C4 /* Cat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cat.swift; sourceTree = "<group>"; };
 		4180B07324624D7D00FA04C4 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		4180B07524625D5800FA04C4 /* SavedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCollectionViewCell.swift; sourceTree = "<group>"; };
-		4180B07924625FFB00FA04C4 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
-		4180B07B246267BC00FA04C4 /* EditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTableViewCell.swift; sourceTree = "<group>"; };
-		4180B07E2462691100FA04C4 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		4180B0822463299C00FA04C4 /* category.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = category.json; sourceTree = "<group>"; };
 		4180B0862463CE0500FA04C4 /* CatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatViewController.swift; sourceTree = "<group>"; };
 		4180B0882463D7FF00FA04C4 /* Trivia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trivia.swift; sourceTree = "<group>"; };
@@ -119,21 +113,10 @@
 		4180B07824625ED600FA04C4 /* Saved */ = {
 			isa = PBXGroup;
 			children = (
-				4180B07D246268FA00FA04C4 /* Edit */,
 				4180B07524625D5800FA04C4 /* SavedCollectionViewCell.swift */,
 				415CC4E724611C3F004CC7F9 /* SavedViewController.swift */,
 			);
 			path = Saved;
-			sourceTree = "<group>";
-		};
-		4180B07D246268FA00FA04C4 /* Edit */ = {
-			isa = PBXGroup;
-			children = (
-				4180B07B246267BC00FA04C4 /* EditTableViewCell.swift */,
-				4180B07924625FFB00FA04C4 /* EditViewController.swift */,
-				4180B07E2462691100FA04C4 /* Question.swift */,
-			);
-			path = Edit;
 			sourceTree = "<group>";
 		};
 		4180B08C2463D9E700FA04C4 /* Play */ = {
@@ -280,7 +263,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4180B07A24625FFB00FA04C4 /* EditViewController.swift in Sources */,
 				4180B08B2463D9C800FA04C4 /* PlayViewController.swift in Sources */,
 				4180B07424624D7D00FA04C4 /* NetworkManager.swift in Sources */,
 				4180B09624663F3A00FA04C4 /* EndViewController.swift in Sources */,
@@ -294,8 +276,6 @@
 				4180B0872463CE0500FA04C4 /* CatViewController.swift in Sources */,
 				4180B0702462444B00FA04C4 /* Cat.swift in Sources */,
 				415CC4E824611C3F004CC7F9 /* SavedViewController.swift in Sources */,
-				4180B07F2462691100FA04C4 /* Question.swift in Sources */,
-				4180B07C246267BC00FA04C4 /* EditTableViewCell.swift in Sources */,
 				417E1918245FB8E10008DABD /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

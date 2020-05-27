@@ -1,11 +1,14 @@
-1.
-2.
+1. 
+2. save a game and play it
 3. delete stuff from user defaults
 delete button when cell shakes
-4. create multiple choice
+4.
 5. better cell preview
-6. option to save a game, savedview=game&created
+6.
 7. prevent press button before change
 8. compatibility constraints
 9. two players
 10. complete README
+
+deprecated: create trivia
+4. create multiple choice

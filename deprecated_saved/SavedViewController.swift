@@ -16,6 +16,7 @@ protocol GameChangedDelegate: class {
 
 class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
     var savedView: UICollectionView!
+    var addButton: UIBarButtonItem!
     
     var modeView: UIView!
     var tf: UIButton!
@@ -63,7 +64,10 @@ class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
         //view.backgroundColor = bgcolor
         self.title = "Saved"
         
-       
+        //add button
+        addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add))
+        self.navigationItem.leftBarButtonItem = addButton
+        
         //filter layout, view
         let flayout = UICollectionViewFlowLayout()
         flayout.scrollDirection = .vertical
@@ -82,6 +86,48 @@ class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
         savedView.dataSource = self
         savedView.delegate = self
         
+        //choose mode
+        modeView = UIView()
+        modeView.backgroundColor = UIColor(white: 1, alpha: 0.5)
+        modeView.layer.cornerRadius = 10
+        view.addSubview(modeView)
+        modeView.isHidden = true
+        
+        tf = UIButton()
+        tf.setTitle("True/False", for: .normal)
+        tf.backgroundColor = barcolor
+        tf.setTitleColor(.white, for: .normal)
+        tf.addTarget(self, action: #selector(chosenMode), for: .touchUpInside)
+        tf.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
+        tf.titleLabel?.textAlignment = .center
+        tf.layer.cornerRadius = 15
+        tf.layer.borderWidth = 1
+        tf.layer.borderColor = UIColor.white.cgColor
+        tf.titleLabel?.adjustsFontSizeToFitWidth = true
+        modeView.addSubview(tf)
+        
+        mc = UIButton()
+        mc.setTitle("Multiple Choice", for: .normal)
+        mc.backgroundColor = barcolor
+        mc.setTitleColor(.white, for: .normal)
+        mc.addTarget(self, action: #selector(chosenMode), for: .touchUpInside)
+        mc.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
+        mc.titleLabel?.textAlignment = .center
+        mc.layer.cornerRadius = 15
+        mc.layer.borderWidth = 1
+        mc.layer.borderColor = UIColor.white.cgColor
+        mc.titleLabel?.adjustsFontSizeToFitWidth = true
+        modeView.addSubview(mc)
+        
+        prompt = UILabel()
+        prompt.text = "Choose the type of questions you want to create:"
+        prompt.textColor = .white
+        prompt.font = UIFont.init(name: "Chalkduster", size: 20)
+        prompt.textAlignment = .center
+        prompt.adjustsFontSizeToFitWidth = true
+        prompt.lineBreakMode = .byWordWrapping
+        prompt.numberOfLines = 0
+        modeView.addSubview(prompt)
         
         setup()
         
@@ -136,8 +182,57 @@ class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
         savedView.snp.makeConstraints{ make in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
+        modeView.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview()
+            make.height.equalTo(200)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+        }
+        tf.snp.makeConstraints{make in
+            make.height.equalTo(80)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalTo(view.snp.centerX).offset(-20)
+            make.bottom.equalToSuperview().offset(-20)
+        }
+        tf.titleLabel?.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview().offset(-3)
+        }
+        mc.snp.makeConstraints{make in
+            make.height.equalTo(80)
+            make.leading.equalTo(view.snp.centerX).offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview().offset(-20)
+            
+        }
+        mc.titleLabel?.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview().offset(-3)
+        }
+        prompt.snp.makeConstraints{ make in
+            make.top.equalToSuperview().offset(10)
+            make.bottom.equalTo(view.snp.centerY)
+            make.leading.equalToSuperview().offset(10)
+            make.trailing.equalToSuperview().offset(-10)
+        }
     }
     
+    //addButton function
+    @objc func add(){
+        modeView.isHidden = false
+    }
+    //choose mode
+    @objc func chosenMode(sender: UIButton){
+        modeView.isHidden = true
+        let obj = TriviaObj(set: [], title: "Triviac")
+        if sender.titleLabel?.text == "True/False"{
+            let editViewController = EditViewController(placeholder: obj, reedit: false, isTF: true)
+            navigationController?.pushViewController(editViewController!, animated: true)
+        }
+        else{
+            let editViewController = EditViewController(placeholder: obj, reedit: false, isTF: false)
+            navigationController?.pushViewController(editViewController!, animated: true)
+        }
+        
+    }
     
     
 }
@@ -184,6 +279,9 @@ extension SavedViewController: UICollectionViewDataSource{
 extension SavedViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selected = saved[indexPath.item]
+        let editViewController = EditViewController(placeholder: selected, reedit: true, isTF: selected.set[0].type == "boolean")
+       // editViewController!.delegate = self
+        navigationController?.pushViewController(editViewController!, animated: true)
     }
 }
 

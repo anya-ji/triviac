@@ -14,6 +14,7 @@ class PlayViewController: UIViewController {
     let bgcolor = UIColor(red: 0.27, green: 0.29, blue: 0.30, alpha: 1.00)
     let btcolor = UIColor(red: 0.77, green: 0.76, blue: 0.78, alpha: 1.00)
     let slcolor = UIColor(red: 1.00, green: 0.75, blue: 0.27, alpha: 1.00)
+    let correctcolor = UIColor(red: 0.54, green: 0.80, blue: 0.53, alpha: 1.00)
     
     var qLabel: UILabel!
     var tButton: UIButton!
@@ -242,6 +243,15 @@ class PlayViewController: UIViewController {
                 rsLabel.text = "✅"
             }else{
                 rsLabel.text = "❌"
+                if aButton.titleLabel?.text == correctans{
+                    aButton.backgroundColor = correctcolor
+                } else if bButton.titleLabel?.text == correctans{
+                    bButton.backgroundColor = correctcolor
+                } else if cButton.titleLabel?.text == correctans{
+                    cButton.backgroundColor = correctcolor
+                } else{
+                    dButton.backgroundColor = correctcolor
+                }
             }
             turnsleft = turnsleft - 1
             

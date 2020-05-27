@@ -40,6 +40,7 @@ class EditViewController: UIViewController {
     var q = Question(q: "", tf: true)
     
     var reedit: Bool
+    var isTF: Bool
     
     // instantiate UserDefaults
     let userDefaults = UserDefaults.standard
@@ -48,9 +49,10 @@ class EditViewController: UIViewController {
     weak var delegate: GameChangedDelegate?
     
     //initialization
-    init?(placeholder: TriviaObj, reedit: Bool){
+    init?(placeholder: TriviaObj, reedit: Bool, isTF: Bool){
         self.placeholder = placeholder
         self.reedit = reedit
+        self.isTF = isTF
         func objtoquestion(for obj: TriviaObj) -> [Question] {
             var rs: [Question] = []
             for t in obj.set{
