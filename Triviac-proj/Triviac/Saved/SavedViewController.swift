@@ -36,11 +36,13 @@ class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
     //handle long pressed
 //    var longPressedEnabled = false
 
-
     
     //reload data each time
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        //MARK: ensure top and bottom bars are always present
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+        tabBarController?.tabBar.isHidden = false
         //MARK: load saved data
         saved = []
         let savedData = userDefaults.array(forKey: "data") as? [Data] ?? []
@@ -153,7 +155,7 @@ class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
 //MARK: Collectionview extensions
 extension SavedViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let w = (savedView.frame.width - 3 * padding)/2.0
+        let w = savedView.frame.width - 2 * padding
         return CGSize(width: w, height: 180)
     }
 }
@@ -184,6 +186,8 @@ extension SavedViewController: UICollectionViewDataSource{
 extension SavedViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selected = saved[indexPath.item]
+        let playViewController = PlayViewController(mode: selected.set[0].type, replay: selected)
+        navigationController?.pushViewController(playViewController, animated: true)
     }
 }
 

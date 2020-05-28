@@ -340,9 +340,9 @@ class CreateViewController: UIViewController {
         let tpcat = CreateViewController.catdic[(cat.titleLabel?.text)!]
         let chosencat = tpcat == "any" ?  "" : "&category=\(tpcat!)"
         CreateViewController.endpoint = "\(ed)\(numText.text ?? "10")\(chosencat)&difficulty=\(chosendif!)&type=\(chosentyp)"
-        print(CreateViewController.endpoint)
+        //print(CreateViewController.endpoint)
         
-        let playViewController = PlayViewController(mode: chosentyp)
+        let playViewController = PlayViewController(mode: chosentyp, replay: nil)
         navigationController?.pushViewController(playViewController, animated: true)
     }
     

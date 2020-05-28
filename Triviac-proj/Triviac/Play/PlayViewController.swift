@@ -34,10 +34,12 @@ class PlayViewController: UIViewController {
     
     var state: State!
     var mode: String!
+    var replay: TriviaObj!
     
-    init(mode: String){
+    init(mode: String, replay: TriviaObj?){
         super.init(nibName: nil, bundle: nil)
         self.mode = mode
+        self.replay = replay
     }
     
     required init?(coder: NSCoder) {
@@ -54,7 +56,7 @@ class PlayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = bgcolor
-        getTrivia()
+//        getTrivia()
         
         qLabel = UILabel()
         qLabel.textColor = .white
@@ -146,6 +148,7 @@ class PlayViewController: UIViewController {
         view.addSubview(rsLabel)
         
         setup()
+        getTrivia()
         
     }
     
@@ -235,6 +238,10 @@ class PlayViewController: UIViewController {
         sender.backgroundColor = slcolor
         let current = triviaset[self.triviaset.count - self.turnsleft]
         //update state
+        var ex = true
+        if replay == nil {
+            ex = false
+        }
         if mode == "multiple"{
             let correctans = current.correct_answer
             let yourans = sender.titleLabel?.text
@@ -256,9 +263,10 @@ class PlayViewController: UIViewController {
             turnsleft = turnsleft - 1
             
             let seconds = 2.0
+            
             if turnsleft == 0 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                    let endViewController = EndViewController(state: self.state)
+                    let endViewController = EndViewController(state: self.state, set: self.triviaset, exist: self.replay)
                     self.navigationController?.pushViewController(endViewController, animated: true)
                 }
             } else {
@@ -267,6 +275,10 @@ class PlayViewController: UIViewController {
                     self.qLabel.text = next.question.decodingHTMLEntities()
                     self.rsLabel.text = ""
                     sender.backgroundColor = self.btcolor
+                    self.aButton.backgroundColor = self.btcolor
+                    self.bButton.backgroundColor = self.btcolor
+                    self.cButton.backgroundColor = self.btcolor
+                    self.dButton.backgroundColor = self.btcolor
                     var c = next.incorrect_answers
                     c.append(next.correct_answer)
                     self.choices = c
@@ -294,7 +306,7 @@ class PlayViewController: UIViewController {
             let seconds = 2.0
             if turnsleft == 0 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                    let endViewController = EndViewController(state: self.state)
+                    let endViewController = EndViewController(state: self.state, set: self.triviaset, exist: self.replay)
                     self.navigationController?.pushViewController(endViewController, animated: true)
                 }
             } else {
@@ -312,14 +324,13 @@ class PlayViewController: UIViewController {
     
     
     func getTrivia() {
-        NetworkManager.getTrivia(){
-            triviaset in
-            self.triviaset = triviaset
-            
-            
-            self.turnsleft = self.triviaset.count
-            self.state = State.init(all: self.turnsleft)
-            self.qLabel.text = self.triviaset[0].question.decodingHTMLEntities()
+        if replay != nil {
+            triviaset = replay.set
+            print(triviaset)
+            turnsleft = triviaset.count
+            state = State.init(all: turnsleft)
+            print(triviaset[0].question)
+            qLabel.text = triviaset[0].question.decodingHTMLEntities()
             
             //mc
             if self.mode == "multiple"{
@@ -333,6 +344,29 @@ class PlayViewController: UIViewController {
                 self.dButton.setTitle(self.choices[3], for: .normal)
             }
         }
+        else {
+            NetworkManager.getTrivia(){
+                triviaset in
+                self.triviaset = triviaset
+                
+                self.turnsleft = self.triviaset.count
+                self.state = State.init(all: self.turnsleft)
+                self.qLabel.text = self.triviaset[0].question.decodingHTMLEntities()
+                
+                //mc
+                if self.mode == "multiple"{
+                    var c = self.triviaset[0].incorrect_answers
+                    c.append(self.triviaset[0].correct_answer)
+                    self.choices = c
+                    self.choices.shuffle()
+                    self.aButton.setTitle(self.choices[0], for: .normal)
+                    self.bButton.setTitle(self.choices[1], for: .normal)
+                    self.cButton.setTitle(self.choices[2], for: .normal)
+                    self.dButton.setTitle(self.choices[3], for: .normal)
+                }
+            }
+        }
+        
         
     }
     

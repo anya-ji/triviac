@@ -11,7 +11,7 @@ import UIKit
 class CatViewController: UIViewController {
     var tableView: UITableView!
     let rid = "rid"
-    let bgcolor = UIColor(red: 0.34, green: 0.34, blue: 0.38, alpha: 1.00)
+    let bgcolor = UIColor(red: 0.27, green: 0.29, blue: 0.30, alpha: 1.00)
     
     //delegate
     weak var delegate: CatChangeTextDelegate?
@@ -29,6 +29,7 @@ class CatViewController: UIViewController {
         view.backgroundColor = bgcolor
         
         tableView = UITableView()
+        tableView.backgroundColor = bgcolor
         view.addSubview(tableView)
         tableView.snp.makeConstraints{make in
             make.top.bottom.leading.trailing.equalToSuperview()

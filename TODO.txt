@@ -1,14 +1,17 @@
-1. 
-2. save a game and play it
+1. weird text in game choice
+2. 
 3. delete stuff from user defaults
 delete button when cell shakes
-4.
-5. better cell preview
-6.
+4.give saved game a name (pop up at quit)
+5. 
+6. update highest score
 7. prevent press button before change
 8. compatibility constraints
 9. two players
 10. complete README
+11.view saved game
+12.
+13.quit game half way
 
 deprecated: create trivia
 4. create multiple choice

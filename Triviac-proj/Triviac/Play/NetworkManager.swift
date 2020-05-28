@@ -20,7 +20,7 @@ class NetworkManager {
                 let decoder = JSONDecoder()
                
                 if let triviaData = try? decoder.decode(TriviaResponse.self, from: data){
-                    print(triviaData)
+                    //print(triviaData)
                     let triviaset = triviaData.results
                     completion(triviaset)
                 }
