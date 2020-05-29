@@ -138,6 +138,7 @@ class EndViewController: UIViewController {
         nameText = UITextField()
         nameText.backgroundColor = .white
         nameText.placeholder = "Triviac"
+        nameText.textColor = .black
         nameText.borderStyle = UITextField.BorderStyle.roundedRect
         nameText.textAlignment = .center
         nameText.font = UIFont.init(name: "ChalkboardSE-Regular", size: 30)

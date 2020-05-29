@@ -26,7 +26,7 @@ class CreateViewController: UIViewController {
     var typ: UIButton!
     var gen: UIButton!
     
-    let ls = CGFloat(30)
+    let ls = CGFloat(25)
 
     let bgcolor = UIColor(red: 0.27, green: 0.29, blue: 0.30, alpha: 1.00)
     let gencolor = UIColor(red: 0.96, green: 0.83, blue: 0.37, alpha: 1.00)
@@ -75,6 +75,7 @@ class CreateViewController: UIViewController {
         numText = UITextField()
         numText.backgroundColor = .white
         numText.text = "10"
+        numText.textColor = .black
         numText.borderStyle = UITextField.BorderStyle.roundedRect
         numText.textAlignment = .center
         numText.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
@@ -202,7 +203,7 @@ class CreateViewController: UIViewController {
             let ht = CGFloat(50)
             let lwd = CGFloat(300)
             let bwd = CGFloat(130)
-        let gap = view.frame.height / 70
+        let gap = view.frame.height / 80
         //numLabel
         numLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
@@ -238,7 +239,7 @@ class CreateViewController: UIViewController {
         //catLabel
         catLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(numText.snp.bottom).offset(gap*2)
+            make.top.equalTo(numText.snp.bottom).offset(gap*1.2)
             make.height.equalTo(ht)
             make.width.equalTo(lwd)
         }
@@ -255,7 +256,7 @@ class CreateViewController: UIViewController {
         //difLabel
         difLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(cat.snp.bottom).offset(gap*2)
+            make.top.equalTo(cat.snp.bottom).offset(gap*1.2)
             make.height.equalTo(ht)
             make.width.equalTo(lwd)
         }
@@ -272,7 +273,7 @@ class CreateViewController: UIViewController {
         //typLabel
         typLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(dif.snp.bottom).offset(gap*2)
+            make.top.equalTo(dif.snp.bottom).offset(gap*1.2)
             make.height.equalTo(ht)
             make.width.equalTo(lwd)
         }
@@ -289,7 +290,7 @@ class CreateViewController: UIViewController {
         //gen
         gen.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
-           make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-gap*2)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-gap*2)
             //make.top.equalTo(typ.snp.bottom).offset(gap*3)
             //make.height.equalTo(60)
             make.width.equalTo(200)

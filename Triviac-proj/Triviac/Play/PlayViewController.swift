@@ -259,9 +259,15 @@ class PlayViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-10)
         }
         
+        rsLabel.snp.makeConstraints{ make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.height.width.equalTo(50)
+        }
+        
         if mode == "multiple"{
             aButton.snp.makeConstraints{make in
-                make.top.equalTo(view.snp.centerY).offset(gap*2.5)
+                make.top.equalTo(rsLabel.snp.bottom).offset(gap)
                 make.height.equalTo(40)
                 make.leading.equalToSuperview().offset(gap)
                 make.trailing.equalToSuperview().offset(-gap)
@@ -306,7 +312,7 @@ class PlayViewController: UIViewController {
                 make.top.equalTo(view.snp.centerY).offset(gap*3)
                 make.height.equalTo(80)
                 make.width.equalTo(120)
-                make.leading.equalToSuperview().offset(gap*1.5)
+                make.leading.equalToSuperview().offset((view.frame.width - 2*120)/4)
             }
             tButton.titleLabel?.snp.makeConstraints{ make in
                 make.centerY.equalToSuperview().offset(-3)
@@ -316,18 +322,14 @@ class PlayViewController: UIViewController {
                 make.top.equalTo(view.snp.centerY).offset(gap*3)
                 make.height.equalTo(80)
                 make.width.equalTo(120)
-                make.trailing.equalToSuperview().offset(-gap*1.5)
+                make.trailing.equalToSuperview().offset(-(view.frame.width - 2*120)/4)
             }
             fButton.titleLabel?.snp.makeConstraints{ make in
                 make.centerY.equalToSuperview().offset(-3)
             }
         }
         
-        rsLabel.snp.makeConstraints{ make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
-            make.height.width.equalTo(50)
-        }
+
     }
     
     @objc func quit(){
