@@ -1,9 +1,11 @@
 PODS:
   - Alamofire (5.1.0)
+  - HTMLEntities (3.0.13)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
   - Alamofire
+  - HTMLEntities (from `https://github.com/IBM-Swift/swift-html-entities.git`)
   - SnapKit
 
 SPEC REPOS:
@@ -11,10 +13,20 @@ SPEC REPOS:
     - Alamofire
     - SnapKit
 
+EXTERNAL SOURCES:
+  HTMLEntities:
+    :git: https://github.com/IBM-Swift/swift-html-entities.git
+
+CHECKOUT OPTIONS:
+  HTMLEntities:
+    :commit: 744c094976355aa96ca61b9b60ef0a38e979feb7
+    :git: https://github.com/IBM-Swift/swift-html-entities.git
+
 SPEC CHECKSUMS:
   Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
+  HTMLEntities: 83738511518b3f29cf9644d0877505b8d3d1a849
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: d3a434e982a9844daba360383a6294b574a1b590
+PODFILE CHECKSUM: 2fe5e5f52cfd40820160e8cf06d9a0ba08fd3981
 
 COCOAPODS: 1.9.1
