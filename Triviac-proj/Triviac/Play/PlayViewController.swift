@@ -341,7 +341,7 @@ class PlayViewController: UIViewController {
         let current = triviaset[self.triviaset.count - self.turnsleft]
         //update state
         if mode == "multiple"{
-            let correctans = current.correct_answer
+            let correctans = current.correct_answer.htmlUnescape()
             let yourans = sender.titleLabel?.text
             if correctans == yourans {
                 state.update_correct()
@@ -380,7 +380,7 @@ class PlayViewController: UIViewController {
                     self.dButton.backgroundColor = self.btcolor
                     var c = next.incorrect_answers
                     c.append(next.correct_answer)
-                    self.choices = c
+                    self.choices = c.map{ $0.htmlUnescape() }
                     self.choices.shuffle()
                     self.aButton.setTitle(self.choices[0], for: .normal)
                     self.bButton.setTitle(self.choices[1], for: .normal)
