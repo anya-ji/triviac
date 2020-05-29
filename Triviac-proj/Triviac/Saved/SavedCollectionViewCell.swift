@@ -15,6 +15,10 @@ class SavedCollectionViewCell: UICollectionViewCell {
     var typLabel: UILabel!
     var highest: UILabel!
     
+    var id: Date!
+    
+    var deleteButton: UIButton!
+    
     let gap: CGFloat = 10
     let pad: CGFloat = 1
     let h: CGFloat = 30
@@ -34,7 +38,6 @@ class SavedCollectionViewCell: UICollectionViewCell {
         backgroundColor = cellcolor
         
         titleLabel = UILabel()
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.contentMode = .scaleToFill
         titleLabel.layer.masksToBounds = true
         titleLabel.textAlignment = .center
@@ -43,16 +46,15 @@ class SavedCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(titleLabel)
         
         catLabel = UILabel()
-        catLabel.translatesAutoresizingMaskIntoConstraints = false
         catLabel.contentMode = .scaleToFill
         catLabel.layer.masksToBounds = true
         catLabel.textAlignment = .center
         catLabel.textColor = .white
+        catLabel.adjustsFontSizeToFitWidth = true
         catLabel.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
         contentView.addSubview(catLabel)
         
         difLabel = UILabel()
-        difLabel.translatesAutoresizingMaskIntoConstraints = false
         difLabel.contentMode = .scaleToFill
         difLabel.layer.masksToBounds = true
         difLabel.textAlignment = .center
@@ -61,7 +63,6 @@ class SavedCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(difLabel)
         
         typLabel = UILabel()
-        typLabel.translatesAutoresizingMaskIntoConstraints = false
         typLabel.contentMode = .scaleToFill
         typLabel.layer.masksToBounds = true
         typLabel.textAlignment = .center
@@ -70,7 +71,6 @@ class SavedCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(typLabel)
         
         highest = UILabel()
-        highest.translatesAutoresizingMaskIntoConstraints = false
         highest.contentMode = .scaleToFill
         highest.layer.masksToBounds = true
         highest.textAlignment = .center
@@ -78,7 +78,11 @@ class SavedCollectionViewCell: UICollectionViewCell {
         highest.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
         contentView.addSubview(highest)
         
-        
+        deleteButton = UIButton()
+        let delete = UIImage(named: "delete")
+        deleteButton.setImage(delete, for: .normal)
+        deleteButton.isHidden = true
+        contentView.addSubview(deleteButton)
         
         setup()
     }
@@ -88,34 +92,34 @@ class SavedCollectionViewCell: UICollectionViewCell {
     }
     
     //Animation of image
-    //    func startAnimate() {
-    //            let shakeAnimation = CABasicAnimation(keyPath: "transform.rotation")
-    //            shakeAnimation.duration = 0.05
-    //            shakeAnimation.repeatCount = 4
-    //            shakeAnimation.autoreverses = true
-    //            shakeAnimation.duration = 0.2
-    //            shakeAnimation.repeatCount = 99999
-    //
-    //            let startAngle: Float = (-2) * 3.14159/180
-    //            let stopAngle = -startAngle
-    //
-    //            shakeAnimation.fromValue = NSNumber(value: startAngle as Float)
-    //            shakeAnimation.toValue = NSNumber(value: 3 * stopAngle as Float)
-    //            shakeAnimation.autoreverses = true
-    //            shakeAnimation.timeOffset = 290 * drand48()
-    //
-    //            let layer: CALayer = self.layer
-    //            layer.add(shakeAnimation, forKey:"animate")
-    //            removeBtn.isHidden = false
-    //            isAnimate = true
-    //        }
-    //
-    //    func stopAnimate() {
-    //        let layer: CALayer = self.layer
-    //        layer.removeAnimation(forKey: "animate")
-    //        self.removeBtn.isHidden = true
-    //        isAnimate = false
-    //    }
+        func startAnimate() {
+                let shakeAnimation = CABasicAnimation(keyPath: "transform.rotation")
+                shakeAnimation.duration = 0.05
+                shakeAnimation.repeatCount = 4
+                shakeAnimation.autoreverses = true
+                shakeAnimation.duration = 0.15
+                shakeAnimation.repeatCount = 99999
+    
+                let startAngle: Float = (-1) * 3.14159/180
+                let stopAngle = -startAngle
+    
+                shakeAnimation.fromValue = NSNumber(value: startAngle as Float)
+                shakeAnimation.toValue = NSNumber(value: 3 * stopAngle as Float)
+                shakeAnimation.autoreverses = true
+                shakeAnimation.timeOffset = 290 * drand48()
+    
+                let layer: CALayer = self.layer
+                layer.add(shakeAnimation, forKey:"animate")
+                deleteButton.isHidden = false
+                isAnimate = true
+            }
+    
+        func stopAnimate() {
+            let layer: CALayer = self.layer
+            layer.removeAnimation(forKey: "animate")
+            deleteButton.isHidden = true
+            isAnimate = false
+        }
     
     func setup(){
         titleLabel.snp.makeConstraints{make in
@@ -160,14 +164,19 @@ class SavedCollectionViewCell: UICollectionViewCell {
         }
         
         
-        
+        deleteButton.snp.makeConstraints{make in
+            make.top.equalToSuperview().offset(10)
+            make.height.width.equalTo(20)
+            make.leading.equalToSuperview().offset(10)
+        }
         
         
         
     }
     
     func config(for info: TriviaObj){
-        titleLabel.text = "placeholder"
+        id = info.id
+        titleLabel.text = info.title
         catLabel.text = info.category
         if info.difficulty == "easy"{
             difLabel.text = "Easy"
@@ -186,4 +195,6 @@ class SavedCollectionViewCell: UICollectionViewCell {
         highest.text = "Highest Score: \(info.score)"
     }
     
+    
 }
+

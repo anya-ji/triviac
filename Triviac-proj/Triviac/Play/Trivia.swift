@@ -27,6 +27,7 @@ struct Trivia: Codable{
 
 //for saved
 struct TriviaObj: Codable {
+    var title: String
     var category: String
     var type: String
     var difficulty: String
@@ -35,7 +36,8 @@ struct TriviaObj: Codable {
     var set: [Trivia]
     var id = Date()
     
-    init(set: [Trivia], score: String){
+    init(title: String, set: [Trivia], score: String){
+        self.title = title
         self.set = set
         self.category = set[0].category
         self.difficulty = set[0].difficulty

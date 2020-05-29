@@ -46,12 +46,18 @@ class CreateViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
         tabBarController?.tabBar.isHidden = false
     }
-    
+//
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        numText.becomeFirstResponder()
+//
+//    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
         
         view.backgroundColor = bgcolor
-        self.title = "Generate a trivia!"
+        self.navigationItem.title = "Generate a Trivia!"
         navigationController?.navigationBar.barTintColor = gencolor
         navigationController?.navigationBar.titleTextAttributes = [
            // NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20),
@@ -74,6 +80,7 @@ class CreateViewController: UIViewController {
         numText.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
         numText.textAlignment = .center
         numText.adjustsFontSizeToFitWidth = true
+        
         
         add = UIButton()
         add.setTitle("+", for: .normal)
@@ -335,11 +342,17 @@ class CreateViewController: UIViewController {
         }
     }
     @objc func genf(){
+        var chosennum = "10"
+        if let num = Int(String(numText.text ?? "10")) {
+            if (num >= 1 && num <= 50) {
+                chosennum = String(num)
+            }
+        }
         let chosendif = (dif.titleLabel?.text)?.lowercased()
         let chosentyp = typ.titleLabel?.text == "Multiple Choice" ? "multiple" : "boolean"
         let tpcat = CreateViewController.catdic[(cat.titleLabel?.text)!]
         let chosencat = tpcat == "any" ?  "" : "&category=\(tpcat!)"
-        CreateViewController.endpoint = "\(ed)\(numText.text ?? "10")\(chosencat)&difficulty=\(chosendif!)&type=\(chosentyp)"
+        CreateViewController.endpoint = "\(ed)\(chosennum)\(chosencat)&difficulty=\(chosendif!)&type=\(chosentyp)"
         //print(CreateViewController.endpoint)
         
         let playViewController = PlayViewController(mode: chosentyp, replay: nil)
@@ -386,5 +399,18 @@ class CreateViewController: UIViewController {
 extension CreateViewController: CatChangeTextDelegate{
     func catTextChanged(to newCat: String){
         cat.setTitle(newCat, for: .normal)
+    }
+}
+
+//hide keyboard
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tapGesture = UITapGestureRecognizer(target: self,
+                         action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+
+    @objc func hideKeyboard() {
+        view.endEditing(true)
     }
 }

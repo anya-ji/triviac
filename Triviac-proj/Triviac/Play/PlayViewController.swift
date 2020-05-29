@@ -15,11 +15,18 @@ class PlayViewController: UIViewController {
     let btcolor = UIColor(red: 0.77, green: 0.76, blue: 0.78, alpha: 1.00)
     let slcolor = UIColor(red: 1.00, green: 0.75, blue: 0.27, alpha: 1.00)
     let correctcolor = UIColor(red: 0.54, green: 0.80, blue: 0.53, alpha: 1.00)
+    let okcolor = UIColor(red: 0.96, green: 0.83, blue: 0.37, alpha: 1.00)
     
     var qLabel: UILabel!
     var tButton: UIButton!
     var fButton: UIButton!
     var rsLabel: UILabel!
+    var quitButton: UIButton!
+    var stateLabel: UILabel!
+    
+    var notfoundView: UIView!
+    var ok: UIButton!
+    var prompt: UILabel!
     
     var choices: [String] = []
     var aButton: UIButton!
@@ -56,7 +63,7 @@ class PlayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = bgcolor
-//        getTrivia()
+        //        getTrivia()
         
         qLabel = UILabel()
         qLabel.textColor = .white
@@ -65,6 +72,14 @@ class PlayViewController: UIViewController {
         qLabel.numberOfLines = 0
         qLabel.textAlignment = .center
         view.addSubview(qLabel)
+        
+        stateLabel = UILabel()
+        stateLabel.textColor = .white
+        stateLabel.font = UIFont.init(name: "Chalkduster", size: 15)
+        stateLabel.lineBreakMode = .byWordWrapping
+        stateLabel.numberOfLines = 0
+        stateLabel.textAlignment = .center
+        view.addSubview(stateLabel)
         
         if mode == "multiple" {
             aButton = UIButton()
@@ -78,6 +93,7 @@ class PlayViewController: UIViewController {
             aButton.layer.borderWidth = 1
             aButton.layer.borderColor = UIColor.white.cgColor
             view.addSubview(aButton)
+            aButton.isHidden = true
             
             bButton = UIButton()
             bButton.backgroundColor = btcolor
@@ -90,6 +106,7 @@ class PlayViewController: UIViewController {
             bButton.layer.borderWidth = 1
             bButton.layer.borderColor = UIColor.white.cgColor
             view.addSubview(bButton)
+            bButton.isHidden = true
             
             cButton = UIButton()
             cButton.backgroundColor = btcolor
@@ -102,6 +119,7 @@ class PlayViewController: UIViewController {
             cButton.layer.borderWidth = 1
             cButton.layer.borderColor = UIColor.white.cgColor
             view.addSubview(cButton)
+            cButton.isHidden = true
             
             dButton = UIButton()
             dButton.backgroundColor = btcolor
@@ -114,6 +132,7 @@ class PlayViewController: UIViewController {
             dButton.layer.borderWidth = 1
             dButton.layer.borderColor = UIColor.white.cgColor
             view.addSubview(dButton)
+            dButton.isHidden = true
             
         }
         else {
@@ -128,6 +147,7 @@ class PlayViewController: UIViewController {
             tButton.layer.borderWidth = 1
             tButton.layer.borderColor = UIColor.white.cgColor
             view.addSubview(tButton)
+            tButton.isHidden = true
             
             fButton = UIButton()
             fButton.setTitle("F", for: .normal)
@@ -140,12 +160,53 @@ class PlayViewController: UIViewController {
             fButton.layer.borderWidth = 1
             fButton.layer.borderColor = UIColor.white.cgColor
             view.addSubview(fButton)
+            fButton.isHidden = true
         }
         
         rsLabel = UILabel()
         rsLabel.font = UIFont.init(name: "Helvetica", size: 40)
         rsLabel.textAlignment = .center
         view.addSubview(rsLabel)
+        
+        quitButton = UIButton()
+        quitButton.setTitle("Quit", for: .normal)
+        quitButton.setTitleColor(btcolor, for: .normal)
+        quitButton.addTarget(self, action: #selector(quit), for: .touchUpInside)
+        quitButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
+        quitButton.titleLabel?.textAlignment = .center
+        view.addSubview(quitButton)
+        
+        //not found
+        notfoundView = UIView()
+        notfoundView.backgroundColor = UIColor(white: 1, alpha: 0.5)
+        notfoundView.layer.cornerRadius = 10
+        view.addSubview(notfoundView)
+        notfoundView.isHidden = true
+        
+        ok = UIButton()
+        ok.setTitle("OK", for: .normal)
+        ok.backgroundColor = okcolor
+        ok.setTitleColor(.white, for: .normal)
+        ok.addTarget(self, action: #selector(quit), for: .touchUpInside)
+        ok.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
+        ok.titleLabel?.textAlignment = .center
+        ok.layer.cornerRadius = 15
+        ok.layer.borderWidth = 1
+        ok.layer.borderColor = UIColor.white.cgColor
+        ok.titleLabel?.adjustsFontSizeToFitWidth = true
+        notfoundView.addSubview(ok)
+        
+        
+        prompt = UILabel()
+        prompt.text = "Oops, the trivia doesn't exist.🤯 \nPlease try another combination."
+        prompt.textColor = .white
+        prompt.font = UIFont.init(name: "Chalkduster", size: 20)
+        prompt.textAlignment = .center
+        prompt.adjustsFontSizeToFitWidth = true
+        prompt.lineBreakMode = .byWordWrapping
+        prompt.numberOfLines = 0
+        notfoundView.addSubview(prompt)
+        
         
         setup()
         getTrivia()
@@ -155,10 +216,46 @@ class PlayViewController: UIViewController {
     func setup(){
         qLabel.snp.makeConstraints{make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(gap)
+            make.height.equalTo(200)
             make.leading.equalToSuperview().offset(gap)
             make.trailing.equalToSuperview().offset(-gap)
             make.bottom.equalTo(view.snp.centerY).offset(-gap)
+        }
+        stateLabel.snp.makeConstraints{make in
+            make.centerX.equalToSuperview()
+            make.height.equalTo(50)
+            make.leading.equalToSuperview().offset(gap)
+            make.trailing.equalToSuperview().offset(-gap)
+            make.bottom.equalTo(qLabel.snp.top)
+        }
+        
+        quitButton.snp.makeConstraints{make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+            make.leading.equalToSuperview().offset(20)
+            make.height.equalTo(30)
+            make.width.equalTo(40)
+        }
+        
+        notfoundView.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview()
+            make.height.equalTo(220)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+        }
+        ok.snp.makeConstraints{make in
+            make.height.equalTo(40)
+            make.width.equalTo(60)
+            make.bottom.equalToSuperview().offset(-20)
+            make.centerX.equalToSuperview()
+        }
+        ok.titleLabel?.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview().offset(-3)
+        }
+        prompt.snp.makeConstraints{ make in
+            make.top.equalToSuperview().offset(10)
+            make.bottom.equalTo(ok.snp.top).offset(-10)
+            make.leading.equalToSuperview().offset(10)
+            make.trailing.equalToSuperview().offset(-10)
         }
         
         if mode == "multiple"{
@@ -208,7 +305,7 @@ class PlayViewController: UIViewController {
                 make.top.equalTo(view.snp.centerY).offset(gap*3)
                 make.height.equalTo(80)
                 make.width.equalTo(120)
-                make.leading.equalToSuperview().offset(gap*2)
+                make.leading.equalToSuperview().offset(gap*1.5)
             }
             tButton.titleLabel?.snp.makeConstraints{ make in
                 make.centerY.equalToSuperview().offset(-3)
@@ -218,14 +315,12 @@ class PlayViewController: UIViewController {
                 make.top.equalTo(view.snp.centerY).offset(gap*3)
                 make.height.equalTo(80)
                 make.width.equalTo(120)
-                make.trailing.equalToSuperview().offset(-gap*2)
+                make.trailing.equalToSuperview().offset(-gap*1.5)
             }
             fButton.titleLabel?.snp.makeConstraints{ make in
                 make.centerY.equalToSuperview().offset(-3)
             }
         }
-        
-        
         
         rsLabel.snp.makeConstraints{ make in
             make.centerX.equalToSuperview()
@@ -234,14 +329,14 @@ class PlayViewController: UIViewController {
         }
     }
     
+    @objc func quit(){
+        navigationController?.popToRootViewController(animated: true)
+    }
+    
     @objc func sl(sender: UIButton){
         sender.backgroundColor = slcolor
         let current = triviaset[self.triviaset.count - self.turnsleft]
         //update state
-        var ex = true
-        if replay == nil {
-            ex = false
-        }
         if mode == "multiple"{
             let correctans = current.correct_answer
             let yourans = sender.titleLabel?.text
@@ -273,6 +368,7 @@ class PlayViewController: UIViewController {
                 let next = triviaset[self.triviaset.count - self.turnsleft]
                 DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
                     self.qLabel.text = next.question.decodingHTMLEntities()
+                    self.stateLabel.text = "\(self.state.all - self.turnsleft+1)/\(self.state.all)"
                     self.rsLabel.text = ""
                     sender.backgroundColor = self.btcolor
                     self.aButton.backgroundColor = self.btcolor
@@ -313,6 +409,7 @@ class PlayViewController: UIViewController {
                 let next = triviaset[self.triviaset.count - self.turnsleft]
                 DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
                     self.qLabel.text = next.question.decodingHTMLEntities()
+                    self.stateLabel.text = "\(self.state.all - self.turnsleft+1)/\(self.state.all)"
                     self.rsLabel.text = ""
                     sender.backgroundColor = self.btcolor
                 }
@@ -326,11 +423,10 @@ class PlayViewController: UIViewController {
     func getTrivia() {
         if replay != nil {
             triviaset = replay.set
-            print(triviaset)
             turnsleft = triviaset.count
             state = State.init(all: turnsleft)
-            print(triviaset[0].question)
             qLabel.text = triviaset[0].question.decodingHTMLEntities()
+            self.stateLabel.text = "\(self.state.all - self.turnsleft+1)/\(self.state.all)"
             
             //mc
             if self.mode == "multiple"{
@@ -338,31 +434,52 @@ class PlayViewController: UIViewController {
                 c.append(self.triviaset[0].correct_answer)
                 self.choices = c
                 self.choices.shuffle()
+                self.aButton.isHidden = false
+                self.bButton.isHidden = false
+                self.cButton.isHidden = false
+                self.dButton.isHidden = false
                 self.aButton.setTitle(self.choices[0], for: .normal)
                 self.bButton.setTitle(self.choices[1], for: .normal)
                 self.cButton.setTitle(self.choices[2], for: .normal)
                 self.dButton.setTitle(self.choices[3], for: .normal)
             }
+            else {
+                self.tButton.isHidden = false
+                self.fButton.isHidden = false
+            }
         }
         else {
             NetworkManager.getTrivia(){
                 triviaset in
-                self.triviaset = triviaset
-                
-                self.turnsleft = self.triviaset.count
-                self.state = State.init(all: self.turnsleft)
-                self.qLabel.text = self.triviaset[0].question.decodingHTMLEntities()
-                
-                //mc
-                if self.mode == "multiple"{
-                    var c = self.triviaset[0].incorrect_answers
-                    c.append(self.triviaset[0].correct_answer)
-                    self.choices = c
-                    self.choices.shuffle()
-                    self.aButton.setTitle(self.choices[0], for: .normal)
-                    self.bButton.setTitle(self.choices[1], for: .normal)
-                    self.cButton.setTitle(self.choices[2], for: .normal)
-                    self.dButton.setTitle(self.choices[3], for: .normal)
+                if triviaset.isEmpty {
+                    self.notfoundView.isHidden = false
+                }
+                else {
+                    self.triviaset = triviaset
+                    
+                    self.turnsleft = self.triviaset.count
+                    self.state = State.init(all: self.turnsleft)
+                    self.qLabel.text = self.triviaset[0].question.decodingHTMLEntities()
+                    self.stateLabel.text = "\(self.state.all - self.turnsleft+1)/\(self.state.all)"
+                    //mc
+                    if self.mode == "multiple"{
+                        var c = self.triviaset[0].incorrect_answers
+                        c.append(self.triviaset[0].correct_answer)
+                        self.choices = c
+                        self.choices.shuffle()
+                        self.aButton.isHidden = false
+                        self.bButton.isHidden = false
+                        self.cButton.isHidden = false
+                        self.dButton.isHidden = false
+                        self.aButton.setTitle(self.choices[0], for: .normal)
+                        self.bButton.setTitle(self.choices[1], for: .normal)
+                        self.cButton.setTitle(self.choices[2], for: .normal)
+                        self.dButton.setTitle(self.choices[3], for: .normal)
+                    }
+                    else {
+                        self.tButton.isHidden = false
+                        self.fButton.isHidden = false
+                    }
                 }
             }
         }

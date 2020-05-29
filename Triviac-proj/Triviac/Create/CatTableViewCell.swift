@@ -25,6 +25,7 @@ class CatTableViewCell: UITableViewCell {
         catLabel.textColor = .white
         catLabel.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
         catLabel.textAlignment = .center
+        catLabel.adjustsFontSizeToFitWidth = true
         contentView.addSubview(catLabel)
       
         catLabel.snp.makeConstraints{ make in
