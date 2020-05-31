@@ -64,7 +64,6 @@ class PlayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = bgcolor
-        //        getTrivia()
         
         qLabel = UILabel()
         qLabel.textColor = .white
@@ -95,6 +94,7 @@ class PlayViewController: UIViewController {
             aButton.layer.borderColor = UIColor.white.cgColor
             view.addSubview(aButton)
             aButton.isHidden = true
+            aButton.isEnabled = true
             
             bButton = UIButton()
             bButton.backgroundColor = btcolor
@@ -108,6 +108,7 @@ class PlayViewController: UIViewController {
             bButton.layer.borderColor = UIColor.white.cgColor
             view.addSubview(bButton)
             bButton.isHidden = true
+            bButton.isEnabled = true
             
             cButton = UIButton()
             cButton.backgroundColor = btcolor
@@ -121,6 +122,7 @@ class PlayViewController: UIViewController {
             cButton.layer.borderColor = UIColor.white.cgColor
             view.addSubview(cButton)
             cButton.isHidden = true
+            cButton.isEnabled = true
             
             dButton = UIButton()
             dButton.backgroundColor = btcolor
@@ -134,6 +136,7 @@ class PlayViewController: UIViewController {
             dButton.layer.borderColor = UIColor.white.cgColor
             view.addSubview(dButton)
             dButton.isHidden = true
+            dButton.isEnabled = true
             
         }
         else {
@@ -149,6 +152,7 @@ class PlayViewController: UIViewController {
             tButton.layer.borderColor = UIColor.white.cgColor
             view.addSubview(tButton)
             tButton.isHidden = true
+            tButton.isEnabled = true
             
             fButton = UIButton()
             fButton.setTitle("F", for: .normal)
@@ -162,6 +166,7 @@ class PlayViewController: UIViewController {
             fButton.layer.borderColor = UIColor.white.cgColor
             view.addSubview(fButton)
             fButton.isHidden = true
+            fButton.isEnabled = true
         }
         
         rsLabel = UILabel()
@@ -341,12 +346,17 @@ class PlayViewController: UIViewController {
         let current = triviaset[self.triviaset.count - self.turnsleft]
         //update state
         if mode == "multiple"{
+            aButton.isEnabled = false
+            bButton.isEnabled = false
+            cButton.isEnabled = false
+            dButton.isEnabled = false
             let correctans = current.correct_answer.htmlUnescape()
             let yourans = sender.titleLabel?.text
             if correctans == yourans {
                 state.update_correct()
                 rsLabel.text = "✅"
-            }else{
+            }
+            else {
                 rsLabel.text = "❌"
                 if aButton.titleLabel?.text == correctans{
                     aButton.backgroundColor = correctcolor
@@ -386,11 +396,17 @@ class PlayViewController: UIViewController {
                     self.bButton.setTitle(self.choices[1], for: .normal)
                     self.cButton.setTitle(self.choices[2], for: .normal)
                     self.dButton.setTitle(self.choices[3], for: .normal)
+                    self.aButton.isEnabled = true
+                    self.bButton.isEnabled = true
+                    self.cButton.isEnabled = true
+                    self.dButton.isEnabled = true
                 }
             }
         }
         else
         {
+            tButton.isEnabled = false
+            fButton.isEnabled = false
             let correctans = current.correct_answer == "True" ? true : false
             let yourans = sender.titleLabel?.text == "T" ? true : false
             if correctans == yourans {
@@ -415,6 +431,8 @@ class PlayViewController: UIViewController {
                     self.stateLabel.text = "\(self.state.all - self.turnsleft+1)/\(self.state.all)"
                     self.rsLabel.text = ""
                     sender.backgroundColor = self.btcolor
+                    self.tButton.isEnabled = true
+                    self.fButton.isEnabled = true
                 }
             }
         }

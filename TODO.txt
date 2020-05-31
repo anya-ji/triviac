@@ -1,6 +1,6 @@
 1. better constraints
 2. can cancel naming
-3. 
+3. create view button text
 4. sound effects
 5. 
 6. restart? prob no
