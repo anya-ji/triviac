@@ -81,6 +81,7 @@ class CreateViewController: UIViewController {
         numText.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
         numText.textAlignment = .center
         numText.adjustsFontSizeToFitWidth = true
+        numText.keyboardType = .numberPad
         
         
         add = UIButton()
@@ -122,7 +123,10 @@ class CreateViewController: UIViewController {
         cat.addTarget(self, action: #selector(catf), for: .touchUpInside)
         cat.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
         cat.titleLabel?.textAlignment = .center
+        cat.titleLabel?.numberOfLines = 0
+        //cat.titleLabel?.lineBreakMode = .byWordWrapping
         cat.titleLabel?.adjustsFontSizeToFitWidth = true
+        
         //cat.sizeToFit()
         cat.layer.cornerRadius = 15
         cat.layer.borderWidth = 1
@@ -162,7 +166,7 @@ class CreateViewController: UIViewController {
         typ.backgroundColor = btcolor
         typ.setTitleColor(.white, for: .normal)
         typ.addTarget(self, action: #selector(typf), for: .touchUpInside)
-        typ.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls-5)
+        typ.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
         typ.titleLabel?.textAlignment = .center
         typ.layer.cornerRadius = 15
         typ.layer.borderWidth = 1
@@ -181,8 +185,7 @@ class CreateViewController: UIViewController {
         gen.layer.borderWidth = 3
         gen.layer.borderColor = UIColor.white.cgColor
         gen.titleLabel?.adjustsFontSizeToFitWidth = true
-        
-        //constraints
+
         view.addSubview(numLabel)
         view.addSubview(numText)
         view.addSubview(add)
@@ -251,7 +254,11 @@ class CreateViewController: UIViewController {
             make.width.equalTo(bwd*2)
         }
         cat.titleLabel?.snp.makeConstraints{ make in
-            make.centerY.equalToSuperview().offset(-3)
+            //make.centerY.equalToSuperview().offset(-3)
+            make.top.equalToSuperview().offset(4)
+            make.bottom.equalToSuperview().offset(-8)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
         }
         //difLabel
         difLabel.snp.makeConstraints{ make in

@@ -178,6 +178,7 @@ class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
         self.savedView.reloadData()
         editButton.isEnabled = false
         editButton.tintColor = .clear
+        savedView.allowsSelection = false
     }
     
     @objc func doneEdit(){
@@ -187,10 +188,11 @@ class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
         done.tintColor = .clear
         editButton.isEnabled = true
         editButton.tintColor = .white
+        savedView.allowsSelection = true
     }
     
     @objc func longPress(sender: UIGestureRecognizer){
-        
+        savedView.allowsSelection = false
         switch(sender.state) {
         case .began:
             guard let selectedIndexPath = savedView.indexPathForItem(at:sender.location(in: savedView)) else {

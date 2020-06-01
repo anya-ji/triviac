@@ -95,6 +95,7 @@ class PlayViewController: UIViewController {
             view.addSubview(aButton)
             aButton.isHidden = true
             aButton.isEnabled = true
+            aButton.titleLabel?.numberOfLines = 0
             
             bButton = UIButton()
             bButton.backgroundColor = btcolor
@@ -109,6 +110,7 @@ class PlayViewController: UIViewController {
             view.addSubview(bButton)
             bButton.isHidden = true
             bButton.isEnabled = true
+            bButton.titleLabel?.numberOfLines = 0
             
             cButton = UIButton()
             cButton.backgroundColor = btcolor
@@ -123,6 +125,7 @@ class PlayViewController: UIViewController {
             view.addSubview(cButton)
             cButton.isHidden = true
             cButton.isEnabled = true
+            cButton.titleLabel?.numberOfLines = 0
             
             dButton = UIButton()
             dButton.backgroundColor = btcolor
@@ -137,6 +140,7 @@ class PlayViewController: UIViewController {
             view.addSubview(dButton)
             dButton.isHidden = true
             dButton.isEnabled = true
+            dButton.titleLabel?.numberOfLines = 0
             
         }
         else {
@@ -278,7 +282,11 @@ class PlayViewController: UIViewController {
                 make.trailing.equalToSuperview().offset(-gap)
             }
             aButton.titleLabel?.snp.makeConstraints{ make in
-                make.centerY.equalToSuperview().offset(-3)
+                //make.centerY.equalToSuperview().offset(-3)
+                make.top.equalToSuperview().offset(4)
+                make.bottom.equalToSuperview().offset(-8)
+                make.leading.equalToSuperview().offset(20)
+                make.trailing.equalToSuperview().offset(-20)
             }
             
             bButton.snp.makeConstraints{make in
@@ -288,7 +296,11 @@ class PlayViewController: UIViewController {
                 make.trailing.equalToSuperview().offset(-gap)
             }
             bButton.titleLabel?.snp.makeConstraints{ make in
-                make.centerY.equalToSuperview().offset(-3)
+                //make.centerY.equalToSuperview().offset(-3)
+                make.top.equalToSuperview().offset(4)
+                make.bottom.equalToSuperview().offset(-8)
+                make.leading.equalToSuperview().offset(20)
+                make.trailing.equalToSuperview().offset(-20)
             }
             
             cButton.snp.makeConstraints{make in
@@ -298,7 +310,11 @@ class PlayViewController: UIViewController {
                 make.trailing.equalToSuperview().offset(-gap)
             }
             cButton.titleLabel?.snp.makeConstraints{ make in
-                make.centerY.equalToSuperview().offset(-3)
+                //make.centerY.equalToSuperview().offset(-3)
+                make.top.equalToSuperview().offset(4)
+                make.bottom.equalToSuperview().offset(-8)
+                make.leading.equalToSuperview().offset(20)
+                make.trailing.equalToSuperview().offset(-20)
             }
             
             dButton.snp.makeConstraints{make in
@@ -308,7 +324,11 @@ class PlayViewController: UIViewController {
                 make.trailing.equalToSuperview().offset(-gap)
             }
             dButton.titleLabel?.snp.makeConstraints{ make in
-                make.centerY.equalToSuperview().offset(-3)
+                //make.centerY.equalToSuperview().offset(-3)
+                make.top.equalToSuperview().offset(4)
+                make.bottom.equalToSuperview().offset(-8)
+                make.leading.equalToSuperview().offset(20)
+                make.trailing.equalToSuperview().offset(-20)
             }
         }
         else
