@@ -1,7 +1,7 @@
 1. better constraints: long texts make button grow
-2. can cancel naming
+2. 
 3. view saved game
 4. sound effects
-5. congratulatory text when beat highest
+5. 
 6. rename saved game
 

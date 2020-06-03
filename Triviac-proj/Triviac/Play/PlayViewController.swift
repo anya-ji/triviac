@@ -12,6 +12,9 @@ import HTMLEntities
 
 class PlayViewController: UIViewController {
     
+    // instantiate UserDefaults
+    let userDefaults = UserDefaults.standard
+    
     let bgcolor = UIColor(red: 0.27, green: 0.29, blue: 0.30, alpha: 1.00)
     let btcolor = UIColor(red: 0.77, green: 0.76, blue: 0.78, alpha: 1.00)
     let slcolor = UIColor(red: 1.00, green: 0.75, blue: 0.27, alpha: 1.00)
@@ -36,6 +39,7 @@ class PlayViewController: UIViewController {
     var dButton: UIButton!
     
     let gap: CGFloat = 30
+    let padding: CGFloat = 8
     
     var triviaset = [Trivia]()
     var turnsleft: Int = 0
@@ -71,6 +75,7 @@ class PlayViewController: UIViewController {
         qLabel.lineBreakMode = .byWordWrapping
         qLabel.numberOfLines = 0
         qLabel.textAlignment = .center
+        qLabel.adjustsFontSizeToFitWidth = true
         view.addSubview(qLabel)
         
         stateLabel = UILabel()
@@ -96,6 +101,7 @@ class PlayViewController: UIViewController {
             aButton.isHidden = true
             aButton.isEnabled = true
             aButton.titleLabel?.numberOfLines = 0
+            aButton.titleLabel?.minimumScaleFactor = 0.7
             
             bButton = UIButton()
             bButton.backgroundColor = btcolor
@@ -111,6 +117,7 @@ class PlayViewController: UIViewController {
             bButton.isHidden = true
             bButton.isEnabled = true
             bButton.titleLabel?.numberOfLines = 0
+            bButton.titleLabel?.minimumScaleFactor = 0.7
             
             cButton = UIButton()
             cButton.backgroundColor = btcolor
@@ -126,6 +133,7 @@ class PlayViewController: UIViewController {
             cButton.isHidden = true
             cButton.isEnabled = true
             cButton.titleLabel?.numberOfLines = 0
+            cButton.titleLabel?.minimumScaleFactor = 0.7
             
             dButton = UIButton()
             dButton.backgroundColor = btcolor
@@ -141,6 +149,7 @@ class PlayViewController: UIViewController {
             dButton.isHidden = true
             dButton.isEnabled = true
             dButton.titleLabel?.numberOfLines = 0
+            dButton.titleLabel?.minimumScaleFactor = 0.7
             
         }
         else {
@@ -224,27 +233,35 @@ class PlayViewController: UIViewController {
     }
     
     func setup(){
-        qLabel.snp.makeConstraints{make in
+        
+        rsLabel.snp.makeConstraints{ make in
             make.centerX.equalToSuperview()
-            make.height.equalTo(200)
-            make.leading.equalToSuperview().offset(gap)
-            make.trailing.equalToSuperview().offset(-gap)
-            make.bottom.equalTo(view.snp.centerY).offset(-gap)
-        }
-        stateLabel.snp.makeConstraints{make in
-            make.centerX.equalToSuperview()
-            make.height.equalTo(50)
-            make.leading.equalToSuperview().offset(gap)
-            make.trailing.equalToSuperview().offset(-gap)
-            make.bottom.equalTo(qLabel.snp.top)
+            make.centerY.equalToSuperview().offset(-gap)
+            make.height.width.equalTo(50)
         }
         
+        
+        qLabel.snp.makeConstraints{make in
+            make.centerX.equalToSuperview()
+            make.height.equalTo(150)
+            make.leading.equalToSuperview().offset(gap)
+            make.trailing.equalToSuperview().offset(-gap)
+            make.bottom.equalTo(rsLabel.snp.top).offset(-gap)
+        }
         quitButton.snp.makeConstraints{make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
             make.leading.equalToSuperview().offset(20)
             make.height.equalTo(30)
             make.width.equalTo(40)
         }
+        stateLabel.snp.makeConstraints{make in
+            make.centerX.equalToSuperview()
+            make.height.equalTo(30)
+            make.leading.equalToSuperview().offset(gap)
+            make.trailing.equalToSuperview().offset(-gap)
+            make.top.equalTo(quitButton.snp.bottom)
+        }
+        
         
         notfoundView.snp.makeConstraints{ make in
             make.centerY.equalToSuperview()
@@ -268,16 +285,12 @@ class PlayViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-10)
         }
         
-        rsLabel.snp.makeConstraints{ make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
-            make.height.width.equalTo(50)
-        }
+
         
         if mode == "multiple"{
             aButton.snp.makeConstraints{make in
                 make.top.equalTo(rsLabel.snp.bottom).offset(gap)
-                make.height.equalTo(40)
+                make.height.equalTo(60)
                 make.leading.equalToSuperview().offset(gap)
                 make.trailing.equalToSuperview().offset(-gap)
             }
@@ -290,8 +303,8 @@ class PlayViewController: UIViewController {
             }
             
             bButton.snp.makeConstraints{make in
-                make.top.equalTo(aButton.snp.bottom).offset(gap)
-                make.height.equalTo(40)
+                make.top.equalTo(aButton.snp.bottom).offset(padding)
+                make.height.equalTo(60)
                 make.leading.equalToSuperview().offset(gap)
                 make.trailing.equalToSuperview().offset(-gap)
             }
@@ -304,8 +317,8 @@ class PlayViewController: UIViewController {
             }
             
             cButton.snp.makeConstraints{make in
-                make.top.equalTo(bButton.snp.bottom).offset(gap)
-                make.height.equalTo(40)
+                make.top.equalTo(bButton.snp.bottom).offset(padding)
+                make.height.equalTo(60)
                 make.leading.equalToSuperview().offset(gap)
                 make.trailing.equalToSuperview().offset(-gap)
             }
@@ -318,8 +331,8 @@ class PlayViewController: UIViewController {
             }
             
             dButton.snp.makeConstraints{make in
-                make.top.equalTo(cButton.snp.bottom).offset(gap)
-                make.height.equalTo(40)
+                make.top.equalTo(cButton.snp.bottom).offset(padding)
+                make.height.equalTo(60)
                 make.leading.equalToSuperview().offset(gap)
                 make.trailing.equalToSuperview().offset(-gap)
             }
@@ -394,8 +407,7 @@ class PlayViewController: UIViewController {
             
             if turnsleft == 0 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                    let endViewController = EndViewController(state: self.state, set: self.triviaset, exist: self.replay)
-                    self.navigationController?.pushViewController(endViewController, animated: true)
+                    self.endGame()
                 }
             } else {
                 let next = triviaset[self.triviaset.count - self.turnsleft]
@@ -441,8 +453,7 @@ class PlayViewController: UIViewController {
             let seconds = 2.0
             if turnsleft == 0 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                    let endViewController = EndViewController(state: self.state, set: self.triviaset, exist: self.replay)
-                    self.navigationController?.pushViewController(endViewController, animated: true)
+                    self.endGame()
                 }
             } else {
                 let next = triviaset[self.triviaset.count - self.turnsleft]
@@ -458,7 +469,35 @@ class PlayViewController: UIViewController {
         }
     }
     
-    
+    func endGame(){
+        var update = false
+        if self.replay != nil {
+            //find this triviaObj
+            var data = self.userDefaults.array(forKey: "data") as? [Data] ?? []
+            var i = 0
+            let id = self.replay.id
+            
+            while i < data.count{
+                let t = try? PropertyListDecoder().decode(TriviaObj.self, from: data[i])
+                if  id == t?.id{
+                    if Int(String((t?.score.prefix(1))!))! < self.state.correct {
+                        data.remove(at: i)
+                        update = true
+                    }
+                    break
+                }
+                i = i+1
+            }
+            if update {
+                let triviaObj = TriviaObj.init(title: self.replay.title,set: self.replay.set, score: "\(self.state.correct) / \(self.state.all)")
+            let setEncoded = try? PropertyListEncoder().encode(triviaObj)
+            data.append(setEncoded!)
+                self.userDefaults.set(data, forKey: "data")
+            }
+        }
+        let endViewController = EndViewController(state: self.state, set: self.triviaset, exist: self.replay, update: update)
+        self.navigationController?.pushViewController(endViewController, animated: true)
+    }
     
     
     func getTrivia() {

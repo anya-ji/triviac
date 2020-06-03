@@ -23,21 +23,26 @@ class EndViewController: UIViewController {
     var total: Int!
     var set: [Trivia]!
     var exist: TriviaObj!
+    var update: Bool!
     
     var enterView: UIView!
     var saveName: UIButton!
+    var cancelName: UIButton!
     var prompt: UILabel!
     var nameText: UITextField!
+    
+    var congrat: UILabel!
     
     // instantiate UserDefaults
     let userDefaults = UserDefaults.standard
     
-    init(state: State, set: [Trivia], exist: TriviaObj?){
+    init(state: State, set: [Trivia], exist: TriviaObj?, update: Bool){
         super.init(nibName: nil, bundle: nil)
         self.score = state.correct
         self.total = state.all
         self.set = set
         self.exist = exist
+        self.update = update
     }
     
     required init?(coder: NSCoder) {
@@ -124,6 +129,18 @@ class EndViewController: UIViewController {
         saveName.titleLabel?.adjustsFontSizeToFitWidth = true
         enterView.addSubview(saveName)
         
+        cancelName = UIButton()
+        cancelName.setTitle("Cancel", for: .normal)
+        cancelName.backgroundColor = .lightGray
+        cancelName.setTitleColor(.white, for: .normal)
+        cancelName.addTarget(self, action: #selector(cancel), for: .touchUpInside)
+        cancelName.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
+        cancelName.titleLabel?.textAlignment = .center
+        cancelName.layer.cornerRadius = 15
+        cancelName.layer.borderWidth = 1
+        cancelName.layer.borderColor = UIColor.white.cgColor
+        cancelName.titleLabel?.adjustsFontSizeToFitWidth = true
+        enterView.addSubview(cancelName)
         
         prompt = UILabel()
         prompt.text = "Enter a name for the trivia:"
@@ -146,6 +163,17 @@ class EndViewController: UIViewController {
         nameText.adjustsFontSizeToFitWidth = true
         enterView.addSubview(nameText)
         
+        if update{
+            congrat = UILabel()
+            congrat.text = "🎉Congrats! New highest score!🎉"
+            congrat.textColor = .orange
+            congrat.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
+            congrat.textAlignment = .center
+            congrat.adjustsFontSizeToFitWidth = true
+            congrat.lineBreakMode = .byWordWrapping
+            congrat.numberOfLines = 0
+            view.addSubview(congrat)
+        }
         
         setup()
     }
@@ -205,14 +233,39 @@ class EndViewController: UIViewController {
         
         saveName.snp.makeConstraints{make in
             make.height.equalTo(40)
-            make.width.equalTo(60)
+            make.width.equalTo(80)
             make.bottom.equalToSuperview().offset(-20)
-            make.centerX.equalToSuperview()
+            make.trailing.equalTo(view.snp.centerX).offset(-20)
         }
         saveName.titleLabel?.snp.makeConstraints{ make in
             make.centerY.equalToSuperview().offset(-3)
         }
         
+        cancelName.snp.makeConstraints{make in
+            make.height.equalTo(40)
+            make.width.equalTo(80)
+            make.bottom.equalToSuperview().offset(-20)
+            make.leading.equalTo(view.snp.centerX).offset(20)
+        }
+        cancelName.titleLabel?.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview().offset(-3)
+        }
+        if update{
+            congrat.snp.makeConstraints{ make in
+                make.bottom.equalTo(scoreLabel.snp.top)
+                make.height.equalTo(50)
+                make.leading.equalToSuperview().offset(20)
+                make.trailing.equalToSuperview().offset(-20)
+            }
+        }
+        
+    }
+    
+    @objc func cancel(){
+        self.enterView.isHidden = true
+        quitButton.isEnabled = true
+        saveButton.isEnabled = true
+        view.endEditing(true)
     }
     
     @objc func done(){
@@ -226,30 +279,6 @@ class EndViewController: UIViewController {
     }
     
     @objc func quit(){
-        if exist != nil {
-            //find this triviaObj
-            var data = userDefaults.array(forKey: "data") as? [Data] ?? []
-            var i = 0
-            let id = exist.id
-            var update = false
-            while i < data.count{
-                let t = try? PropertyListDecoder().decode(TriviaObj.self, from: data[i])
-                if  id == t?.id{
-                    if Int(String((t?.score.prefix(1))!))! < score! {
-                        data.remove(at: i)
-                        update = true
-                    }
-                    break
-                }
-                i = i+1
-            }
-            if update {
-                let triviaObj = TriviaObj.init(title: exist.title,set: set, score: "\(score!) / \(total!)")
-            let setEncoded = try? PropertyListEncoder().encode(triviaObj)
-            data.append(setEncoded!)
-            userDefaults.set(data, forKey: "data")
-            }
-        }
         navigationController?.popToRootViewController(animated: true)
     }
     
