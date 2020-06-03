@@ -2,4 +2,6 @@
 2. can cancel naming
 3. view saved game
 4. sound effects
+5. congratulatory text when beat highest
+6. rename saved game
 

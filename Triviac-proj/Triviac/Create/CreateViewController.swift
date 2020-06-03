@@ -124,8 +124,10 @@ class CreateViewController: UIViewController {
         cat.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
         cat.titleLabel?.textAlignment = .center
         cat.titleLabel?.numberOfLines = 0
+        cat.titleLabel?.minimumScaleFactor = 0.6
         //cat.titleLabel?.lineBreakMode = .byWordWrapping
         cat.titleLabel?.adjustsFontSizeToFitWidth = true
+        cat.sizeToFit()
         
         //cat.sizeToFit()
         cat.layer.cornerRadius = 15
@@ -206,7 +208,7 @@ class CreateViewController: UIViewController {
             let ht = CGFloat(50)
             let lwd = CGFloat(300)
             let bwd = CGFloat(130)
-        let gap = view.frame.height / 80
+        let gap = view.frame.height / 83
         //numLabel
         numLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
@@ -242,7 +244,7 @@ class CreateViewController: UIViewController {
         //catLabel
         catLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(numText.snp.bottom).offset(gap*1.2)
+            make.top.equalTo(numText.snp.bottom).offset(gap*1)
             make.height.equalTo(ht)
             make.width.equalTo(lwd)
         }
@@ -250,7 +252,7 @@ class CreateViewController: UIViewController {
         cat.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
             make.top.equalTo(catLabel.snp.bottom).offset(gap)
-            make.height.equalTo(ht)
+            make.height.equalTo(ht*1.2)
             make.width.equalTo(bwd*2)
         }
         cat.titleLabel?.snp.makeConstraints{ make in
@@ -263,7 +265,7 @@ class CreateViewController: UIViewController {
         //difLabel
         difLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(cat.snp.bottom).offset(gap*1.2)
+            make.top.equalTo(cat.snp.bottom).offset(gap*1)
             make.height.equalTo(ht)
             make.width.equalTo(lwd)
         }
@@ -280,7 +282,7 @@ class CreateViewController: UIViewController {
         //typLabel
         typLabel.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(dif.snp.bottom).offset(gap*1.2)
+            make.top.equalTo(dif.snp.bottom).offset(gap*1)
             make.height.equalTo(ht)
             make.width.equalTo(lwd)
         }
