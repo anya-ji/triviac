@@ -3,5 +3,5 @@
 3. view saved game
 4. sound effects
 5. 
-6. rename saved game
+6. 
 

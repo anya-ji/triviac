@@ -17,6 +17,8 @@ class EndViewController: UIViewController {
     
     let bgcolor = UIColor(red: 1.00, green: 0.75, blue: 0.27, alpha: 1.00)
     let savecolor = UIColor(red: 0.96, green: 0.83, blue: 0.37, alpha: 1.00)
+    let shadowcolor = UIColor(red: 0.15, green: 0.16, blue: 0.16, alpha: 1.00)
+    
     let gap = 10
     
     var score: Int!
@@ -31,7 +33,7 @@ class EndViewController: UIViewController {
     var prompt: UILabel!
     var nameText: UITextField!
     
-    var congrat: UILabel!
+//    var congrat: UILabel!
     
     // instantiate UserDefaults
     let userDefaults = UserDefaults.standard
@@ -66,12 +68,18 @@ class EndViewController: UIViewController {
         
         scoreLabel = UILabel()
         view.addSubview(scoreLabel)
+        if update {
+            scoreLabel.text = "🎉 Congrats! 🎉 \nNew highest score:"
+            scoreLabel.textColor = .orange
+        } else{
         scoreLabel.text = "You \n Scored:"
+            scoreLabel.textColor = .white
+        }
         scoreLabel.lineBreakMode = .byWordWrapping
-        scoreLabel.numberOfLines = 2
-        scoreLabel.textColor = .white
+        scoreLabel.numberOfLines = 0
         scoreLabel.font = UIFont.init(name: "Chalkduster", size: 40)
         scoreLabel.textAlignment = .center
+        scoreLabel.adjustsFontSizeToFitWidth = true
         
         
         if exist == nil {
@@ -86,6 +94,7 @@ class EndViewController: UIViewController {
             saveButton.layer.cornerRadius = 20
             saveButton.layer.borderWidth = 3
             saveButton.layer.borderColor = UIColor.gray.cgColor
+            applyShadow(button: saveButton, shadow: shadowcolor)
             saveButton.snp.makeConstraints{ make in
                 make.centerX.equalTo(view.snp.centerX)
                 make.top.equalTo(rsLabel.snp.bottom).offset(gap*7)
@@ -107,9 +116,10 @@ class EndViewController: UIViewController {
         quitButton.layer.cornerRadius = 20
         quitButton.layer.borderWidth = 3
         quitButton.layer.borderColor = UIColor.gray.cgColor
+        applyShadow(button: quitButton, shadow: shadowcolor)
         
         
-        //not found
+        //not found, name a new one
         enterView = UIView()
         enterView.backgroundColor = UIColor(white: 1, alpha: 0.5)
         enterView.layer.cornerRadius = 10
@@ -127,6 +137,7 @@ class EndViewController: UIViewController {
         saveName.layer.borderWidth = 1
         saveName.layer.borderColor = UIColor.white.cgColor
         saveName.titleLabel?.adjustsFontSizeToFitWidth = true
+        applyShadow(button: saveName, shadow: .gray)
         enterView.addSubview(saveName)
         
         cancelName = UIButton()
@@ -140,6 +151,7 @@ class EndViewController: UIViewController {
         cancelName.layer.borderWidth = 1
         cancelName.layer.borderColor = UIColor.white.cgColor
         cancelName.titleLabel?.adjustsFontSizeToFitWidth = true
+        applyShadow(button: cancelName, shadow: .gray)
         enterView.addSubview(cancelName)
         
         prompt = UILabel()
@@ -163,17 +175,17 @@ class EndViewController: UIViewController {
         nameText.adjustsFontSizeToFitWidth = true
         enterView.addSubview(nameText)
         
-        if update{
-            congrat = UILabel()
-            congrat.text = "🎉Congrats! New highest score!🎉"
-            congrat.textColor = .orange
-            congrat.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
-            congrat.textAlignment = .center
-            congrat.adjustsFontSizeToFitWidth = true
-            congrat.lineBreakMode = .byWordWrapping
-            congrat.numberOfLines = 0
-            view.addSubview(congrat)
-        }
+//        if update{
+//            congrat = UILabel()
+//            congrat.text = "🎉Congrats! New highest score!🎉"
+//            congrat.textColor = .orange
+//            congrat.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
+//            congrat.textAlignment = .center
+//            congrat.adjustsFontSizeToFitWidth = true
+//            congrat.lineBreakMode = .byWordWrapping
+//            congrat.numberOfLines = 0
+//            view.addSubview(congrat)
+//        }
         
         setup()
     }
@@ -250,40 +262,51 @@ class EndViewController: UIViewController {
         cancelName.titleLabel?.snp.makeConstraints{ make in
             make.centerY.equalToSuperview().offset(-3)
         }
-        if update{
-            congrat.snp.makeConstraints{ make in
-                make.bottom.equalTo(scoreLabel.snp.top)
-                make.height.equalTo(50)
-                make.leading.equalToSuperview().offset(20)
-                make.trailing.equalToSuperview().offset(-20)
-            }
-        }
+//        if update{
+//            congrat.snp.makeConstraints{ make in
+//                make.bottom.equalTo(scoreLabel.snp.top)
+//                make.height.equalTo(50)
+//                make.leading.equalToSuperview().offset(20)
+//                make.trailing.equalToSuperview().offset(-20)
+//            }
+//        }
         
     }
+
     
-    @objc func cancel(){
-        self.enterView.isHidden = true
-        quitButton.isEnabled = true
-        saveButton.isEnabled = true
-        view.endEditing(true)
+    @objc func cancel(sender: UIButton){
+        buttonAnimate(button: sender, shadow: .gray)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            self.enterView.isHidden = true
+            self.quitButton.isEnabled = true
+            self.saveButton.isEnabled = true
+            self.view.endEditing(true)
+        }
     }
     
-    @objc func done(){
-        let triviaObj = TriviaObj.init(title: nameText.text ?? "Triviac", set: set, score: "\(score!) / \(total!)")
-        var data = userDefaults.array(forKey: "data") as? [Data] ?? []
-        let setEncoded = try? PropertyListEncoder().encode(triviaObj)
-        data.append(setEncoded!)
-        userDefaults.set(data, forKey: "data")
-        userDefaults.set(Date(), forKey: "lastUpdated")
-        navigationController?.popToRootViewController(animated: true)
+    @objc func done(sender: UIButton){
+        buttonAnimate(button: sender, shadow: .gray)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            let triviaObj = TriviaObj.init(title: self.nameText.text ?? "Triviac", set: self.set, score: "\(self.score!) / \(self.total!)")
+            var data = self.userDefaults.array(forKey: "data") as? [Data] ?? []
+            let setEncoded = try? PropertyListEncoder().encode(triviaObj)
+            data.append(setEncoded!)
+            self.userDefaults.set(data, forKey: "data")
+            self.userDefaults.set(Date(), forKey: "lastUpdated")
+            self.navigationController?.popToRootViewController(animated: true)
+        }
     }
     
-    @objc func quit(){
-        navigationController?.popToRootViewController(animated: true)
+    @objc func quit(sender: UIButton){
+        buttonAnimate(button: sender, shadow: shadowcolor)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
     }
     
     
-    @objc func save(){
+    @objc func save(sender: UIButton){
+        buttonAnimate(button: sender, shadow: shadowcolor)
         self.enterView.isHidden = false
         quitButton.isEnabled = false
         saveButton.isEnabled = false

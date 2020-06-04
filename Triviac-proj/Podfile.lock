@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (5.1.0)
+  - Alamofire (5.2.1)
   - HTMLEntities (3.0.13)
   - SnapKit (5.0.1)
 
@@ -23,7 +23,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/IBM-Swift/swift-html-entities.git
 
 SPEC CHECKSUMS:
-  Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
+  Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
   HTMLEntities: 83738511518b3f29cf9644d0877505b8d3d1a849
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 

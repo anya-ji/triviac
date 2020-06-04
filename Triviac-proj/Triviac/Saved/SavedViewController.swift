@@ -112,6 +112,7 @@ class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
         delete.layer.borderWidth = 1
         delete.layer.borderColor = UIColor.white.cgColor
         delete.titleLabel?.adjustsFontSizeToFitWidth = true
+        applyShadow(button: delete, shadow: .gray)
         sureView.addSubview(delete)
         
         cancel = UIButton()
@@ -125,6 +126,7 @@ class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
         cancel.layer.borderWidth = 1
         cancel.layer.borderColor = UIColor.white.cgColor
         cancel.titleLabel?.adjustsFontSizeToFitWidth = true
+        applyShadow(button: cancel, shadow: .gray)
         sureView.addSubview(cancel)
         
         prompt = UILabel()
@@ -145,6 +147,7 @@ class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func check(sender: UIButton){
+        buttonAnimate(button: sender, shadow: .gray)
         if sender.titleLabel?.text == "Delete"{
             let hitPoint = chosensender.convert(CGPoint.zero, to: self.savedView)
             let hitIndex = self.savedView.indexPathForItem(at: hitPoint)
@@ -166,7 +169,9 @@ class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
             self.saved.remove(at: hitIndex!.item)
             self.savedView.reloadData()
         }
-        sureView.isHidden = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.sureView.isHidden = true
+        }
     }
     
     

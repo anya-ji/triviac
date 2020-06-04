@@ -20,6 +20,9 @@ class PlayViewController: UIViewController {
     let slcolor = UIColor(red: 1.00, green: 0.75, blue: 0.27, alpha: 1.00)
     let correctcolor = UIColor(red: 0.54, green: 0.80, blue: 0.53, alpha: 1.00)
     let okcolor = UIColor(red: 0.96, green: 0.83, blue: 0.37, alpha: 1.00)
+    let borderslcolor = UIColor(red: 0.93, green: 0.54, blue: 0.20, alpha: 1.00)
+    let bordercorrectcolor = UIColor(red: 0.45, green: 0.76, blue: 0.44, alpha: 1.00)
+    let shadowcolor = UIColor(red: 0.15, green: 0.16, blue: 0.16, alpha: 1.00)
     
     var qLabel: UILabel!
     var tButton: UIButton!
@@ -88,98 +91,22 @@ class PlayViewController: UIViewController {
         
         if mode == "multiple" {
             aButton = UIButton()
-            aButton.backgroundColor = btcolor
-            aButton.setTitleColor(.white, for: .normal)
-            aButton.addTarget(self, action: #selector(sl), for: .touchUpInside)
-            aButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
-            aButton.titleLabel?.adjustsFontSizeToFitWidth = true
-            aButton.titleLabel?.textAlignment = .center
-            aButton.layer.cornerRadius = 15
-            aButton.layer.borderWidth = 1
-            aButton.layer.borderColor = UIColor.white.cgColor
-            view.addSubview(aButton)
-            aButton.isHidden = true
-            aButton.isEnabled = true
-            aButton.titleLabel?.numberOfLines = 0
-            aButton.titleLabel?.minimumScaleFactor = 0.7
-            
             bButton = UIButton()
-            bButton.backgroundColor = btcolor
-            bButton.setTitleColor(.white, for: .normal)
-            bButton.addTarget(self, action: #selector(sl), for: .touchUpInside)
-            bButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
-            bButton.titleLabel?.textAlignment = .center
-            bButton.titleLabel?.adjustsFontSizeToFitWidth = true
-            bButton.layer.cornerRadius = 15
-            bButton.layer.borderWidth = 1
-            bButton.layer.borderColor = UIColor.white.cgColor
-            view.addSubview(bButton)
-            bButton.isHidden = true
-            bButton.isEnabled = true
-            bButton.titleLabel?.numberOfLines = 0
-            bButton.titleLabel?.minimumScaleFactor = 0.7
-            
             cButton = UIButton()
-            cButton.backgroundColor = btcolor
-            cButton.setTitleColor(.white, for: .normal)
-            cButton.addTarget(self, action: #selector(sl), for: .touchUpInside)
-            cButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
-            cButton.titleLabel?.textAlignment = .center
-            cButton.titleLabel?.adjustsFontSizeToFitWidth = true
-            cButton.layer.cornerRadius = 15
-            cButton.layer.borderWidth = 1
-            cButton.layer.borderColor = UIColor.white.cgColor
-            view.addSubview(cButton)
-            cButton.isHidden = true
-            cButton.isEnabled = true
-            cButton.titleLabel?.numberOfLines = 0
-            cButton.titleLabel?.minimumScaleFactor = 0.7
-            
             dButton = UIButton()
-            dButton.backgroundColor = btcolor
-            dButton.setTitleColor(.white, for: .normal)
-            dButton.addTarget(self, action: #selector(sl), for: .touchUpInside)
-            dButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
-            dButton.titleLabel?.textAlignment = .center
-            dButton.titleLabel?.adjustsFontSizeToFitWidth = true
-            dButton.layer.cornerRadius = 15
-            dButton.layer.borderWidth = 1
-            dButton.layer.borderColor = UIColor.white.cgColor
-            view.addSubview(dButton)
-            dButton.isHidden = true
-            dButton.isEnabled = true
-            dButton.titleLabel?.numberOfLines = 0
-            dButton.titleLabel?.minimumScaleFactor = 0.7
-            
+            mcButtonSetUp(button: aButton)
+            mcButtonSetUp(button: bButton)
+            mcButtonSetUp(button: cButton)
+            mcButtonSetUp(button: dButton)
+           
         }
         else {
             tButton = UIButton()
             tButton.setTitle("T", for: .normal)
-            tButton.backgroundColor = btcolor
-            tButton.setTitleColor(.white, for: .normal)
-            tButton.addTarget(self, action: #selector(sl), for: .touchUpInside)
-            tButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 50)
-            tButton.titleLabel?.textAlignment = .center
-            tButton.layer.cornerRadius = 15
-            tButton.layer.borderWidth = 1
-            tButton.layer.borderColor = UIColor.white.cgColor
-            view.addSubview(tButton)
-            tButton.isHidden = true
-            tButton.isEnabled = true
-            
             fButton = UIButton()
             fButton.setTitle("F", for: .normal)
-            fButton.backgroundColor = btcolor
-            fButton.setTitleColor(.white, for: .normal)
-            fButton.addTarget(self, action: #selector(sl), for: .touchUpInside)
-            fButton.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 50)
-            fButton.titleLabel?.textAlignment = .center
-            fButton.layer.cornerRadius = 15
-            fButton.layer.borderWidth = 1
-            fButton.layer.borderColor = UIColor.white.cgColor
-            view.addSubview(fButton)
-            fButton.isHidden = true
-            fButton.isEnabled = true
+            tfButtonSetUp(button: tButton)
+            tfButtonSetUp(button: fButton)
         }
         
         rsLabel = UILabel()
@@ -213,6 +140,9 @@ class PlayViewController: UIViewController {
         ok.layer.borderWidth = 1
         ok.layer.borderColor = UIColor.white.cgColor
         ok.titleLabel?.adjustsFontSizeToFitWidth = true
+        ok.layer.shadowOpacity = 0.8
+        ok.layer.shadowOffset = CGSize(width: 4, height: 4)
+        ok.layer.shadowColor = UIColor.darkGray.cgColor
         notfoundView.addSubview(ok)
         
         
@@ -230,6 +160,42 @@ class PlayViewController: UIViewController {
         setup()
         getTrivia()
         
+    }
+    func mcButtonSetUp(button: UIButton) -> Void{
+        button.backgroundColor = btcolor
+        button.setTitleColor(.white, for: .normal)
+        button.addTarget(self, action: #selector(sl), for: .touchUpInside)
+        button.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.textAlignment = .center
+        button.layer.cornerRadius = 15
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.white.cgColor
+        button.isHidden = true
+        button.isEnabled = true
+        button.titleLabel?.numberOfLines = 0
+        button.titleLabel?.minimumScaleFactor = 0.7
+        button.layer.shadowColor = shadowcolor.cgColor
+        button.layer.shadowOpacity = 0.8
+        button.layer.shadowOffset = CGSize(width: 4, height: 4)
+        view.addSubview(button)
+        
+    }
+    func tfButtonSetUp(button: UIButton) -> Void{
+           button.backgroundColor = btcolor
+           button.setTitleColor(.white, for: .normal)
+           button.addTarget(self, action: #selector(sl), for: .touchUpInside)
+           button.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 50)
+           button.titleLabel?.textAlignment = .center
+           button.layer.cornerRadius = 15
+           button.layer.borderWidth = 1
+           button.layer.borderColor = UIColor.white.cgColor
+           button.isHidden = true
+           button.isEnabled = true
+           button.layer.shadowColor = shadowcolor.cgColor
+           button.layer.shadowOpacity = 0.8
+           button.layer.shadowOffset = CGSize(width: 4, height: 4)
+        view.addSubview(button)
     }
     
     func setup(){
@@ -369,13 +335,42 @@ class PlayViewController: UIViewController {
         
 
     }
+
     
-    @objc func quit(){
-        navigationController?.popToRootViewController(animated: true)
+    @objc func quit(sender: UIButton){
+        if sender == ok {
+            buttonAnimate(button: ok, shadow: UIColor.darkGray)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+    }
+    
+    func setToNormal(button: UIButton) -> Void{
+        button.transform = CGAffineTransform.identity
+        button.backgroundColor = btcolor
+        button.isEnabled = true
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.shadowColor = shadowcolor.cgColor
+    }
+    
+    func setToSelected(button: UIButton) -> Void{
+        button.transform = CGAffineTransform(scaleX: 0.97, y: 0.97)
+        button.backgroundColor = slcolor
+        button.layer.borderWidth = 3
+        button.layer.borderColor = borderslcolor.cgColor
+        button.layer.shadowColor = UIColor.clear.cgColor
+    }
+    func setToCorrect(button: UIButton) -> Void{
+           button.backgroundColor = correctcolor
+           button.layer.borderWidth = 3
+           button.layer.borderColor = bordercorrectcolor.cgColor
+        button.layer.shadowColor = UIColor.clear.cgColor
     }
     
     @objc func sl(sender: UIButton){
-        sender.backgroundColor = slcolor
+        setToSelected(button: sender)
         let current = triviaset[self.triviaset.count - self.turnsleft]
         //update state
         if mode == "multiple"{
@@ -392,13 +387,13 @@ class PlayViewController: UIViewController {
             else {
                 rsLabel.text = "❌"
                 if aButton.titleLabel?.text == correctans{
-                    aButton.backgroundColor = correctcolor
+                    setToCorrect(button: aButton)
                 } else if bButton.titleLabel?.text == correctans{
-                    bButton.backgroundColor = correctcolor
+                    setToCorrect(button: bButton)
                 } else if cButton.titleLabel?.text == correctans{
-                    cButton.backgroundColor = correctcolor
+                    setToCorrect(button: cButton)
                 } else{
-                    dButton.backgroundColor = correctcolor
+                    setToCorrect(button: dButton)
                 }
             }
             turnsleft = turnsleft - 1
@@ -415,11 +410,10 @@ class PlayViewController: UIViewController {
                     self.qLabel.text = next.question.htmlUnescape()
                     self.stateLabel.text = "\(self.state.all - self.turnsleft+1)/\(self.state.all)"
                     self.rsLabel.text = ""
-                    sender.backgroundColor = self.btcolor
-                    self.aButton.backgroundColor = self.btcolor
-                    self.bButton.backgroundColor = self.btcolor
-                    self.cButton.backgroundColor = self.btcolor
-                    self.dButton.backgroundColor = self.btcolor
+                    self.setToNormal(button: self.aButton)
+                    self.setToNormal(button: self.bButton)
+                    self.setToNormal(button: self.cButton)
+                    self.setToNormal(button: self.dButton)
                     var c = next.incorrect_answers
                     c.append(next.correct_answer)
                     self.choices = c.map{ $0.htmlUnescape() }
@@ -428,10 +422,6 @@ class PlayViewController: UIViewController {
                     self.bButton.setTitle(self.choices[1], for: .normal)
                     self.cButton.setTitle(self.choices[2], for: .normal)
                     self.dButton.setTitle(self.choices[3], for: .normal)
-                    self.aButton.isEnabled = true
-                    self.bButton.isEnabled = true
-                    self.cButton.isEnabled = true
-                    self.dButton.isEnabled = true
                 }
             }
         }
@@ -461,7 +451,7 @@ class PlayViewController: UIViewController {
                     self.qLabel.text = next.question.htmlUnescape()
                     self.stateLabel.text = "\(self.state.all - self.turnsleft+1)/\(self.state.all)"
                     self.rsLabel.text = ""
-                    sender.backgroundColor = self.btcolor
+                    self.setToNormal(button: sender)
                     self.tButton.isEnabled = true
                     self.fButton.isEnabled = true
                 }

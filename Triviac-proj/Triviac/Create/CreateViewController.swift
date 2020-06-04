@@ -27,11 +27,13 @@ class CreateViewController: UIViewController {
     var gen: UIButton!
     
     let ls = CGFloat(25)
-
+    
     let bgcolor = UIColor(red: 0.27, green: 0.29, blue: 0.30, alpha: 1.00)
     let gencolor = UIColor(red: 0.96, green: 0.83, blue: 0.37, alpha: 1.00)
     let btcolor = UIColor(red: 0.77, green: 0.76, blue: 0.78, alpha: 1.00)
     let textcolor = UIColor.white
+    let bordercolor = UIColor.white
+    let shadowcolor = UIColor(red: 0.15, green: 0.16, blue: 0.16, alpha: 1.00)
     
     
     public static var endpoint = "https://opentdb.com/api.php?amount="
@@ -46,12 +48,7 @@ class CreateViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
         tabBarController?.tabBar.isHidden = false
     }
-//
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        numText.becomeFirstResponder()
-//
-//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
@@ -60,7 +57,7 @@ class CreateViewController: UIViewController {
         self.navigationItem.title = "Generate a Trivia!"
         navigationController?.navigationBar.barTintColor = gencolor
         navigationController?.navigationBar.titleTextAttributes = [
-           // NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20),
+            // NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20),
             NSAttributedString.Key.foregroundColor: UIColor.white]
         parseJSON()
         
@@ -93,8 +90,9 @@ class CreateViewController: UIViewController {
         add.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls-10)
         add.layer.cornerRadius = 5
         add.layer.borderWidth = 1
-        add.layer.borderColor = UIColor.white.cgColor
+        add.layer.borderColor = bordercolor.cgColor
         add.titleLabel?.adjustsFontSizeToFitWidth = true
+        applyShadow(button: add, shadow: shadowcolor)
         
         sub = UIButton()
         sub.setTitle("-", for: .normal)
@@ -105,8 +103,9 @@ class CreateViewController: UIViewController {
         sub.titleLabel?.textAlignment = .center
         sub.layer.cornerRadius = 5
         sub.layer.borderWidth = 1
-        sub.layer.borderColor = UIColor.white.cgColor
+        sub.layer.borderColor = bordercolor.cgColor
         sub.titleLabel?.adjustsFontSizeToFitWidth = true
+        applyShadow(button: sub, shadow: shadowcolor)
         
         //category
         catLabel = UILabel()
@@ -128,11 +127,12 @@ class CreateViewController: UIViewController {
         //cat.titleLabel?.lineBreakMode = .byWordWrapping
         cat.titleLabel?.adjustsFontSizeToFitWidth = true
         cat.sizeToFit()
+        applyShadow(button: cat, shadow: shadowcolor)
         
         //cat.sizeToFit()
         cat.layer.cornerRadius = 15
         cat.layer.borderWidth = 1
-        cat.layer.borderColor = UIColor.white.cgColor
+        cat.layer.borderColor = bordercolor.cgColor
         
         //difficulty
         difLabel = UILabel()
@@ -151,8 +151,9 @@ class CreateViewController: UIViewController {
         dif.titleLabel?.textAlignment = .center
         dif.layer.cornerRadius = 15
         dif.layer.borderWidth = 1
-        dif.layer.borderColor = UIColor.white.cgColor
+        dif.layer.borderColor = bordercolor.cgColor
         dif.titleLabel?.adjustsFontSizeToFitWidth = true
+        applyShadow(button: dif, shadow: shadowcolor)
         
         
         //type
@@ -172,8 +173,9 @@ class CreateViewController: UIViewController {
         typ.titleLabel?.textAlignment = .center
         typ.layer.cornerRadius = 15
         typ.layer.borderWidth = 1
-        typ.layer.borderColor = UIColor.white.cgColor
+        typ.layer.borderColor = bordercolor.cgColor
         typ.titleLabel?.adjustsFontSizeToFitWidth = true
+        applyShadow(button: typ, shadow: shadowcolor)
         
         //gen
         gen = UIButton()
@@ -187,7 +189,9 @@ class CreateViewController: UIViewController {
         gen.layer.borderWidth = 3
         gen.layer.borderColor = UIColor.white.cgColor
         gen.titleLabel?.adjustsFontSizeToFitWidth = true
-
+        applyShadow(button: gen, shadow: shadowcolor)
+        
+        
         view.addSubview(numLabel)
         view.addSubview(numText)
         view.addSubview(add)
@@ -204,10 +208,12 @@ class CreateViewController: UIViewController {
         
     }
     
+    
+    
     func setup(){
-            let ht = CGFloat(50)
-            let lwd = CGFloat(300)
-            let bwd = CGFloat(130)
+        let ht = CGFloat(50)
+        let lwd = CGFloat(300)
+        let bwd = CGFloat(130)
         let gap = view.frame.height / 83
         //numLabel
         numLabel.snp.makeConstraints{ make in
@@ -317,6 +323,7 @@ class CreateViewController: UIViewController {
         } else{
             numText.text = "\(add1)"
         }
+        buttonAnimate(button: add, shadow: shadowcolor)
     }
     
     @objc func subf(){
@@ -326,15 +333,18 @@ class CreateViewController: UIViewController {
         } else{
             numText.text = "\(sub1)"
         }
+        buttonAnimate(button: sub, shadow: shadowcolor)
     }
     
     @objc func catf(){        
         let catVC = CatViewController(placeholder: "")
         catVC!.delegate = self
+        buttonAnimate(button: cat, shadow: shadowcolor)
         present(catVC!, animated: true, completion: nil)
     }
     
     @objc func diff(){
+        buttonAnimate(button: dif, shadow: shadowcolor)
         if dif.titleLabel?.text == "Easy" {
             dif.setTitle("Medium", for: .normal)
         } else if dif.titleLabel?.text == "Medium"{
@@ -345,6 +355,7 @@ class CreateViewController: UIViewController {
     }
     
     @objc func typf(){
+        buttonAnimate(button: typ, shadow: shadowcolor)
         if typ.titleLabel?.text == "Multiple Choice" {
             typ.setTitle("True/False", for: .normal)
         } else{
@@ -352,6 +363,7 @@ class CreateViewController: UIViewController {
         }
     }
     @objc func genf(){
+        buttonAnimate(button: gen, shadow: shadowcolor)
         var chosennum = "10"
         if let num = Int(String(numText.text ?? "10")) {
             if (num >= 1 && num <= 50) {
@@ -366,7 +378,10 @@ class CreateViewController: UIViewController {
         //print(CreateViewController.endpoint)
         
         let playViewController = PlayViewController(mode: chosentyp, replay: nil)
-        navigationController?.pushViewController(playViewController, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.navigationController?.pushViewController(playViewController, animated: true)
+        }
+        
     }
     
     func parseJSON(){
@@ -383,14 +398,6 @@ class CreateViewController: UIViewController {
                 
                 
                 for cate in catsArray{
-                    
-                    //                    if let validName = cate.num{
-                    //                         print("Name = \(validName)")
-                    //                    }
-                    //
-                    //                    if let validTitle = cate.cat{
-                    //                        print("Title = \(validTitle)")
-                    //                    }
                     rs[cate.cat!] = cate.num
                     ra.append(cate.cat!)
                 }
@@ -416,11 +423,29 @@ extension CreateViewController: CatChangeTextDelegate{
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         let tapGesture = UITapGestureRecognizer(target: self,
-                         action: #selector(hideKeyboard))
+                                                action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGesture)
     }
-
+    
     @objc func hideKeyboard() {
         view.endEditing(true)
+    }
+    func applyShadow(button: UIButton, shadow: UIColor){
+        button.layer.shadowColor = shadow.cgColor
+        button.layer.shadowOpacity = 0.8
+        button.layer.shadowOffset = CGSize(width: 4, height: 4)
+    }
+    func buttonAnimate(button: UIButton, shadow: UIColor){
+        UIView.animate(withDuration: 0.1,
+                       animations: {
+                        button.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+                        button.layer.shadowColor = UIColor.clear.cgColor
+        },
+                       completion: { _ in
+                        UIView.animate(withDuration: 0.1) {
+                            button.transform = CGAffineTransform.identity
+                            button.layer.shadowColor = shadow.cgColor
+                        }
+        })
     }
 }
