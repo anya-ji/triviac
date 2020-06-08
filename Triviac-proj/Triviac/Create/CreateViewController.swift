@@ -21,16 +21,21 @@ class CreateViewController: UIViewController {
     var catLabel: UILabel!
     var cat: UIButton!
     var difLabel: UILabel!
-    var dif: UIButton!
+    //var dif: UIButton!
+    var dif: UISegmentedControl!
     var typLabel: UILabel!
-    var typ: UIButton!
+   // var typ: UIButton!
+    var typ: UISegmentedControl!
+    var modeLabel: UILabel!
+    var mode: UISegmentedControl!
     var gen: UIButton!
     
     let ls = CGFloat(25)
     
     let bgcolor = UIColor(red: 0.27, green: 0.29, blue: 0.30, alpha: 1.00)
     let gencolor = UIColor(red: 0.96, green: 0.83, blue: 0.37, alpha: 1.00)
-    let btcolor = UIColor(red: 0.77, green: 0.76, blue: 0.78, alpha: 1.00)
+    //let btcolor = UIColor(red: 0.77, green: 0.76, blue: 0.78, alpha: 1.00)
+    let btcolor = UIColor(red: 0.30, green: 0.31, blue: 0.33, alpha: 1.00)
     let textcolor = UIColor.white
     let bordercolor = UIColor.white
     let shadowcolor = UIColor(red: 0.15, green: 0.16, blue: 0.16, alpha: 1.00)
@@ -76,7 +81,6 @@ class CreateViewController: UIViewController {
         numText.borderStyle = UITextField.BorderStyle.roundedRect
         numText.textAlignment = .center
         numText.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
-        numText.textAlignment = .center
         numText.adjustsFontSizeToFitWidth = true
         numText.keyboardType = .numberPad
         
@@ -120,7 +124,7 @@ class CreateViewController: UIViewController {
         cat.backgroundColor = btcolor
         cat.setTitleColor(.white, for: .normal)
         cat.addTarget(self, action: #selector(catf), for: .touchUpInside)
-        cat.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
+        cat.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls-10)
         cat.titleLabel?.textAlignment = .center
         cat.titleLabel?.numberOfLines = 0
         cat.titleLabel?.minimumScaleFactor = 0.6
@@ -142,18 +146,13 @@ class CreateViewController: UIViewController {
         difLabel.textAlignment = .center
         difLabel.adjustsFontSizeToFitWidth = true
         
-        dif = UIButton()
-        dif.setTitle("Easy", for: .normal)
-        dif.backgroundColor = btcolor
-        dif.setTitleColor(.white, for: .normal)
-        dif.addTarget(self, action: #selector(diff), for: .touchUpInside)
-        dif.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
-        dif.titleLabel?.textAlignment = .center
-        dif.layer.cornerRadius = 15
-        dif.layer.borderWidth = 1
-        dif.layer.borderColor = bordercolor.cgColor
-        dif.titleLabel?.adjustsFontSizeToFitWidth = true
-        applyShadow(button: dif, shadow: shadowcolor)
+        
+        dif = UISegmentedControl(items: ["Easy", "Medium", "Hard"])
+        dif.tintColor = .white
+        dif.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: bgcolor, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .selected)
+        dif.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .normal)
+        dif.selectedSegmentIndex = 0
+        //dif.addTarget(self, action: #selector(handle), for: .valueChanged)
         
         
         //type
@@ -164,18 +163,28 @@ class CreateViewController: UIViewController {
         typLabel.textAlignment = .center
         typLabel.adjustsFontSizeToFitWidth = true
         
-        typ = UIButton()
-        typ.setTitle("Multiple Choice", for: .normal)
-        typ.backgroundColor = btcolor
-        typ.setTitleColor(.white, for: .normal)
-        typ.addTarget(self, action: #selector(typf), for: .touchUpInside)
-        typ.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
-        typ.titleLabel?.textAlignment = .center
-        typ.layer.cornerRadius = 15
-        typ.layer.borderWidth = 1
-        typ.layer.borderColor = bordercolor.cgColor
-        typ.titleLabel?.adjustsFontSizeToFitWidth = true
-        applyShadow(button: typ, shadow: shadowcolor)
+        
+        typ = UISegmentedControl(items: ["Multiple Choice", "True/False"])
+        typ.tintColor = .white
+        typ.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: bgcolor, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .selected)
+        typ.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .normal)
+        typ.selectedSegmentIndex = 0
+        
+        //typ.addTarget(self, action: #selector(handle), for: .valueChanged)
+        
+        //mode
+        modeLabel = UILabel()
+        modeLabel.text = "Mode"
+        modeLabel.textColor = textcolor
+        modeLabel.font = UIFont.init(name: "Chalkduster", size: ls)
+        modeLabel.textAlignment = .center
+        modeLabel.adjustsFontSizeToFitWidth = true
+        
+        mode = UISegmentedControl(items: ["Single Player", "Invite"])
+        mode.tintColor = .white
+        mode.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: bgcolor, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .selected)
+        mode.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .normal)
+        mode.selectedSegmentIndex = 0
         
         //gen
         gen = UIButton()
@@ -202,6 +211,8 @@ class CreateViewController: UIViewController {
         view.addSubview(dif)
         view.addSubview(typLabel)
         view.addSubview(typ)
+        view.addSubview(modeLabel)
+        view.addSubview(mode)
         view.addSubview(gen)
         
         setup()
@@ -247,19 +258,22 @@ class CreateViewController: UIViewController {
         sub.titleLabel?.snp.makeConstraints{ make in
             make.centerY.equalToSuperview().offset(-3)
         }
+
+        
         //catLabel
         catLabel.snp.makeConstraints{ make in
-            make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(numText.snp.bottom).offset(gap*1)
+            make.top.equalTo(numText.snp.bottom).offset(gap*3)
             make.height.equalTo(ht)
-            make.width.equalTo(lwd)
+            make.leading.equalToSuperview()
+            //make.trailing.equalTo(view.snp.centerX)
+            make.width.equalTo(view.frame.width/2.3)
         }
         //cat
         cat.snp.makeConstraints{ make in
-            make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(catLabel.snp.bottom).offset(gap)
-            make.height.equalTo(ht*1.2)
-            make.width.equalTo(bwd*2)
+            make.leading.equalTo(difLabel.snp.trailing)
+            make.trailing.equalToSuperview().offset(-gap)
+            make.height.equalTo(ht)
+            make.top.equalTo(catLabel.snp.top)
         }
         cat.titleLabel?.snp.makeConstraints{ make in
             //make.centerY.equalToSuperview().offset(-3)
@@ -268,46 +282,69 @@ class CreateViewController: UIViewController {
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
         }
+        
+        
         //difLabel
         difLabel.snp.makeConstraints{ make in
-            make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(cat.snp.bottom).offset(gap*1)
+            make.top.equalTo(cat.snp.bottom).offset(gap*3)
             make.height.equalTo(ht)
-            make.width.equalTo(lwd)
+            make.leading.equalToSuperview()
+            //make.trailing.equalTo(view.snp.centerX)
+            make.width.equalTo(view.frame.width/2.3)
         }
-        //dif
+        
         dif.snp.makeConstraints{ make in
-            make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(difLabel.snp.bottom).offset(gap)
+            //make.leading.equalTo(view.snp.centerX).offset(gap)
+            make.leading.equalTo(difLabel.snp.trailing)
+            make.trailing.equalToSuperview().offset(-gap)
+            //make.width.equalTo(view.frame.width/2 - 2*gap)
             make.height.equalTo(ht)
-            make.width.equalTo(bwd)
+            make.top.equalTo(difLabel.snp.top)
         }
-        dif.titleLabel?.snp.makeConstraints{ make in
-            make.centerY.equalToSuperview().offset(-3)
-        }
+    
+        
         //typLabel
         typLabel.snp.makeConstraints{ make in
-            make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(dif.snp.bottom).offset(gap*1)
+            make.top.equalTo(dif.snp.bottom).offset(gap*3)
             make.height.equalTo(ht)
-            make.width.equalTo(lwd)
+            make.leading.equalToSuperview()
+            //make.trailing.equalTo(view.snp.centerX)
+            make.width.equalTo(view.frame.width/3)
         }
-        //typ
+        
         typ.snp.makeConstraints{ make in
-            make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(typLabel.snp.bottom).offset(gap)
+            //make.leading.equalTo(view.snp.centerX).offset(-gap)
+            make.trailing.equalToSuperview().offset(-gap)
             make.height.equalTo(ht)
-            make.width.equalTo(bwd*2)
+            //make.width.equalTo(240)
+            make.leading.equalTo(typLabel.snp.trailing)
+            make.top.equalTo(typLabel.snp.top)
         }
-        typ.titleLabel?.snp.makeConstraints{ make in
-            make.centerY.equalToSuperview().offset(-3)
+        
+        //modeLabel
+        modeLabel.snp.makeConstraints{ make in
+            make.top.equalTo(typ.snp.bottom).offset(gap*3)
+            make.height.equalTo(ht)
+            make.leading.equalToSuperview()
+            //make.trailing.equalTo(view.snp.centerX)
+            make.width.equalTo(view.frame.width/3)
         }
+        
+        mode.snp.makeConstraints{ make in
+            //make.leading.equalTo(view.snp.centerX).offset(-gap)
+            make.trailing.equalToSuperview().offset(-gap)
+            make.height.equalTo(ht)
+            //make.width.equalTo(240)
+            make.leading.equalTo(modeLabel.snp.trailing)
+            make.top.equalTo(modeLabel.snp.top)
+        }
+        
         //gen
         gen.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-gap*2)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-gap*5)
             //make.top.equalTo(typ.snp.bottom).offset(gap*3)
-            //make.height.equalTo(60)
+            make.height.equalTo(60)
             make.width.equalTo(200)
         }
         gen.titleLabel?.snp.makeConstraints{ make in
@@ -343,25 +380,25 @@ class CreateViewController: UIViewController {
         present(catVC!, animated: true, completion: nil)
     }
     
-    @objc func diff(){
-        buttonAnimate(button: dif, shadow: shadowcolor)
-        if dif.titleLabel?.text == "Easy" {
-            dif.setTitle("Medium", for: .normal)
-        } else if dif.titleLabel?.text == "Medium"{
-            dif.setTitle("Hard", for: .normal)
-        } else{
-            dif.setTitle("Easy", for: .normal)
-        }
-    }
-    
-    @objc func typf(){
-        buttonAnimate(button: typ, shadow: shadowcolor)
-        if typ.titleLabel?.text == "Multiple Choice" {
-            typ.setTitle("True/False", for: .normal)
-        } else{
-            typ.setTitle("Multiple Choice", for: .normal)
-        }
-    }
+//    @objc func diff(){
+//        buttonAnimate(button: dif, shadow: shadowcolor)
+//        if dif.titleLabel?.text == "Easy" {
+//            dif.setTitle("Medium", for: .normal)
+//        } else if dif.titleLabel?.text == "Medium"{
+//            dif.setTitle("Hard", for: .normal)
+//        } else{
+//            dif.setTitle("Easy", for: .normal)
+//        }
+//    }
+//    
+//    @objc func typf(){
+//        buttonAnimate(button: typ, shadow: shadowcolor)
+//        if typ.titleLabel?.text == "Multiple Choice" {
+//            typ.setTitle("True/False", for: .normal)
+//        } else{
+//            typ.setTitle("Multiple Choice", for: .normal)
+//        }
+//    }
     @objc func genf(){
         buttonAnimate(button: gen, shadow: shadowcolor)
         var chosennum = "10"
@@ -370,12 +407,14 @@ class CreateViewController: UIViewController {
                 chosennum = String(num)
             }
         }
-        let chosendif = (dif.titleLabel?.text)?.lowercased()
-        let chosentyp = typ.titleLabel?.text == "Multiple Choice" ? "multiple" : "boolean"
+        //let chosendif = (dif.titleLabel?.text)?.lowercased()
+        //let chosentyp = typ.titleLabel?.text == "Multiple Choice" ? "multiple" : "boolean"
+        let chosendif = dif.titleForSegment(at: dif.selectedSegmentIndex)?.lowercased()
+        let chosentyp = typ.titleForSegment(at: typ.selectedSegmentIndex) == "Multiple Choice" ? "multiple" : "boolean"
         let tpcat = CreateViewController.catdic[(cat.titleLabel?.text)!]
         let chosencat = tpcat == "any" ?  "" : "&category=\(tpcat!)"
         CreateViewController.endpoint = "\(ed)\(chosennum)\(chosencat)&difficulty=\(chosendif!)&type=\(chosentyp)"
-        //print(CreateViewController.endpoint)
+        print(CreateViewController.endpoint)
         
         let playViewController = PlayViewController(mode: chosentyp, replay: nil)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -449,3 +488,4 @@ extension UIViewController {
         })
     }
 }
+

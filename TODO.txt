@@ -1,5 +1,5 @@
 1. better constraints: long texts make button grow
-2. 
+2. 2-players
 3. view saved game
 4. sound effects
 5. 
