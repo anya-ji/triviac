@@ -16,9 +16,7 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
-        let profileVC = SignInViewController()
-        
+
         let createVC = CreateViewController()
         let home = UIImage(named: "home")?.resized(to: CGSize(width: 30, height: 30))
         createVC.tabBarItem = UITabBarItem(title: "", image: home, tag: 0)
@@ -26,7 +24,8 @@ class TabBarController: UITabBarController {
         let savedVC = SavedViewController()
         let saved = UIImage(named: "saved")?.resized(to: CGSize(width: 30, height: 30))
         savedVC.tabBarItem = UITabBarItem(title: "", image: saved, tag: 1)
-        
+
+        let profileVC = ProfileViewController()
         let profile = UIImage(named: "profile")?.resized(to: CGSize(width: 30, height: 30))
         profileVC.tabBarItem = UITabBarItem(title: "", image: profile, tag: 2)
         

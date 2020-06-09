@@ -1,7 +1,7 @@
-1. better constraints: long texts make button grow
-2. 2-players
+1. invalid input for user/email show red
+2. multiplayers
 3. view saved game
 4. sound effects
-5. 
+5. better logo
 6. 
 

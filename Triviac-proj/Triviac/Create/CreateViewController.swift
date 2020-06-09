@@ -152,7 +152,6 @@ class CreateViewController: UIViewController {
         dif.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: bgcolor, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .selected)
         dif.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .normal)
         dif.selectedSegmentIndex = 0
-        //dif.addTarget(self, action: #selector(handle), for: .valueChanged)
         
         
         //type
@@ -170,7 +169,6 @@ class CreateViewController: UIViewController {
         typ.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .normal)
         typ.selectedSegmentIndex = 0
         
-        //typ.addTarget(self, action: #selector(handle), for: .valueChanged)
         
         //mode
         modeLabel = UILabel()
@@ -185,6 +183,7 @@ class CreateViewController: UIViewController {
         mode.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: bgcolor, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .selected)
         mode.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .normal)
         mode.selectedSegmentIndex = 0
+        mode.addTarget(self, action: #selector(changeMode), for: .valueChanged)
         
         //gen
         gen = UIButton()
@@ -219,7 +218,15 @@ class CreateViewController: UIViewController {
         
     }
     
-    
+    @objc func changeMode(){
+        if mode.selectedSegmentIndex == 0 {
+            gen.setTitle("Generate!", for: .normal)
+        }
+        else{
+            gen.setTitle("Invite", for: .normal)
+        }
+        
+    }
     
     func setup(){
         let ht = CGFloat(50)
@@ -380,25 +387,7 @@ class CreateViewController: UIViewController {
         present(catVC!, animated: true, completion: nil)
     }
     
-//    @objc func diff(){
-//        buttonAnimate(button: dif, shadow: shadowcolor)
-//        if dif.titleLabel?.text == "Easy" {
-//            dif.setTitle("Medium", for: .normal)
-//        } else if dif.titleLabel?.text == "Medium"{
-//            dif.setTitle("Hard", for: .normal)
-//        } else{
-//            dif.setTitle("Easy", for: .normal)
-//        }
-//    }
-//    
-//    @objc func typf(){
-//        buttonAnimate(button: typ, shadow: shadowcolor)
-//        if typ.titleLabel?.text == "Multiple Choice" {
-//            typ.setTitle("True/False", for: .normal)
-//        } else{
-//            typ.setTitle("Multiple Choice", for: .normal)
-//        }
-//    }
+
     @objc func genf(){
         buttonAnimate(button: gen, shadow: shadowcolor)
         var chosennum = "10"
@@ -407,8 +396,6 @@ class CreateViewController: UIViewController {
                 chosennum = String(num)
             }
         }
-        //let chosendif = (dif.titleLabel?.text)?.lowercased()
-        //let chosentyp = typ.titleLabel?.text == "Multiple Choice" ? "multiple" : "boolean"
         let chosendif = dif.titleForSegment(at: dif.selectedSegmentIndex)?.lowercased()
         let chosentyp = typ.titleForSegment(at: typ.selectedSegmentIndex) == "Multiple Choice" ? "multiple" : "boolean"
         let tpcat = CreateViewController.catdic[(cat.titleLabel?.text)!]

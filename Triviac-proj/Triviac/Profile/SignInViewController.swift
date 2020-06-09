@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Firebase
 
 class SignInViewController: UIViewController {
     
@@ -21,15 +22,17 @@ class SignInViewController: UIViewController {
     let gap: CGFloat = 20
     
     var sc: UISegmentedControl!
-    var user: UITextField!
-    var pw: UITextField!
-    var email: UITextField!
+    var userText: UITextField!
+    var pwText: UITextField!
+    var emailText: UITextField!
     var signInRegisterButton: UIButton!
+    var bulb: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
         
+        self.navigationItem.hidesBackButton = true
         view.backgroundColor = bgcolor
         self.navigationItem.title = "Sign In"
         navigationController?.navigationBar.barTintColor = gencolor
@@ -45,33 +48,33 @@ class SignInViewController: UIViewController {
         sc.addTarget(self, action: #selector(handle), for: .valueChanged)
         view.addSubview(sc)
         
-        user = UITextField()
-        user.backgroundColor = .white
-        user.placeholder = "Username"
-        user.textColor = .black
-        user.borderStyle = UITextField.BorderStyle.roundedRect
-        user.textAlignment = .left
-        user.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
-        view.addSubview(user)
+        userText = UITextField()
+        userText.backgroundColor = .white
+        userText.placeholder = "Username"
+        userText.textColor = .black
+        userText.borderStyle = UITextField.BorderStyle.roundedRect
+        userText.textAlignment = .left
+        userText.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
+        view.addSubview(userText)
         
-        pw = UITextField()
-        pw.backgroundColor = .white
-        pw.placeholder = "Password"
-        pw.textColor = .black
-        pw.borderStyle = UITextField.BorderStyle.roundedRect
-        pw.textAlignment = .left
-        pw.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
-        pw.isSecureTextEntry = true
-        view.addSubview(pw)
+        pwText = UITextField()
+        pwText.backgroundColor = .white
+        pwText.placeholder = "Password"
+        pwText.textColor = .black
+        pwText.borderStyle = UITextField.BorderStyle.roundedRect
+        pwText.textAlignment = .left
+        pwText.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
+        pwText.isSecureTextEntry = true
+        view.addSubview(pwText)
         
-        email = UITextField()
-        email.backgroundColor = .white
-        email.placeholder = "Email Address"
-        email.textColor = .black
-        email.borderStyle = UITextField.BorderStyle.roundedRect
-        email.textAlignment = .left
-        email.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
-        view.addSubview(email)
+        emailText = UITextField()
+        emailText.backgroundColor = .white
+        emailText.placeholder = "Email Address"
+        emailText.textColor = .black
+        emailText.borderStyle = UITextField.BorderStyle.roundedRect
+        emailText.textAlignment = .left
+        emailText.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
+        view.addSubview(emailText)
         
         signInRegisterButton = UIButton()
         signInRegisterButton.setTitle("Sign In", for: .normal)
@@ -86,6 +89,10 @@ class SignInViewController: UIViewController {
         signInRegisterButton.titleLabel?.adjustsFontSizeToFitWidth = true
         applyShadow(button: signInRegisterButton, shadow: shadowcolor)
         view.addSubview(signInRegisterButton)
+        
+        bulb = UIImageView()
+        bulb.image = UIImage(named: "bulb")
+        view.addSubview(bulb)
         
         setup()
     }
@@ -112,6 +119,52 @@ class SignInViewController: UIViewController {
     }
     
     @objc func userSignInRegister(){
+        guard let name = userText.text, let password = pwText.text, let email = emailText.text else{
+            //MARK: TODO: invalid, handle empty etc
+            print("invalid form")
+            return
+        }
+        
+        if sc.selectedSegmentIndex == 0 {
+            //sign in
+            Auth.auth().signIn(withEmail: email, password: password, completion:{
+                (result, error) in
+                if error != nil{
+                    print(error!)//MARK: error
+                    return
+                }
+                self.navigationController?.popViewController(animated: true)
+            })
+            
+        }
+        else {
+            //create user
+            Auth.auth().createUser(withEmail: email, password: password, completion: { (result, error) in
+                if error != nil{
+                    print(error!)//MARK: error
+                    return
+                }
+                guard let uid = result?.user.uid else{
+                    return
+                }
+                let ref = Database.database().reference(fromURL: "https://triviac-63843.firebaseio.com/")
+                let usersRef = ref.child("users").child(uid)
+                let values = Player.init(name: name, email: email).forDatabase()
+                usersRef.updateChildValues(values) { (err, ref) in
+                    if err != nil {
+                        print(err!)
+                        return
+                    }
+                }
+            })
+            //MARK: Some message
+            sc.selectedSegmentIndex = 0
+            signInRegisterButton.setTitle("Sign In", for: .normal)
+            unhide.deactivate()
+            hide.activate()
+            unhidegap.deactivate()
+            hidegap.activate()
+        }
         
     }
     
@@ -123,7 +176,7 @@ class SignInViewController: UIViewController {
             make.height.equalTo(30)
         }
         
-        user.snp.makeConstraints{ make in
+        userText.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
             
             unhidegap = make.top.equalTo(sc.snp.bottom).offset(gap).constraint
@@ -132,37 +185,48 @@ class SignInViewController: UIViewController {
         }
         unhide.deactivate()
         unhidegap.deactivate()
-        user.snp.makeConstraints{ make in
+        userText.snp.makeConstraints{ make in
             hidegap = make.top.equalTo(sc.snp.bottom).constraint
             hide = make.height.equalTo(0).constraint
         }
         
         
-        email.snp.makeConstraints{ make in
+        emailText.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(user.snp.bottom).offset(gap)
+            make.top.equalTo(userText.snp.bottom).offset(gap)
             make.height.equalTo(50)
             make.width.equalTo(view.frame.width - 2*gap)
         }
         
-        pw.snp.makeConstraints{ make in
+        pwText.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(email.snp.bottom).offset(gap)
+            make.top.equalTo(emailText.snp.bottom).offset(gap)
             make.height.equalTo(50)
             make.width.equalTo(view.frame.width - 2*gap)
         }
         
         signInRegisterButton.snp.makeConstraints{ make in
-                make.centerX.equalTo(view.snp.centerX)
-            make.top.equalTo(pw.snp.bottom).offset(gap*2)
-                make.width.equalTo(200)
-            }
-            signInRegisterButton.titleLabel?.snp.makeConstraints{ make in
-                make.centerY.equalToSuperview().offset(-3)
-            }
+            make.centerX.equalTo(view.snp.centerX)
+            make.top.equalTo(pwText.snp.bottom).offset(gap*2)
+            make.width.equalTo(200)
+        }
+        signInRegisterButton.titleLabel?.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview().offset(-3)
+        }
+        
+        bulb.snp.makeConstraints{ make in
+            make.bottom.equalTo(sc.snp.top).offset(-gap*3)
+            make.height.width.equalTo(120)
+            make.centerX.equalToSuperview()
+        }
         
     }
     
     
 }
 
+extension UIColor {
+    static func randomColor() -> UIColor {
+        return UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1)
+    }
+}

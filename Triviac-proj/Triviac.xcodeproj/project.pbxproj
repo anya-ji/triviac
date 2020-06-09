@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		41100FA8248D8AD60051EA2C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41100FA7248D8AD60051EA2C /* GoogleService-Info.plist */; };
 		41100FAF248DD2580051EA2C /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41100FAE248DD2580051EA2C /* SignInViewController.swift */; };
+		414FA627248EE2B70089F00A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414FA626248EE2B70089F00A /* ProfileViewController.swift */; };
 		415CC4DE2461187F004CC7F9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415CC4DD2461187F004CC7F9 /* TabBarController.swift */; };
 		415CC4E624611C37004CC7F9 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415CC4E524611C37004CC7F9 /* CreateViewController.swift */; };
 		415CC4E824611C3F004CC7F9 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415CC4E724611C3F004CC7F9 /* SavedViewController.swift */; };
@@ -26,12 +27,14 @@
 		4180B08B2463D9C800FA04C4 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B08A2463D9C800FA04C4 /* PlayViewController.swift */; };
 		4180B094246637C100FA04C4 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B093246637C100FA04C4 /* State.swift */; };
 		4180B09624663F3A00FA04C4 /* EndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B09524663F3A00FA04C4 /* EndViewController.swift */; };
+		41DA1EF2248F3F43003EBCD4 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DA1EF1248F3F43003EBCD4 /* Player.swift */; };
 		7CFC89DEC6785B6D5D8C7590 /* Pods_Triviac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97D214F22E18EA6F2F948A0F /* Pods_Triviac.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		41100FA7248D8AD60051EA2C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		41100FAE248DD2580051EA2C /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		414FA626248EE2B70089F00A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		415CC4DD2461187F004CC7F9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		415CC4E524611C37004CC7F9 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		415CC4E724611C3F004CC7F9 /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
@@ -51,6 +54,7 @@
 		4180B08A2463D9C800FA04C4 /* PlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
 		4180B093246637C100FA04C4 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		4180B09524663F3A00FA04C4 /* EndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndViewController.swift; sourceTree = "<group>"; };
+		41DA1EF1248F3F43003EBCD4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		8673069DFB06EC73BA6A8C8A /* Pods-Triviac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triviac.release.xcconfig"; path = "Target Support Files/Pods-Triviac/Pods-Triviac.release.xcconfig"; sourceTree = "<group>"; };
 		97D214F22E18EA6F2F948A0F /* Pods_Triviac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Triviac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFBF17785A6CAD993F68E0BA /* Pods-Triviac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triviac.debug.xcconfig"; path = "Target Support Files/Pods-Triviac/Pods-Triviac.debug.xcconfig"; sourceTree = "<group>"; };
@@ -72,6 +76,8 @@
 			isa = PBXGroup;
 			children = (
 				41100FAE248DD2580051EA2C /* SignInViewController.swift */,
+				41DA1EF1248F3F43003EBCD4 /* Player.swift */,
+				414FA626248EE2B70089F00A /* ProfileViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -284,6 +290,7 @@
 				4180B06E24623D9100FA04C4 /* CatTableViewCell.swift in Sources */,
 				4180B07624625D5800FA04C4 /* SavedCollectionViewCell.swift in Sources */,
 				4180B0892463D7FF00FA04C4 /* Trivia.swift in Sources */,
+				414FA627248EE2B70089F00A /* ProfileViewController.swift in Sources */,
 				415CC4E624611C37004CC7F9 /* CreateViewController.swift in Sources */,
 				4180B094246637C100FA04C4 /* State.swift in Sources */,
 				41100FAF248DD2580051EA2C /* SignInViewController.swift in Sources */,
@@ -292,6 +299,7 @@
 				4180B0872463CE0500FA04C4 /* CatViewController.swift in Sources */,
 				4180B0702462444B00FA04C4 /* Cat.swift in Sources */,
 				415CC4E824611C3F004CC7F9 /* SavedViewController.swift in Sources */,
+				41DA1EF2248F3F43003EBCD4 /* Player.swift in Sources */,
 				417E1918245FB8E10008DABD /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
