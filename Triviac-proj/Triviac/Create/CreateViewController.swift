@@ -225,7 +225,6 @@ class CreateViewController: UIViewController {
         else{
             gen.setTitle("Invite", for: .normal)
         }
-        
     }
     
     func setup(){
@@ -403,9 +402,17 @@ class CreateViewController: UIViewController {
         CreateViewController.endpoint = "\(ed)\(chosennum)\(chosencat)&difficulty=\(chosendif!)&type=\(chosentyp)"
         print(CreateViewController.endpoint)
         
+        if gen.titleLabel?.text == "Generate!"{
         let playViewController = PlayViewController(mode: chosentyp, replay: nil)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.navigationController?.pushViewController(playViewController, animated: true)
+        }
+        }
+        else{
+            let inviteViewController = InviteViewController(mode: chosentyp, replay: nil, add: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.navigationController?.pushViewController(inviteViewController, animated: true)
+            }
         }
         
     }

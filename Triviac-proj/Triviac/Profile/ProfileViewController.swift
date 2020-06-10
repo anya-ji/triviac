@@ -22,11 +22,14 @@ class ProfileViewController: UIViewController {
     var percent: UILabel!
     var bulb: UIImageView!
     var points: UILabel!
-       
-
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        checkLoggedIn()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkLoggedIn()
+  
         navigationController?.navigationBar.barTintColor = barcolor
         navigationController?.navigationBar.titleTextAttributes = [
             // NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20),
@@ -44,14 +47,13 @@ class ProfileViewController: UIViewController {
         
         photo = UIImageView()
         photo.image = UIImage(named: "cat")?.withRenderingMode(.alwaysTemplate)
-        photo.tintColor = .white
+        photo.tintColor = .clear
         view.addSubview(photo)
         
         nameLabel = UILabel()
-        //nameLabel.text = player?.name
         nameLabel.textColor = .white
         nameLabel.font = UIFont.init(name: "Chalkduster", size: 20)
-        nameLabel.textAlignment = .center
+        nameLabel.textAlignment = .left
         nameLabel.adjustsFontSizeToFitWidth = true
         view.addSubview(nameLabel)
         
@@ -67,19 +69,20 @@ class ProfileViewController: UIViewController {
         photo.snp.makeConstraints{ make in
             make.trailing.equalTo(view.snp.centerX).offset(-gap*2)
             make.height.width.equalTo(80)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(gap*3)
+            make.bottom.equalTo(view.snp.centerY).offset(-gap*3)
         }
         
         nameLabel.snp.makeConstraints{ make in
             make.leading.equalTo(view.snp.centerX)
-            make.height.equalTo(100)
+            make.top.equalTo(photo.snp.top)
+            make.bottom.equalTo(photo.snp.centerY)
             make.trailing.equalToSuperview()
         }
         
         bulb.snp.makeConstraints{ make in
             make.leading.equalTo(view.snp.centerX).offset(gap*2)
-                make.height.width.equalTo(100)
-                make.top.equalTo(view.snp.centerY).offset(gap*3)
+            make.height.width.equalTo(100)
+            make.top.equalTo(view.snp.centerY).offset(gap*3)
     
         }
     }
@@ -92,12 +95,15 @@ class ProfileViewController: UIViewController {
         else{
             
             let uid = Auth.auth().currentUser?.uid
-            print(uid!)
+            //print(uid!)
             Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let dict = snapshot.value as? [String: Any]{
                     self.player = Player.fromDatabase(object: dict)
-                    
-                    print(dict)
+                    self.nameLabel.text = self.player!.name
+                    self.photo.tintColor = UIColor(hex: self.player!.color)
+                    self.view.setNeedsDisplay()
+                    self.view.layoutIfNeeded()
+                    //print(dict)
                 }
             }, withCancel: nil)
         }

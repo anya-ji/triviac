@@ -11,27 +11,33 @@ import UIKit
 
 struct Player {
     var name: String!
+    var uid: String!
     var email: String!
-    //var color: String!
+    //var points: Int!
+    //var
+    var color: String!
     
-    init(name: String, email: String) {
+    init(name: String, uid: String, email: String, color: String) {
         self.name = name
+        self.uid = uid
         self.email = email
-        //self.color = color
+        self.color = color
     }
     
     static func fromDatabase(object: [String: Any]) -> Player {
         let name = object["name"] as! String
         let email = object["email"] as! String
-        //let color = object["color"] as! String
-        return Player(name: name, email: email)
+        let uid = object["uid"] as! String
+        let color = object["color"] as! String
+        return Player(name: name, uid: uid, email: email, color: color)
     }
     
     func forDatabase() -> [String: Any] {
         return [
             "name": name!,
-            "email": email!
-            //"color": color!
+            "uid": uid!,
+            "email": email!,
+            "color": color!
         ]
     }
     
