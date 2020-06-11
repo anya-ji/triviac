@@ -32,14 +32,6 @@ class CreateViewController: UIViewController {
     
     let ls = CGFloat(25)
     
-    let bgcolor = UIColor(red: 0.27, green: 0.29, blue: 0.30, alpha: 1.00)
-    let gencolor = UIColor(red: 0.96, green: 0.83, blue: 0.37, alpha: 1.00)
-    //let btcolor = UIColor(red: 0.77, green: 0.76, blue: 0.78, alpha: 1.00)
-    let btcolor = UIColor(red: 0.30, green: 0.31, blue: 0.33, alpha: 1.00)
-    let textcolor = UIColor.white
-    let bordercolor = UIColor.white
-    let shadowcolor = UIColor(red: 0.15, green: 0.16, blue: 0.16, alpha: 1.00)
-    
     
     public static var endpoint = "https://opentdb.com/api.php?amount="
     let ed = "https://opentdb.com/api.php?amount="
@@ -58,9 +50,9 @@ class CreateViewController: UIViewController {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
         
-        view.backgroundColor = bgcolor
+        view.backgroundColor = .bgcolor
         self.navigationItem.title = "Generate a Trivia!"
-        navigationController?.navigationBar.barTintColor = gencolor
+        navigationController?.navigationBar.barTintColor = .customyellow
         navigationController?.navigationBar.titleTextAttributes = [
             // NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20),
             NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -69,7 +61,7 @@ class CreateViewController: UIViewController {
         //number of questions
         numLabel = UILabel()
         numLabel.text = "# Questions"
-        numLabel.textColor = textcolor
+        numLabel.textColor = .textcolor
         numLabel.font = UIFont.init(name: "Chalkduster", size: ls)
         numLabel.textAlignment = .center
         numLabel.adjustsFontSizeToFitWidth = true
@@ -88,40 +80,40 @@ class CreateViewController: UIViewController {
         add = UIButton()
         add.setTitle("+", for: .normal)
         add.titleLabel?.text = "+"
-        add.backgroundColor = btcolor
+        add.backgroundColor = .btcolor
         add.setTitleColor(.white, for: .normal)
         add.addTarget(self, action: #selector(addf), for: .touchUpInside)
         add.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls-10)
         add.layer.cornerRadius = 5
         add.layer.borderWidth = 1
-        add.layer.borderColor = bordercolor.cgColor
+        add.layer.borderColor = UIColor.bordercolor.cgColor
         add.titleLabel?.adjustsFontSizeToFitWidth = true
-        applyShadow(button: add, shadow: shadowcolor)
+        applyShadow(button: add, shadow: .shadowcolor)
         
         sub = UIButton()
         sub.setTitle("-", for: .normal)
-        sub.backgroundColor = btcolor
+        sub.backgroundColor = .btcolor
         sub.setTitleColor(.white, for: .normal)
         sub.addTarget(self, action: #selector(subf), for: .touchUpInside)
         sub.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls-10)
         sub.titleLabel?.textAlignment = .center
         sub.layer.cornerRadius = 5
         sub.layer.borderWidth = 1
-        sub.layer.borderColor = bordercolor.cgColor
+        sub.layer.borderColor = UIColor.bordercolor.cgColor
         sub.titleLabel?.adjustsFontSizeToFitWidth = true
-        applyShadow(button: sub, shadow: shadowcolor)
+        applyShadow(button: sub, shadow: .shadowcolor)
         
         //category
         catLabel = UILabel()
         catLabel.text = "Category"
-        catLabel.textColor = textcolor
+        catLabel.textColor = .textcolor
         catLabel.font = UIFont.init(name: "Chalkduster", size: ls)
         catLabel.textAlignment = .center
         catLabel.adjustsFontSizeToFitWidth = true
         
         cat = UIButton()
         cat.setTitle("Any Category", for: .normal)
-        cat.backgroundColor = btcolor
+        cat.backgroundColor = .btcolor
         cat.setTitleColor(.white, for: .normal)
         cat.addTarget(self, action: #selector(catf), for: .touchUpInside)
         cat.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls-10)
@@ -131,17 +123,17 @@ class CreateViewController: UIViewController {
         //cat.titleLabel?.lineBreakMode = .byWordWrapping
         cat.titleLabel?.adjustsFontSizeToFitWidth = true
         cat.sizeToFit()
-        applyShadow(button: cat, shadow: shadowcolor)
+        applyShadow(button: cat, shadow: .shadowcolor)
         
         //cat.sizeToFit()
         cat.layer.cornerRadius = 15
         cat.layer.borderWidth = 1
-        cat.layer.borderColor = bordercolor.cgColor
+        cat.layer.borderColor = UIColor.bordercolor.cgColor
         
         //difficulty
         difLabel = UILabel()
         difLabel.text = "Difficulty"
-        difLabel.textColor = textcolor
+        difLabel.textColor = .textcolor
         difLabel.font = UIFont.init(name: "Chalkduster", size: ls)
         difLabel.textAlignment = .center
         difLabel.adjustsFontSizeToFitWidth = true
@@ -149,7 +141,7 @@ class CreateViewController: UIViewController {
         
         dif = UISegmentedControl(items: ["Easy", "Medium", "Hard"])
         dif.tintColor = .white
-        dif.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: bgcolor, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .selected)
+        dif.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.bgcolor, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .selected)
         dif.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .normal)
         dif.selectedSegmentIndex = 0
         
@@ -157,7 +149,7 @@ class CreateViewController: UIViewController {
         //type
         typLabel = UILabel()
         typLabel.text = "Type"
-        typLabel.textColor = textcolor
+        typLabel.textColor = .textcolor
         typLabel.font = UIFont.init(name: "Chalkduster", size: ls)
         typLabel.textAlignment = .center
         typLabel.adjustsFontSizeToFitWidth = true
@@ -165,7 +157,7 @@ class CreateViewController: UIViewController {
         
         typ = UISegmentedControl(items: ["Multiple Choice", "True/False"])
         typ.tintColor = .white
-        typ.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: bgcolor, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .selected)
+        typ.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.bgcolor, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .selected)
         typ.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .normal)
         typ.selectedSegmentIndex = 0
         
@@ -173,14 +165,14 @@ class CreateViewController: UIViewController {
         //mode
         modeLabel = UILabel()
         modeLabel.text = "Mode"
-        modeLabel.textColor = textcolor
+        modeLabel.textColor = .textcolor
         modeLabel.font = UIFont.init(name: "Chalkduster", size: ls)
         modeLabel.textAlignment = .center
         modeLabel.adjustsFontSizeToFitWidth = true
         
         mode = UISegmentedControl(items: ["Single Player", "Invite"])
         mode.tintColor = .white
-        mode.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: bgcolor, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .selected)
+        mode.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.bgcolor, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .selected)
         mode.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .normal)
         mode.selectedSegmentIndex = 0
         mode.addTarget(self, action: #selector(changeMode), for: .valueChanged)
@@ -188,7 +180,7 @@ class CreateViewController: UIViewController {
         //gen
         gen = UIButton()
         gen.setTitle("Generate!", for: .normal)
-        gen.backgroundColor = gencolor
+        gen.backgroundColor = .customyellow
         gen.setTitleColor(.white, for: .normal)
         gen.addTarget(self, action: #selector(genf), for: .touchUpInside)
         gen.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
@@ -197,7 +189,7 @@ class CreateViewController: UIViewController {
         gen.layer.borderWidth = 3
         gen.layer.borderColor = UIColor.white.cgColor
         gen.titleLabel?.adjustsFontSizeToFitWidth = true
-        applyShadow(button: gen, shadow: shadowcolor)
+        applyShadow(button: gen, shadow: .shadowcolor)
         
         
         view.addSubview(numLabel)
@@ -366,7 +358,7 @@ class CreateViewController: UIViewController {
         } else{
             numText.text = "\(add1)"
         }
-        buttonAnimate(button: add, shadow: shadowcolor)
+        buttonAnimate(button: add, shadow: .shadowcolor)
     }
     
     @objc func subf(){
@@ -376,19 +368,19 @@ class CreateViewController: UIViewController {
         } else{
             numText.text = "\(sub1)"
         }
-        buttonAnimate(button: sub, shadow: shadowcolor)
+        buttonAnimate(button: sub, shadow: .shadowcolor)
     }
     
     @objc func catf(){        
         let catVC = CatViewController(placeholder: "")
         catVC!.delegate = self
-        buttonAnimate(button: cat, shadow: shadowcolor)
+        buttonAnimate(button: cat, shadow: .shadowcolor)
         present(catVC!, animated: true, completion: nil)
     }
     
 
     @objc func genf(){
-        buttonAnimate(button: gen, shadow: shadowcolor)
+        buttonAnimate(button: gen, shadow: .shadowcolor)
         var chosennum = "10"
         if let num = Int(String(numText.text ?? "10")) {
             if (num >= 1 && num <= 50) {
@@ -409,7 +401,7 @@ class CreateViewController: UIViewController {
         }
         }
         else{
-            let inviteViewController = InviteViewController(mode: chosentyp, replay: nil, add: nil)
+            let inviteViewController = InviteViewController(mode: chosentyp, replay: nil)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.navigationController?.pushViewController(inviteViewController, animated: true)
             }
@@ -481,5 +473,16 @@ extension UIViewController {
                         }
         })
     }
+}
+
+//uicolor custom
+extension UIColor{
+    static let bgcolor = UIColor(red: 0.27, green: 0.29, blue: 0.30, alpha: 1.00)
+    static let customyellow = UIColor(red: 0.96, green: 0.83, blue: 0.37, alpha: 1.00)
+    static let btcolor = UIColor(red: 0.30, green: 0.31, blue: 0.33, alpha: 1.00)
+    static let textcolor = UIColor.white
+    static let bordercolor = UIColor.white
+    static let shadowcolor = UIColor(red: 0.15, green: 0.16, blue: 0.16, alpha: 1.00)
+    
 }
 

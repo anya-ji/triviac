@@ -139,7 +139,6 @@ class SignInViewController: UIViewController {
                 
                 // save to user defaults
                 self.userDefaults.set(name, forKey: "currentPlayerName")
-                
                 self.navigationController?.popViewController(animated: true)
             })
             
@@ -155,8 +154,7 @@ class SignInViewController: UIViewController {
                     return
                 }
                 let ref = Database.database().reference(fromURL: "https://triviac-63843.firebaseio.com/")
-//                let usersRef = ref.child("users").child(uid)
-                let usersRef = ref.child("users")
+               let usersRef = ref.child("users").child(uid)
                 let values = Player.init(name: name, uid: uid, email: email, color: UIColor.randomColor().toHex(alpha: true)!).forDatabase()
                 usersRef.updateChildValues(values) { (err, ref) in
                     if err != nil {

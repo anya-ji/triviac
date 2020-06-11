@@ -23,8 +23,6 @@ class SavedCollectionViewCell: UICollectionViewCell {
     let pad: CGFloat = 1
     let h: CGFloat = 30
     
-    let cellcolor = UIColor(red: 0.96, green: 0.83, blue: 0.37, alpha: 1.00)
-    
     var isAnimate: Bool! = true
     
     
@@ -34,7 +32,7 @@ class SavedCollectionViewCell: UICollectionViewCell {
         layer.borderColor = UIColor.white.cgColor
         layer.borderWidth = 5
         layer.cornerRadius = 10
-        backgroundColor = cellcolor
+        backgroundColor = .customyellow
         
         titleLabel = UILabel()
         titleLabel.contentMode = .scaleToFill

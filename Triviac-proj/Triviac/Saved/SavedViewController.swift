@@ -18,9 +18,6 @@ class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
     
     let savedrid = "savedrid"
     
-    let bgcolor = UIColor(red: 0.27, green: 0.29, blue: 0.30, alpha: 1.00)
-    let barcolor = UIColor(red: 0.96, green: 0.83, blue: 0.37, alpha: 1.00)
-    
     // Instantiate UserDefaults
     let userDefaults = UserDefaults.standard
     var saved: [TriviaObj] = []
@@ -53,7 +50,7 @@ class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.barTintColor = barcolor
+        navigationController?.navigationBar.barTintColor = .customyellow
         navigationController?.navigationBar.titleTextAttributes = [
             // NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20),
             NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -74,7 +71,7 @@ class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
         flayout.sectionInset.bottom = padding
         
         savedView = UICollectionView(frame: .zero, collectionViewLayout: flayout)
-        savedView.backgroundColor = bgcolor
+        savedView.backgroundColor = .bgcolor
         view.addSubview(savedView)
         
         savedView.register(SavedCollectionViewCell.self, forCellWithReuseIdentifier: savedrid)
@@ -103,7 +100,7 @@ class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
         
         delete = UIButton()
         delete.setTitle("Delete", for: .normal)
-        delete.backgroundColor = barcolor
+        delete.backgroundColor = .customyellow
         delete.setTitleColor(.white, for: .normal)
         delete.addTarget(self, action: #selector(check), for: .touchUpInside)
         delete.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)

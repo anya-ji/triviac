@@ -3,5 +3,9 @@
 3. view saved game
 4. sound effects
 5. better logo
-6. 
+6. confirm password
+7. no same username
+8. show points when search
+9. add button at search
+10. delete button at invite
 

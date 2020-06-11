@@ -14,28 +14,34 @@ protocol ResultTableViewCellDelegate: class {
     
 }
 
+
 class ResultTableViewCell: UITableViewCell {
     
     //var photo: UIImageView!
     var nameLabel: UILabel!
+    var addButton: UIButton!
     
     var addplayer: Player!
-    
-    let bgcolor = UIColor(red: 0.27, green: 0.29, blue: 0.30, alpha: 1.00)
     
     let gap: CGFloat = 10
     let ls: CGFloat = 20
     
+    let addButtonHeight: CGFloat = 25
+    let addButtonTitle = "Add"
+    
+   weak var delegate: ResultTableViewCellDelegate?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = bgcolor
+        contentView.backgroundColor = .bgcolor
+        
         nameLabel = UILabel()
         nameLabel.textColor = .white
         nameLabel.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
-        nameLabel.textAlignment = .center
+        nameLabel.textAlignment = .left
         nameLabel.adjustsFontSizeToFitWidth = true
-        nameLabel.addSubview(nameLabel)
+        contentView.addSubview(nameLabel)
         
         nameLabel.snp.makeConstraints{ make in
             make.centerX.centerY.equalToSuperview()
@@ -44,15 +50,37 @@ class ResultTableViewCell: UITableViewCell {
             make.height.equalToSuperview()
             
         }
+        
+        addButton = UIButton()
+               addButton.addTarget(self, action: #selector(addButtonPressed), for: .touchUpInside)
+               addButton.layer.cornerRadius = addButtonHeight / 2
+        addButton.backgroundColor = .customyellow
+               addButton.setTitle(addButtonTitle, for: .normal)
+               addButton.setTitleColor(.white, for: .normal)
+               addButton.titleLabel?.textAlignment = .center
+               addButton.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+               contentView.addSubview(addButton)
+        
+    
+        addButton.snp.makeConstraints { make in
+            make.width.equalTo(50)
+            make.height.equalTo(addButtonHeight)
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().inset(8)
+        }
+        
     }
     
+    @objc func addButtonPressed() {
+        delegate?.resultTableViewCellDidTapAddButton(result: addplayer)
+    }
     
-    
-    func configure(with addplayer: Player) {
+    func configure(with addplayer: Player, delegate: InviteViewController) {
         self.addplayer = addplayer
+        self.delegate = delegate
         nameLabel.text = addplayer.name
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

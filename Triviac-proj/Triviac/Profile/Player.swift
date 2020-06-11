@@ -25,10 +25,10 @@ struct Player {
     }
     
     static func fromDatabase(object: [String: Any]) -> Player {
-        let name = object["name"] as! String
-        let email = object["email"] as! String
-        let uid = object["uid"] as! String
         let color = object["color"] as! String
+        let email = object["email"] as! String
+        let name = object["name"] as! String
+        let uid = object["uid"] as! String
         return Player(name: name, uid: uid, email: email, color: color)
     }
     
