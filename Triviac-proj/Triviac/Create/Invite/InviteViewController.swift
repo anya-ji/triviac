@@ -57,7 +57,7 @@ class InviteViewController: UIViewController {
         
         //gen
         gen = UIButton()
-        gen.setTitle("Generate!", for: .normal)
+        gen.setTitle("Invite", for: .normal)
         gen.backgroundColor = .customyellow
         gen.setTitleColor(.white, for: .normal)
         gen.addTarget(self, action: #selector(genf), for: .touchUpInside)
@@ -118,7 +118,7 @@ extension InviteViewController: ResultTableViewCellDelegate {
 
 extension InviteViewController: UITableViewDataSource{
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(playerlist.count)
+        //print(playerlist.count)
         return playerlist.count
     }
     

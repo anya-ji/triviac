@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Firebase
 
 protocol CatChangeTextDelegate: class {
     func catTextChanged(to newCat: String)
@@ -403,7 +404,13 @@ class CreateViewController: UIViewController {
         else{
             let inviteViewController = InviteViewController(mode: chosentyp, replay: nil)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.navigationController?.pushViewController(inviteViewController, animated: true)
+                if Auth.auth().currentUser?.uid == nil {
+                    self.tabBarController!.selectedIndex = 2
+                }
+                else{
+                    self.navigationController?.pushViewController(inviteViewController, animated: true)
+                }
+                
             }
         }
         

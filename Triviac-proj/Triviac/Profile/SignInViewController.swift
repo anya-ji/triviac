@@ -138,7 +138,16 @@ class SignInViewController: UIViewController {
                 }
                 
                 // save to user defaults
-                self.userDefaults.set(name, forKey: "currentPlayerName")
+                let uid = Auth.auth().currentUser!.uid
+             Database.database().reference().child("users").child(uid).observe(.value) { (snapshot) in
+                    
+                    if let dict = snapshot.value as? [String: Any]{
+                        let name = dict["name"] as! String
+                        self.userDefaults.set(name, forKey: "currentPlayerName")
+                        self.userDefaults.synchronize()
+                    }
+                }
+                
                 self.navigationController?.popViewController(animated: true)
             })
             

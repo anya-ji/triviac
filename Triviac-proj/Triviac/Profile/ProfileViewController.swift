@@ -88,7 +88,7 @@ class ProfileViewController: UIViewController {
     }
     
     func checkLoggedIn(){
-        //user is not logged in, check if they are logged in, log out if not
+        //user is not logged in, check if they are logged in, try log out if not
         if Auth.auth().currentUser?.uid == nil {
             exit()
         }

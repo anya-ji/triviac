@@ -72,6 +72,7 @@ class ResultTableViewCell: UITableViewCell {
     }
     
     @objc func addButtonPressed() {
+        addButton.isHidden = true
         delegate?.resultTableViewCellDidTapAddButton(result: addplayer)
     }
     
