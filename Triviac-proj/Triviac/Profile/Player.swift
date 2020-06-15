@@ -14,7 +14,6 @@ struct Player {
     var uid: String!
     var email: String!
     //var points: Int!
-    //var
     var color: String!
     
     init(name: String, uid: String, email: String, color: String) {

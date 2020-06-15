@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class InviteViewController: UIViewController {
     
@@ -60,7 +61,7 @@ class InviteViewController: UIViewController {
         gen.setTitle("Invite", for: .normal)
         gen.backgroundColor = .customyellow
         gen.setTitleColor(.white, for: .normal)
-        gen.addTarget(self, action: #selector(genf), for: .touchUpInside)
+        gen.addTarget(self, action: #selector(sendInvitations), for: .touchUpInside)
         gen.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 25)
         gen.titleLabel?.textAlignment = .center
         gen.layer.cornerRadius = 20
@@ -94,11 +95,16 @@ class InviteViewController: UIViewController {
         }
     }
     
-    @objc func genf(){
-        let playViewController = PlayViewController(mode: mode, replay: nil)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.navigationController?.pushViewController(playViewController, animated: true)
-        }
+    @objc func sendInvitations(){
+//        let playViewController = PlayViewController(mode: mode, replay: nil)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//            self.navigationController?.pushViewController(playViewController, animated: true)
+//        }
+        let host = Auth.auth().currentUser?.uid
+        let joinerslist = playerlist.map({$0.uid!})
+        let joiners = joinerslist.reduce(into: [String: Bool]()) { $0[$1] = false }
+        let newGame = Game.init(host: host!, joiners: joiners, gameState: 0)
+        DatabaseManager.createGame(game: newGame)
     }
     
     @objc func pushSearch(){

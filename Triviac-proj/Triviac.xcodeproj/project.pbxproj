@@ -31,6 +31,8 @@
 		4180B094246637C100FA04C4 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B093246637C100FA04C4 /* State.swift */; };
 		4180B09624663F3A00FA04C4 /* EndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B09524663F3A00FA04C4 /* EndViewController.swift */; };
 		419514F82491E93D00A37342 /* InviteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419514F72491E93D00A37342 /* InviteTableViewCell.swift */; };
+		41BC6DDE24972CAC00AB4C36 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BC6DDD24972CAC00AB4C36 /* DatabaseManager.swift */; };
+		41BC6DE024972E2700AB4C36 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BC6DDF24972E2700AB4C36 /* Game.swift */; };
 		41DA1EF2248F3F43003EBCD4 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DA1EF1248F3F43003EBCD4 /* Player.swift */; };
 		7CFC89DEC6785B6D5D8C7590 /* Pods_Triviac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97D214F22E18EA6F2F948A0F /* Pods_Triviac.framework */; };
 /* End PBXBuildFile section */
@@ -62,6 +64,8 @@
 		4180B093246637C100FA04C4 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		4180B09524663F3A00FA04C4 /* EndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndViewController.swift; sourceTree = "<group>"; };
 		419514F72491E93D00A37342 /* InviteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteTableViewCell.swift; sourceTree = "<group>"; };
+		41BC6DDD24972CAC00AB4C36 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		41BC6DDF24972E2700AB4C36 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		41DA1EF1248F3F43003EBCD4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		8673069DFB06EC73BA6A8C8A /* Pods-Triviac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triviac.release.xcconfig"; path = "Target Support Files/Pods-Triviac/Pods-Triviac.release.xcconfig"; sourceTree = "<group>"; };
 		97D214F22E18EA6F2F948A0F /* Pods_Triviac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Triviac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +90,8 @@
 				410893682490795C0003AB93 /* InviteViewController.swift */,
 				419514F72491E93D00A37342 /* InviteTableViewCell.swift */,
 				4108936A24907CD40003AB93 /* SearchViewController.swift */,
+				41BC6DDD24972CAC00AB4C36 /* DatabaseManager.swift */,
+				41BC6DDF24972E2700AB4C36 /* Game.swift */,
 				4108936D24907E330003AB93 /* ResultTableViewCell.swift */,
 			);
 			path = Invite;
@@ -316,6 +322,7 @@
 				4180B094246637C100FA04C4 /* State.swift in Sources */,
 				410893692490795C0003AB93 /* InviteViewController.swift in Sources */,
 				41100FAF248DD2580051EA2C /* SignInViewController.swift in Sources */,
+				41BC6DDE24972CAC00AB4C36 /* DatabaseManager.swift in Sources */,
 				415CC4DE2461187F004CC7F9 /* TabBarController.swift in Sources */,
 				417E1916245FB8E10008DABD /* AppDelegate.swift in Sources */,
 				4180B0872463CE0500FA04C4 /* CatViewController.swift in Sources */,
@@ -325,6 +332,7 @@
 				4108936E24907E330003AB93 /* ResultTableViewCell.swift in Sources */,
 				419514F82491E93D00A37342 /* InviteTableViewCell.swift in Sources */,
 				417E1918245FB8E10008DABD /* SceneDelegate.swift in Sources */,
+				41BC6DE024972E2700AB4C36 /* Game.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

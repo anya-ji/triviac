@@ -25,11 +25,13 @@ class CreateViewController: UIViewController {
     //var dif: UIButton!
     var dif: UISegmentedControl!
     var typLabel: UILabel!
-   // var typ: UIButton!
+    // var typ: UIButton!
     var typ: UISegmentedControl!
     var modeLabel: UILabel!
     var mode: UISegmentedControl!
     var gen: UIButton!
+    var invite: UIButton!
+    var join: UIButton!
     
     let ls = CGFloat(25)
     
@@ -171,7 +173,7 @@ class CreateViewController: UIViewController {
         modeLabel.textAlignment = .center
         modeLabel.adjustsFontSizeToFitWidth = true
         
-        mode = UISegmentedControl(items: ["Single Player", "Invite"])
+        mode = UISegmentedControl(items: [UIImage(named: "single")?.resized(to: CGSize(width: 25, height: 25)), UIImage(named: "multi")?.resized(to: CGSize(width: 25, height: 25))])
         mode.tintColor = .white
         mode.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.bgcolor, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .selected)
         mode.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.init(name: "ChalkboardSE-Regular", size: ls-10) as Any], for: .normal)
@@ -179,19 +181,53 @@ class CreateViewController: UIViewController {
         mode.addTarget(self, action: #selector(changeMode), for: .valueChanged)
         
         //gen
-        gen = UIButton()
-        gen.setTitle("Generate!", for: .normal)
-        gen.backgroundColor = .customyellow
-        gen.setTitleColor(.white, for: .normal)
-        gen.addTarget(self, action: #selector(genf), for: .touchUpInside)
-        gen.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
-        gen.titleLabel?.textAlignment = .center
-        gen.layer.cornerRadius = 20
-        gen.layer.borderWidth = 3
-        gen.layer.borderColor = UIColor.white.cgColor
-        gen.titleLabel?.adjustsFontSizeToFitWidth = true
-        applyShadow(button: gen, shadow: .shadowcolor)
-        
+       
+            gen = UIButton()
+            gen.setTitle("Generate!", for: .normal)
+            gen.backgroundColor = .customyellow
+            gen.setTitleColor(.white, for: .normal)
+            gen.addTarget(self, action: #selector(genf), for: .touchUpInside)
+            gen.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
+            gen.titleLabel?.textAlignment = .center
+            gen.layer.cornerRadius = 20
+            gen.layer.borderWidth = 3
+            gen.layer.borderColor = UIColor.white.cgColor
+            gen.titleLabel?.adjustsFontSizeToFitWidth = true
+            applyShadow(button: gen, shadow: .shadowcolor)
+            view.addSubview(gen)
+    
+            
+            invite = UIButton()
+            invite.setTitle("Invite", for: .normal)
+            invite.backgroundColor = .customyellow
+            invite.setTitleColor(.white, for: .normal)
+            invite.addTarget(self, action: #selector(invitef), for: .touchUpInside)
+            invite.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
+            invite.titleLabel?.textAlignment = .center
+            invite.layer.cornerRadius = 20
+            invite.layer.borderWidth = 3
+            invite.layer.borderColor = UIColor.white.cgColor
+            invite.titleLabel?.adjustsFontSizeToFitWidth = true
+            applyShadow(button: invite, shadow: .shadowcolor)
+            view.addSubview(invite)
+        invite.isHidden = true
+        invite.isEnabled = false
+            
+            join = UIButton()
+            join.setTitle("Join", for: .normal)
+            join.backgroundColor = .btcolor
+            join.setTitleColor(.white, for: .normal)
+            join.addTarget(self, action: #selector(joinf), for: .touchUpInside)
+            join.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
+            join.titleLabel?.textAlignment = .center
+            join.layer.cornerRadius = 20
+            join.layer.borderWidth = 3
+            join.layer.borderColor = UIColor.white.cgColor
+            join.titleLabel?.adjustsFontSizeToFitWidth = true
+            applyShadow(button: join, shadow: .shadowcolor)
+            view.addSubview(join)
+         join.isHidden = true
+        join.isEnabled = false
         
         view.addSubview(numLabel)
         view.addSubview(numText)
@@ -205,19 +241,18 @@ class CreateViewController: UIViewController {
         view.addSubview(typ)
         view.addSubview(modeLabel)
         view.addSubview(mode)
-        view.addSubview(gen)
         
         setup()
         
     }
     
     @objc func changeMode(){
-        if mode.selectedSegmentIndex == 0 {
-            gen.setTitle("Generate!", for: .normal)
-        }
-        else{
-            gen.setTitle("Invite", for: .normal)
-        }
+        gen.isEnabled.toggle()
+        gen.isHidden.toggle()
+        invite.isEnabled.toggle()
+        invite.isHidden.toggle()
+        join.isEnabled.toggle()
+        join.isHidden.toggle()
     }
     
     func setup(){
@@ -257,7 +292,7 @@ class CreateViewController: UIViewController {
         sub.titleLabel?.snp.makeConstraints{ make in
             make.centerY.equalToSuperview().offset(-3)
         }
-
+        
         
         //catLabel
         catLabel.snp.makeConstraints{ make in
@@ -300,7 +335,7 @@ class CreateViewController: UIViewController {
             make.height.equalTo(ht)
             make.top.equalTo(difLabel.snp.top)
         }
-    
+        
         
         //typLabel
         typLabel.snp.makeConstraints{ make in
@@ -350,6 +385,31 @@ class CreateViewController: UIViewController {
             make.centerY.equalToSuperview().offset(-3)
         }
         
+        
+     
+        //invite
+        invite.snp.makeConstraints{ make in
+            make.trailing.equalTo(view.snp.centerX).offset(-gap)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-gap*5)
+            make.height.equalTo(60)
+            make.width.equalTo(120)
+        }
+        invite.titleLabel?.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview().offset(-3)
+        }
+        
+        //join
+        join.snp.makeConstraints{ make in
+            make.leading.equalTo(view.snp.centerX).offset(gap)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-gap*5)
+            make.height.equalTo(60)
+            make.width.equalTo(120)
+        }
+        join.titleLabel?.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview().offset(-3)
+        }
+        
+        
     }
     
     @objc func addf(){
@@ -379,9 +439,7 @@ class CreateViewController: UIViewController {
         present(catVC!, animated: true, completion: nil)
     }
     
-
-    @objc func genf(){
-        buttonAnimate(button: gen, shadow: .shadowcolor)
+    func makeEndpoint(){
         var chosennum = "10"
         if let num = Int(String(numText.text ?? "10")) {
             if (num >= 1 && num <= 50) {
@@ -394,26 +452,43 @@ class CreateViewController: UIViewController {
         let chosencat = tpcat == "any" ?  "" : "&category=\(tpcat!)"
         CreateViewController.endpoint = "\(ed)\(chosennum)\(chosencat)&difficulty=\(chosendif!)&type=\(chosentyp)"
         print(CreateViewController.endpoint)
+    }
+    
+    @objc func genf(){
+        buttonAnimate(button: gen, shadow: .shadowcolor)
         
-        if gen.titleLabel?.text == "Generate!"{
+        makeEndpoint()
+        
+        let chosentyp = typ.titleForSegment(at: typ.selectedSegmentIndex) == "Multiple Choice" ? "multiple" : "boolean"
         let playViewController = PlayViewController(mode: chosentyp, replay: nil)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.navigationController?.pushViewController(playViewController, animated: true)
         }
-        }
-        else{
-            let inviteViewController = InviteViewController(mode: chosentyp, replay: nil)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                if Auth.auth().currentUser?.uid == nil {
-                    self.tabBarController!.selectedIndex = 2
-                }
-                else{
-                    self.navigationController?.pushViewController(inviteViewController, animated: true)
-                }
-                
+        
+        
+    }
+    
+    @objc func invitef(){
+        buttonAnimate(button: gen, shadow: .shadowcolor)
+        
+        makeEndpoint()
+        
+        let chosentyp = typ.titleForSegment(at: typ.selectedSegmentIndex) == "Multiple Choice" ? "multiple" : "boolean"
+        let inviteViewController = InviteViewController(mode: chosentyp, replay: nil)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            if Auth.auth().currentUser?.uid == nil {
+                self.tabBarController!.selectedIndex = 2
             }
+            else{
+                self.navigationController?.pushViewController(inviteViewController, animated: true)
+            }
+            
         }
         
+    }
+    
+    @objc func joinf(){
+        //DatabaseManager.createGame(game: Game.init(host: "abc", joiners: ["a": false, "b": true]))
     }
     
     func parseJSON(){
