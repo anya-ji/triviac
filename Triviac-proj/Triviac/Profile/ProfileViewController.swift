@@ -16,6 +16,8 @@ class ProfileViewController: UIViewController {
     let bgcolor = UIColor(red: 0.27, green: 0.29, blue: 0.30, alpha: 1.00)
     let barcolor = UIColor(red: 0.96, green: 0.83, blue: 0.37, alpha: 1.00)
     
+    var topView: UIView!
+    
     var player: Player?
     var photo: UIImageView!
     var nameLabel: UILabel!
@@ -27,6 +29,8 @@ class ProfileViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         checkLoggedIn()
     }
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
   
@@ -38,6 +42,10 @@ class ProfileViewController: UIViewController {
         
         view.backgroundColor = bgcolor
         self.navigationItem.title = "Profile"
+        
+        topView = UIView()
+        topView.backgroundColor = .shadowcolor
+        view.addSubview(topView)
 
         let exitimg = UIImage(named: "exit")?.resized(to: CGSize(width: 30, height: 30))
         exitButton = UIBarButtonItem(image: exitimg, style: .done, target: self, action: #selector(exit))
@@ -46,16 +54,17 @@ class ProfileViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = exitButton
         
         photo = UIImageView()
-        photo.image = UIImage(named: "cat")?.withRenderingMode(.alwaysTemplate)
+        photo.image = UIImage(named: "head")?.withRenderingMode(.alwaysTemplate)
+        photo.backgroundColor = .clear
         photo.tintColor = .clear
-        view.addSubview(photo)
+        topView.addSubview(photo)
         
         nameLabel = UILabel()
         nameLabel.textColor = .white
         nameLabel.font = UIFont.init(name: "Chalkduster", size: 20)
         nameLabel.textAlignment = .left
         nameLabel.adjustsFontSizeToFitWidth = true
-        view.addSubview(nameLabel)
+        topView.addSubview(nameLabel)
         
         bulb = UIImageView()
         bulb.image = UIImage(named: "bulb")
@@ -64,27 +73,55 @@ class ProfileViewController: UIViewController {
         setup()
     }
     
+    override func viewWillLayoutSubviews() {
+        photo.makeRounded()
+    }
+    
+    
     func setup(){
         let gap = view.frame.height / 50
+//        photo.snp.makeConstraints{ make in
+//            make.trailing.equalTo(view.snp.centerX).offset(-gap*2)
+//            make.height.width.equalTo(80)
+//            make.bottom.equalTo(view.snp.centerY).offset(-gap*3)
+//        }
+//
+//        nameLabel.snp.makeConstraints{ make in
+//            make.leading.equalTo(view.snp.centerX)
+//            make.top.equalTo(photo.snp.top)
+//            make.bottom.equalTo(photo.snp.centerY)
+//            make.trailing.equalToSuperview()
+//        }
+//
+//        bulb.snp.makeConstraints{ make in
+//            make.leading.equalTo(view.snp.centerX).offset(gap*2)
+//            make.height.width.equalTo(100)
+//            make.top.equalTo(view.snp.centerY).offset(gap*3)
+//
+//        }
+        topView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.bottom.equalTo(view.snp.centerY).offset(-gap*4)
+        }
         photo.snp.makeConstraints{ make in
-            make.trailing.equalTo(view.snp.centerX).offset(-gap*2)
+            make.top.equalToSuperview().offset(gap*3)
             make.height.width.equalTo(80)
-            make.bottom.equalTo(view.snp.centerY).offset(-gap*3)
-        }
+            make.centerX.equalToSuperview()
+            }
+            
+            nameLabel.snp.makeConstraints{ make in
+                make.top.equalTo(photo.snp.bottom).offset(gap)
+                make.height.equalTo(50)
+                make.centerX.equalToSuperview()
+            }
+            
+            bulb.snp.makeConstraints{ make in
+                make.leading.equalTo(view.snp.centerX).offset(gap*2)
+                make.height.width.equalTo(100)
+                make.top.equalTo(view.snp.centerY).offset(gap*3)
         
-        nameLabel.snp.makeConstraints{ make in
-            make.leading.equalTo(view.snp.centerX)
-            make.top.equalTo(photo.snp.top)
-            make.bottom.equalTo(photo.snp.centerY)
-            make.trailing.equalToSuperview()
-        }
-        
-        bulb.snp.makeConstraints{ make in
-            make.leading.equalTo(view.snp.centerX).offset(gap*2)
-            make.height.width.equalTo(100)
-            make.top.equalTo(view.snp.centerY).offset(gap*3)
-    
-        }
+            }
     }
     
     func checkLoggedIn(){
@@ -102,6 +139,7 @@ class ProfileViewController: UIViewController {
                     self.player = Player.fromDatabase(object: dict)
                     self.nameLabel.text = self.player!.name
                     self.photo.tintColor = UIColor(hex: self.player!.color)
+                    self.photo.backgroundColor = .shadowcolor
                     self.view.setNeedsDisplay()
                     self.view.layoutIfNeeded()
                     print(dict)
@@ -132,4 +170,16 @@ extension NSMutableAttributedString {
         self.addAttributes([NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.font: font], range: range)
     }
 
+}
+
+//rounded photo
+extension UIImageView {
+
+    func makeRounded() {
+        self.layer.cornerRadius = self.frame.height / 2
+        self.layer.borderWidth = 2
+        self.layer.masksToBounds = false
+        self.layer.borderColor = UIColor.customyellow.cgColor
+        self.clipsToBounds = true
+    }
 }
