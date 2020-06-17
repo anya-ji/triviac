@@ -17,7 +17,7 @@ class InviteViewController: UIViewController {
     var playerlist: [Player]! = []
     
     var addedTableView: UITableView!
-    var gen: UIButton!
+    var send: UIButton!
     var addButton: UIBarButtonItem!
     
     let rid = "inviteReuseIdentifier"
@@ -55,21 +55,19 @@ class InviteViewController: UIViewController {
         addedTableView.dataSource = self
         addedTableView.delegate = self
         
-        
-        //gen
-        gen = UIButton()
-        gen.setTitle("Invite", for: .normal)
-        gen.backgroundColor = .customyellow
-        gen.setTitleColor(.white, for: .normal)
-        gen.addTarget(self, action: #selector(sendInvitations), for: .touchUpInside)
-        gen.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 25)
-        gen.titleLabel?.textAlignment = .center
-        gen.layer.cornerRadius = 20
-        gen.layer.borderWidth = 3
-        gen.layer.borderColor = UIColor.white.cgColor
-        gen.titleLabel?.adjustsFontSizeToFitWidth = true
-        applyShadow(button: gen, shadow: .shadowcolor)
-        view.addSubview(gen)
+        send = UIButton()
+        send.setTitle("Invite", for: .normal)
+        send.backgroundColor = .customyellow
+        send.setTitleColor(.white, for: .normal)
+        send.addTarget(self, action: #selector(sendInvitations), for: .touchUpInside)
+        send.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 25)
+        send.titleLabel?.textAlignment = .center
+        send.layer.cornerRadius = 20
+        send.layer.borderWidth = 3
+        send.layer.borderColor = UIColor.white.cgColor
+        send.titleLabel?.adjustsFontSizeToFitWidth = true
+        applyShadow(button: send, shadow: .shadowcolor)
+        view.addSubview(send)
         
         
         setup()
@@ -82,27 +80,30 @@ class InviteViewController: UIViewController {
             make.top.bottom.leading.trailing.equalToSuperview()
         }
         
-        //gen
-        gen.snp.makeConstraints{ make in
+        send.snp.makeConstraints{ make in
             make.centerX.equalTo(view.snp.centerX)
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-gap*5)
             //make.top.equalTo(typ.snp.bottom).offset(gap*3)
             make.height.equalTo(60)
             make.width.equalTo(200)
         }
-        gen.titleLabel?.snp.makeConstraints{ make in
+        send.titleLabel?.snp.makeConstraints{ make in
             make.centerY.equalToSuperview().offset(-3)
         }
     }
     
     @objc func sendInvitations(){
+        buttonAnimate(button: send, shadow: .shadowcolor)
 //        let playViewController = PlayViewController(mode: mode, replay: nil)
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 //            self.navigationController?.pushViewController(playViewController, animated: true)
 //        }
+        if playerlist.isEmpty {
+            return
+        }
         let host = Auth.auth().currentUser?.uid
         let joinerslist = playerlist.map({$0.uid!})
-        let joiners = joinerslist.reduce(into: [String: Bool]()) { $0[$1] = false }
+        let joiners = joinerslist.reduce(into: [String: Int]()) { $0[$1] = -1 }
         let newGame = Game.init(host: host!, joiners: joiners, gameState: 0)
         DatabaseManager.createGame(game: newGame)
     }
@@ -145,13 +146,6 @@ extension InviteViewController: UITableViewDataSource{
 extension InviteViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
-    }
-}
-
-//back button without text
-extension UIViewController {
-    open override func awakeFromNib() {
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 }
 

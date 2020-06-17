@@ -132,9 +132,9 @@ class ProfileViewController: UIViewController {
         else{
             
             let uid = Auth.auth().currentUser?.uid
-            print(uid!)
+            //print(uid!)
             Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
-                print(snapshot.value)
+                //print(snapshot.value)
                 if let dict = snapshot.value as? [String: Any]{
                     self.player = Player.fromDatabase(object: dict)
                     self.nameLabel.text = self.player!.name
@@ -142,7 +142,7 @@ class ProfileViewController: UIViewController {
                     self.photo.backgroundColor = .shadowcolor
                     self.view.setNeedsDisplay()
                     self.view.layoutIfNeeded()
-                    print(dict)
+                    //print(dict)
                 }
             }, withCancel: nil)
         }

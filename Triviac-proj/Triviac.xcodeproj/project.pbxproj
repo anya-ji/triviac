@@ -16,6 +16,8 @@
 		415CC4DE2461187F004CC7F9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415CC4DD2461187F004CC7F9 /* TabBarController.swift */; };
 		415CC4E624611C37004CC7F9 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415CC4E524611C37004CC7F9 /* CreateViewController.swift */; };
 		415CC4E824611C3F004CC7F9 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415CC4E724611C3F004CC7F9 /* SavedViewController.swift */; };
+		4175C7CE2499A22E00617B1E /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4175C7CD2499A22E00617B1E /* JoinViewController.swift */; };
+		4175C7D02499A57300617B1E /* JoinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4175C7CF2499A57300617B1E /* JoinTableViewCell.swift */; };
 		417E1916245FB8E10008DABD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417E1915245FB8E10008DABD /* AppDelegate.swift */; };
 		417E1918245FB8E10008DABD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417E1917245FB8E10008DABD /* SceneDelegate.swift */; };
 		417E191F245FB8E20008DABD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 417E191E245FB8E20008DABD /* Assets.xcassets */; };
@@ -47,6 +49,8 @@
 		415CC4DD2461187F004CC7F9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		415CC4E524611C37004CC7F9 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		415CC4E724611C3F004CC7F9 /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
+		4175C7CD2499A22E00617B1E /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
+		4175C7CF2499A57300617B1E /* JoinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinTableViewCell.swift; sourceTree = "<group>"; };
 		417E1912245FB8E10008DABD /* Triviac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Triviac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		417E1915245FB8E10008DABD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		417E1917245FB8E10008DABD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +111,15 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		4175C7D12499A57700617B1E /* Join */ = {
+			isa = PBXGroup;
+			children = (
+				4175C7CD2499A22E00617B1E /* JoinViewController.swift */,
+				4175C7CF2499A57300617B1E /* JoinTableViewCell.swift */,
+			);
+			path = Join;
+			sourceTree = "<group>";
+		};
 		417E1909245FB8E10008DABD = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +165,7 @@
 				415CC4E524611C37004CC7F9 /* CreateViewController.swift */,
 				4180B0862463CE0500FA04C4 /* CatViewController.swift */,
 				4108936C24907DED0003AB93 /* Invite */,
+				4175C7D12499A57700617B1E /* Join */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -318,8 +332,10 @@
 				4180B07624625D5800FA04C4 /* SavedCollectionViewCell.swift in Sources */,
 				4180B0892463D7FF00FA04C4 /* Trivia.swift in Sources */,
 				414FA627248EE2B70089F00A /* ProfileViewController.swift in Sources */,
+				4175C7D02499A57300617B1E /* JoinTableViewCell.swift in Sources */,
 				415CC4E624611C37004CC7F9 /* CreateViewController.swift in Sources */,
 				4180B094246637C100FA04C4 /* State.swift in Sources */,
+				4175C7CE2499A22E00617B1E /* JoinViewController.swift in Sources */,
 				410893692490795C0003AB93 /* InviteViewController.swift in Sources */,
 				41100FAF248DD2580051EA2C /* SignInViewController.swift in Sources */,
 				41BC6DDE24972CAC00AB4C36 /* DatabaseManager.swift in Sources */,

@@ -469,7 +469,7 @@ class CreateViewController: UIViewController {
     }
     
     @objc func invitef(){
-        buttonAnimate(button: gen, shadow: .shadowcolor)
+        buttonAnimate(button: invite, shadow: .shadowcolor)
         
         makeEndpoint()
         
@@ -488,7 +488,17 @@ class CreateViewController: UIViewController {
     }
     
     @objc func joinf(){
-        //DatabaseManager.createGame(game: Game.init(host: "abc", joiners: ["a": false, "b": true]))
+        buttonAnimate(button: join, shadow: .shadowcolor)
+         let joinViewController = JoinViewController()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            if Auth.auth().currentUser?.uid == nil {
+                self.tabBarController!.selectedIndex = 2
+            }
+            else{
+                self.navigationController?.pushViewController(joinViewController, animated: true)
+            }
+            
+        }
     }
     
     func parseJSON(){
