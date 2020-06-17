@@ -73,7 +73,8 @@ class ProfileViewController: UIViewController {
         setup()
     }
     
-    override func viewWillLayoutSubviews() {
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         photo.makeRounded()
     }
     

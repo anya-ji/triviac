@@ -9,4 +9,6 @@
 9. add button at search
 10. delete button at invite
 11. square border at profile
+12. pull to refresh join
+13. handle host quit invite
 

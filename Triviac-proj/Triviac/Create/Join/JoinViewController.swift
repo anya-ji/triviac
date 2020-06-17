@@ -51,9 +51,10 @@ class JoinViewController: UIViewController {
             make.top.bottom.leading.trailing.equalToSuperview()
         }
     }
+
     
     func listenForRoom(){
-        DatabaseManager.ref.child("games").queryOrdered(byChild: "gameState").queryEqual(toValue: 0).observe(.value, with: { (snapshot) in
+        DatabaseManager.ref.child("games").queryOrdered(byChild: "gameState").queryEqual(toValue: 0).observeSingleEvent(of: .value, with: { (snapshot) in
             if let gameDict = snapshot.value as? [String : Any]{
                 //print(gameDict)
                 gameDict.forEach { (gameID, gameObj) in
@@ -99,6 +100,9 @@ extension JoinViewController: UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let gameID = roomlist[indexPath.row].id
+        let joinerID = Auth.auth().currentUser?.uid
+        DatabaseManager.confirmJoin(gameID: gameID, joinerID: joinerID!)
+        
     }
 }
 

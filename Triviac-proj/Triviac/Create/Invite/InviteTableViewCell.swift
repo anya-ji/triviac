@@ -11,8 +11,11 @@ import UIKit
 class InviteTableViewCell: UITableViewCell {
      var nameLabel: UILabel!
     
+    var joinedLabel: UILabel!
+    
     let gap: CGFloat = 10
     let ls: CGFloat = 20
+    
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -34,6 +37,21 @@ class InviteTableViewCell: UITableViewCell {
             
         }
         
+        joinedLabel = UILabel()
+        joinedLabel.textColor = .customyellow
+        joinedLabel.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls-5)
+        joinedLabel.textAlignment = .right
+        joinedLabel.adjustsFontSizeToFitWidth = true
+        contentView.addSubview(joinedLabel)
+        
+        joinedLabel.snp.makeConstraints{ make in
+            make.centerX.centerY.equalToSuperview()
+            make.leading.equalToSuperview().offset(gap)
+            make.trailing.equalToSuperview().offset(-gap)
+            make.height.equalToSuperview()
+            
+        }
+        
        
     }
     
@@ -42,8 +60,9 @@ class InviteTableViewCell: UITableViewCell {
     }
     
    
-    func configure(with selectedplayer: Player) {
-        nameLabel.text = selectedplayer.name
+    func configure(with selectedplayerName: String, accepted: Bool) {
+        nameLabel.text = selectedplayerName
+        joinedLabel.isHidden = !accepted
     }
    
 }

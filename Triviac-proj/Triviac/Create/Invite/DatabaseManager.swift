@@ -14,17 +14,30 @@ class DatabaseManager{
           return Database.database().reference(fromURL: "https://triviac-63843.firebaseio.com/")
     }
     
+    static var currentGameID = ""
+    
+    //inviteVC
     static func createGame(game: Game){
-        ref.child("games").childByAutoId().updateChildValues(game.forDatabase())
+        ref.child("games").childByAutoId().updateChildValues(game.forDatabase()){
+            (error, ref) in
+            currentGameID = ref.key!
+            }
+        ref.child("users/\(Auth.auth().currentUser!.uid)").updateChildValues(["inGame" : currentGameID])
 }
+    //joinVC
     static func findPlayerNameByUid(uid: String, completion: @escaping (String) -> Void) {
         Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
             if let playerDict = snapshot.value as? [String : Any]{
                 let player = Player.fromDatabase(object: playerDict)
-                print(player.name)
+                //print(player.name)
                 completion(player.name)
             }
         }
+    }
+    
+    //joinVC
+    static func confirmJoin(gameID: String, joinerID: String){
+        Database.database().reference().child("games").child(gameID).child("joiners").updateChildValues([joinerID : 0])
     }
     
 }

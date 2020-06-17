@@ -15,6 +15,7 @@ class InviteViewController: UIViewController {
     var replay: TriviaObj!
     
     var playerlist: [Player]! = []
+    var acceptedlist: [Bool] = []
     
     var addedTableView: UITableView!
     var send: UIButton!
@@ -69,6 +70,7 @@ class InviteViewController: UIViewController {
         applyShadow(button: send, shadow: .shadowcolor)
         view.addSubview(send)
         
+        listenJoining()
         
         setup()
     }
@@ -90,6 +92,22 @@ class InviteViewController: UIViewController {
         send.titleLabel?.snp.makeConstraints{ make in
             make.centerY.equalToSuperview().offset(-3)
         }
+    }
+    
+    func listenJoining() {
+        if DatabaseManager.currentGameID != ""{
+            /*https://stackoverflow.com/questions/43496922/snapshot-returned-from-firebase-database-event-childchanged-on-ios */
+        DatabaseManager.ref.child("games").child(DatabaseManager.currentGameID).child("joiners").observe(.childChanged) { (snapshot) in
+            let acceptedJoinerID = snapshot.key
+            var acceptedJoinerName = ""
+            DatabaseManager.findPlayerNameByUid(uid: acceptedJoinerID) { (name) in
+                acceptedJoinerName = name
+               let acceptedIndex = self.playerlist.firstIndex(where: {$0.name == acceptedJoinerName})
+                self.acceptedlist[acceptedIndex!] = true
+                self.addedTableView.reloadData()
+        }
+        }
+    }
     }
     
     @objc func sendInvitations(){
@@ -118,6 +136,7 @@ class InviteViewController: UIViewController {
 extension InviteViewController: ResultTableViewCellDelegate {
     func resultTableViewCellDidTapAddButton(result: Player) {
         playerlist.append(result)
+        acceptedlist.append(false)
         addedTableView.reloadData()
     }
     
@@ -132,8 +151,9 @@ extension InviteViewController: UITableViewDataSource{
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: rid, for: indexPath) as! InviteTableViewCell
         let player = playerlist[indexPath.row]
+        let hasAccepted = acceptedlist[indexPath.row]
         
-        cell.configure(with: player)
+        cell.configure(with: player.name, accepted: hasAccepted)
         
         return cell
         
