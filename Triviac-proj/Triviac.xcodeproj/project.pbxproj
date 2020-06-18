@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		410893692490795C0003AB93 /* InviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410893682490795C0003AB93 /* InviteViewController.swift */; };
-		4108936B24907CD40003AB93 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4108936A24907CD40003AB93 /* SearchViewController.swift */; };
-		4108936E24907E330003AB93 /* ResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4108936D24907E330003AB93 /* ResultTableViewCell.swift */; };
 		41100FA8248D8AD60051EA2C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41100FA7248D8AD60051EA2C /* GoogleService-Info.plist */; };
 		41100FAF248DD2580051EA2C /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41100FAE248DD2580051EA2C /* SignInViewController.swift */; };
+		414089FE249B188B00754631 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414089FC249B188B00754631 /* JoinViewController.swift */; };
+		414089FF249B188B00754631 /* JoinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414089FD249B188B00754631 /* JoinTableViewCell.swift */; };
+		41408A0B249B19DE00754631 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41408A06249B19DE00754631 /* DatabaseManager.swift */; };
+		41495ADC249B2E6000D91423 /* StartingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41495ADB249B2E6000D91423 /* StartingViewController.swift */; };
 		414FA627248EE2B70089F00A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414FA626248EE2B70089F00A /* ProfileViewController.swift */; };
 		415CC4DE2461187F004CC7F9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415CC4DD2461187F004CC7F9 /* TabBarController.swift */; };
 		415CC4E624611C37004CC7F9 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415CC4E524611C37004CC7F9 /* CreateViewController.swift */; };
 		415CC4E824611C3F004CC7F9 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415CC4E724611C3F004CC7F9 /* SavedViewController.swift */; };
-		4175C7CE2499A22E00617B1E /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4175C7CD2499A22E00617B1E /* JoinViewController.swift */; };
-		4175C7D02499A57300617B1E /* JoinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4175C7CF2499A57300617B1E /* JoinTableViewCell.swift */; };
+		416251DB249B1EC7002C19B2 /* WaitingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416251DA249B1EC7002C19B2 /* WaitingViewController.swift */; };
 		417E1916245FB8E10008DABD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417E1915245FB8E10008DABD /* AppDelegate.swift */; };
 		417E1918245FB8E10008DABD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417E1917245FB8E10008DABD /* SceneDelegate.swift */; };
 		417E191F245FB8E20008DABD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 417E191E245FB8E20008DABD /* Assets.xcassets */; };
@@ -32,25 +32,23 @@
 		4180B08B2463D9C800FA04C4 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B08A2463D9C800FA04C4 /* PlayViewController.swift */; };
 		4180B094246637C100FA04C4 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B093246637C100FA04C4 /* State.swift */; };
 		4180B09624663F3A00FA04C4 /* EndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B09524663F3A00FA04C4 /* EndViewController.swift */; };
-		419514F82491E93D00A37342 /* InviteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419514F72491E93D00A37342 /* InviteTableViewCell.swift */; };
-		41BC6DDE24972CAC00AB4C36 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BC6DDD24972CAC00AB4C36 /* DatabaseManager.swift */; };
 		41BC6DE024972E2700AB4C36 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BC6DDF24972E2700AB4C36 /* Game.swift */; };
 		41DA1EF2248F3F43003EBCD4 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DA1EF1248F3F43003EBCD4 /* Player.swift */; };
 		7CFC89DEC6785B6D5D8C7590 /* Pods_Triviac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97D214F22E18EA6F2F948A0F /* Pods_Triviac.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		410893682490795C0003AB93 /* InviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteViewController.swift; sourceTree = "<group>"; };
-		4108936A24907CD40003AB93 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		4108936D24907E330003AB93 /* ResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableViewCell.swift; sourceTree = "<group>"; };
 		41100FA7248D8AD60051EA2C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		41100FAE248DD2580051EA2C /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		414089FC249B188B00754631 /* JoinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
+		414089FD249B188B00754631 /* JoinTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinTableViewCell.swift; sourceTree = "<group>"; };
+		41408A06249B19DE00754631 /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		41495ADB249B2E6000D91423 /* StartingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingViewController.swift; sourceTree = "<group>"; };
 		414FA626248EE2B70089F00A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		415CC4DD2461187F004CC7F9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		415CC4E524611C37004CC7F9 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		415CC4E724611C3F004CC7F9 /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
-		4175C7CD2499A22E00617B1E /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
-		4175C7CF2499A57300617B1E /* JoinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinTableViewCell.swift; sourceTree = "<group>"; };
+		416251DA249B1EC7002C19B2 /* WaitingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingViewController.swift; sourceTree = "<group>"; };
 		417E1912245FB8E10008DABD /* Triviac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Triviac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		417E1915245FB8E10008DABD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		417E1917245FB8E10008DABD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,8 +65,6 @@
 		4180B08A2463D9C800FA04C4 /* PlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
 		4180B093246637C100FA04C4 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		4180B09524663F3A00FA04C4 /* EndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndViewController.swift; sourceTree = "<group>"; };
-		419514F72491E93D00A37342 /* InviteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteTableViewCell.swift; sourceTree = "<group>"; };
-		41BC6DDD24972CAC00AB4C36 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		41BC6DDF24972E2700AB4C36 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		41DA1EF1248F3F43003EBCD4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		8673069DFB06EC73BA6A8C8A /* Pods-Triviac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triviac.release.xcconfig"; path = "Target Support Files/Pods-Triviac/Pods-Triviac.release.xcconfig"; sourceTree = "<group>"; };
@@ -88,19 +84,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4108936C24907DED0003AB93 /* Invite */ = {
-			isa = PBXGroup;
-			children = (
-				410893682490795C0003AB93 /* InviteViewController.swift */,
-				419514F72491E93D00A37342 /* InviteTableViewCell.swift */,
-				4108936A24907CD40003AB93 /* SearchViewController.swift */,
-				41BC6DDD24972CAC00AB4C36 /* DatabaseManager.swift */,
-				41BC6DDF24972E2700AB4C36 /* Game.swift */,
-				4108936D24907E330003AB93 /* ResultTableViewCell.swift */,
-			);
-			path = Invite;
-			sourceTree = "<group>";
-		};
 		41100FAB248DCD7E0051EA2C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,13 +94,24 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
-		4175C7D12499A57700617B1E /* Join */ = {
+		414089FB249B188B00754631 /* Join */ = {
 			isa = PBXGroup;
 			children = (
-				4175C7CD2499A22E00617B1E /* JoinViewController.swift */,
-				4175C7CF2499A57300617B1E /* JoinTableViewCell.swift */,
+				414089FC249B188B00754631 /* JoinViewController.swift */,
+				414089FD249B188B00754631 /* JoinTableViewCell.swift */,
+				41408A06249B19DE00754631 /* DatabaseManager.swift */,
 			);
 			path = Join;
+			sourceTree = "<group>";
+		};
+		4152B530249B2934001D9B58 /* VSPlay */ = {
+			isa = PBXGroup;
+			children = (
+				416251DA249B1EC7002C19B2 /* WaitingViewController.swift */,
+				41BC6DDF24972E2700AB4C36 /* Game.swift */,
+				41495ADB249B2E6000D91423 /* StartingViewController.swift */,
+			);
+			path = VSPlay;
 			sourceTree = "<group>";
 		};
 		417E1909245FB8E10008DABD = {
@@ -144,6 +138,8 @@
 				41100FA7248D8AD60051EA2C /* GoogleService-Info.plist */,
 				4180B07824625ED600FA04C4 /* Saved */,
 				4180B07724625EBE00FA04C4 /* Create */,
+				4152B530249B2934001D9B58 /* VSPlay */,
+				414089FB249B188B00754631 /* Join */,
 				4180B08C2463D9E700FA04C4 /* Play */,
 				41100FAB248DCD7E0051EA2C /* Profile */,
 				417E1915245FB8E10008DABD /* AppDelegate.swift */,
@@ -164,8 +160,6 @@
 				4180B0822463299C00FA04C4 /* category.json */,
 				415CC4E524611C37004CC7F9 /* CreateViewController.swift */,
 				4180B0862463CE0500FA04C4 /* CatViewController.swift */,
-				4108936C24907DED0003AB93 /* Invite */,
-				4175C7D12499A57700617B1E /* Join */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -326,27 +320,25 @@
 			files = (
 				4180B08B2463D9C800FA04C4 /* PlayViewController.swift in Sources */,
 				4180B07424624D7D00FA04C4 /* NetworkManager.swift in Sources */,
+				416251DB249B1EC7002C19B2 /* WaitingViewController.swift in Sources */,
+				41495ADC249B2E6000D91423 /* StartingViewController.swift in Sources */,
 				4180B09624663F3A00FA04C4 /* EndViewController.swift in Sources */,
 				4180B06E24623D9100FA04C4 /* CatTableViewCell.swift in Sources */,
-				4108936B24907CD40003AB93 /* SearchViewController.swift in Sources */,
 				4180B07624625D5800FA04C4 /* SavedCollectionViewCell.swift in Sources */,
+				41408A0B249B19DE00754631 /* DatabaseManager.swift in Sources */,
 				4180B0892463D7FF00FA04C4 /* Trivia.swift in Sources */,
 				414FA627248EE2B70089F00A /* ProfileViewController.swift in Sources */,
-				4175C7D02499A57300617B1E /* JoinTableViewCell.swift in Sources */,
 				415CC4E624611C37004CC7F9 /* CreateViewController.swift in Sources */,
 				4180B094246637C100FA04C4 /* State.swift in Sources */,
-				4175C7CE2499A22E00617B1E /* JoinViewController.swift in Sources */,
-				410893692490795C0003AB93 /* InviteViewController.swift in Sources */,
 				41100FAF248DD2580051EA2C /* SignInViewController.swift in Sources */,
-				41BC6DDE24972CAC00AB4C36 /* DatabaseManager.swift in Sources */,
 				415CC4DE2461187F004CC7F9 /* TabBarController.swift in Sources */,
 				417E1916245FB8E10008DABD /* AppDelegate.swift in Sources */,
 				4180B0872463CE0500FA04C4 /* CatViewController.swift in Sources */,
+				414089FF249B188B00754631 /* JoinTableViewCell.swift in Sources */,
 				4180B0702462444B00FA04C4 /* Cat.swift in Sources */,
 				415CC4E824611C3F004CC7F9 /* SavedViewController.swift in Sources */,
 				41DA1EF2248F3F43003EBCD4 /* Player.swift in Sources */,
-				4108936E24907E330003AB93 /* ResultTableViewCell.swift in Sources */,
-				419514F82491E93D00A37342 /* InviteTableViewCell.swift in Sources */,
+				414089FE249B188B00754631 /* JoinViewController.swift in Sources */,
 				417E1918245FB8E10008DABD /* SceneDelegate.swift in Sources */,
 				41BC6DE024972E2700AB4C36 /* Game.swift in Sources */,
 			);

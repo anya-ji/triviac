@@ -470,26 +470,32 @@ class CreateViewController: UIViewController {
     
     @objc func invitef(){
         buttonAnimate(button: invite, shadow: .shadowcolor)
-        
+
         makeEndpoint()
-        
-        let chosentyp = typ.titleForSegment(at: typ.selectedSegmentIndex) == "Multiple Choice" ? "multiple" : "boolean"
-        let inviteViewController = InviteViewController(mode: chosentyp, replay: nil)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+    
+     
+       
             if Auth.auth().currentUser?.uid == nil {
                 self.tabBarController!.selectedIndex = 2
             }
             else{
-                self.navigationController?.pushViewController(inviteViewController, animated: true)
+                let host = Auth.auth().currentUser?.uid
+                let joiner = ""
+                let newGame = Game.init(host: host!, joiner: joiner, gameState: 0, endpoint: CreateViewController.endpoint)
+                DatabaseManager.createGame(game: newGame)
+                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    let waitingVC = WaitingViewController()
+                    self.navigationController?.pushViewController(waitingVC, animated: true)
+                
             }
-            
+
         }
-        
+
     }
     
     @objc func joinf(){
         buttonAnimate(button: join, shadow: .shadowcolor)
-         let joinViewController = JoinViewController()
+        let joinViewController = JoinViewController()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             if Auth.auth().currentUser?.uid == nil {
                 self.tabBarController!.selectedIndex = 2

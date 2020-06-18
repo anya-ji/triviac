@@ -15,10 +15,6 @@ class EndViewController: UIViewController {
     var quitButton: UIButton!
     var saveButton: UIButton!
     
-    let bgcolor = UIColor(red: 1.00, green: 0.75, blue: 0.27, alpha: 1.00)
-    let savecolor = UIColor(red: 0.96, green: 0.83, blue: 0.37, alpha: 1.00)
-    let shadowcolor = UIColor(red: 0.15, green: 0.16, blue: 0.16, alpha: 1.00)
-    
     let gap = 10
     
     var score: Int!
@@ -53,7 +49,7 @@ class EndViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = bgcolor
+        view.backgroundColor = .bgcolor
         hideKeyboardWhenTappedAround()
         
         rsLabel = UILabel()
@@ -94,7 +90,7 @@ class EndViewController: UIViewController {
             saveButton.layer.cornerRadius = 20
             saveButton.layer.borderWidth = 3
             saveButton.layer.borderColor = UIColor.gray.cgColor
-            applyShadow(button: saveButton, shadow: shadowcolor)
+            applyShadow(button: saveButton, shadow: .shadowcolor)
             saveButton.snp.makeConstraints{ make in
                 make.centerX.equalTo(view.snp.centerX)
                 make.top.equalTo(rsLabel.snp.bottom).offset(gap*7)
@@ -116,7 +112,7 @@ class EndViewController: UIViewController {
         quitButton.layer.cornerRadius = 20
         quitButton.layer.borderWidth = 3
         quitButton.layer.borderColor = UIColor.gray.cgColor
-        applyShadow(button: quitButton, shadow: shadowcolor)
+        applyShadow(button: quitButton, shadow: .shadowcolor)
         
         
         //not found, name a new one
@@ -128,7 +124,7 @@ class EndViewController: UIViewController {
         
         saveName = UIButton()
         saveName.setTitle("OK", for: .normal)
-        saveName.backgroundColor = savecolor
+        saveName.backgroundColor = .customyellow
         saveName.setTitleColor(.white, for: .normal)
         saveName.addTarget(self, action: #selector(done), for: .touchUpInside)
         saveName.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
@@ -175,17 +171,6 @@ class EndViewController: UIViewController {
         nameText.adjustsFontSizeToFitWidth = true
         enterView.addSubview(nameText)
         
-//        if update{
-//            congrat = UILabel()
-//            congrat.text = "🎉Congrats! New highest score!🎉"
-//            congrat.textColor = .orange
-//            congrat.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
-//            congrat.textAlignment = .center
-//            congrat.adjustsFontSizeToFitWidth = true
-//            congrat.lineBreakMode = .byWordWrapping
-//            congrat.numberOfLines = 0
-//            view.addSubview(congrat)
-//        }
         
         setup()
     }
@@ -298,7 +283,7 @@ class EndViewController: UIViewController {
     }
     
     @objc func quit(sender: UIButton){
-        buttonAnimate(button: sender, shadow: shadowcolor)
+        buttonAnimate(button: sender, shadow: .shadowcolor)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.navigationController?.popToRootViewController(animated: true)
         }
@@ -306,7 +291,7 @@ class EndViewController: UIViewController {
     
     
     @objc func save(sender: UIButton){
-        buttonAnimate(button: sender, shadow: shadowcolor)
+        buttonAnimate(button: sender, shadow: .shadowcolor)
         self.enterView.isHidden = false
         quitButton.isEnabled = false
         saveButton.isEnabled = false

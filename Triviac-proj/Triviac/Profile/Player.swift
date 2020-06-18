@@ -15,7 +15,7 @@ struct Player {
     var email: String!
     //var points: Int!
     var color: String!
-    var inGame: String!
+    //var inGame: String!
     
     init(name: String, uid: String, email: String, color: String) {
         self.name = name

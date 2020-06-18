@@ -12,33 +12,37 @@ class Game{
     
     var id = ""
     var host: String
-    var joiners: [String: Int]
+    var joiner: String
     var gameState: Int
+    var endpoint: String
     /*0: invited - invitations sent
      1: ready - all players joined
      2: started - host starts the game
      3: ended - game ended
      */
     
-    init(host: String, joiners:[String: Int], gameState: Int){
+    init(host: String, joiner: String, gameState: Int, endpoint: String){
         self.host = host
-        self.joiners = joiners
+        self.joiner = joiner
         self.gameState = gameState
+        self.endpoint = endpoint
     }
     
     func forDatabase() -> [String: Any] {
         return [
             "host": host,
-            "joiners": joiners,
-            "gameState": gameState
+            "joiner": joiner,
+            "gameState": gameState,
+            "endpoint": endpoint
         ]
     }
     
     static func fromDatabase(object: [String: Any]) -> Game {
         let host = object["host"] as! String
-        let joiners = object["joiners"] as! [String : Int]
+        let joiner = object["joiner"] as! String
         let gameState = object["gameState"] as! Int
+        let endpoint = object["endpoint"] as! String
         
-        return Game(host: host, joiners: joiners, gameState: gameState)
+        return Game(host: host, joiner: joiner, gameState: gameState, endpoint: endpoint)
     }
 }
