@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class ProfileViewController: UIViewController {
-
+    
     var exitButton: UIBarButtonItem!
     
     let bgcolor = UIColor(red: 0.27, green: 0.29, blue: 0.30, alpha: 1.00)
@@ -30,10 +30,10 @@ class ProfileViewController: UIViewController {
         checkLoggedIn()
     }
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-  
+        
         navigationController?.navigationBar.barTintColor = barcolor
         navigationController?.navigationBar.titleTextAttributes = [
             // NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20),
@@ -46,7 +46,7 @@ class ProfileViewController: UIViewController {
         topView = UIView()
         topView.backgroundColor = .shadowcolor
         view.addSubview(topView)
-
+        
         let exitimg = UIImage(named: "exit")?.resized(to: CGSize(width: 30, height: 30))
         exitButton = UIBarButtonItem(image: exitimg, style: .done, target: self, action: #selector(exit))
         exitButton.isEnabled = true
@@ -81,25 +81,25 @@ class ProfileViewController: UIViewController {
     
     func setup(){
         let gap = view.frame.height / 50
-//        photo.snp.makeConstraints{ make in
-//            make.trailing.equalTo(view.snp.centerX).offset(-gap*2)
-//            make.height.width.equalTo(80)
-//            make.bottom.equalTo(view.snp.centerY).offset(-gap*3)
-//        }
-//
-//        nameLabel.snp.makeConstraints{ make in
-//            make.leading.equalTo(view.snp.centerX)
-//            make.top.equalTo(photo.snp.top)
-//            make.bottom.equalTo(photo.snp.centerY)
-//            make.trailing.equalToSuperview()
-//        }
-//
-//        bulb.snp.makeConstraints{ make in
-//            make.leading.equalTo(view.snp.centerX).offset(gap*2)
-//            make.height.width.equalTo(100)
-//            make.top.equalTo(view.snp.centerY).offset(gap*3)
-//
-//        }
+        //        photo.snp.makeConstraints{ make in
+        //            make.trailing.equalTo(view.snp.centerX).offset(-gap*2)
+        //            make.height.width.equalTo(80)
+        //            make.bottom.equalTo(view.snp.centerY).offset(-gap*3)
+        //        }
+        //
+        //        nameLabel.snp.makeConstraints{ make in
+        //            make.leading.equalTo(view.snp.centerX)
+        //            make.top.equalTo(photo.snp.top)
+        //            make.bottom.equalTo(photo.snp.centerY)
+        //            make.trailing.equalToSuperview()
+        //        }
+        //
+        //        bulb.snp.makeConstraints{ make in
+        //            make.leading.equalTo(view.snp.centerX).offset(gap*2)
+        //            make.height.width.equalTo(100)
+        //            make.top.equalTo(view.snp.centerY).offset(gap*3)
+        //
+        //        }
         topView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
@@ -109,20 +109,20 @@ class ProfileViewController: UIViewController {
             make.top.equalToSuperview().offset(gap*3)
             make.height.width.equalTo(80)
             make.centerX.equalToSuperview()
-            }
-            
-            nameLabel.snp.makeConstraints{ make in
-                make.top.equalTo(photo.snp.bottom).offset(gap)
-                make.height.equalTo(50)
-                make.centerX.equalToSuperview()
-            }
-            
-            bulb.snp.makeConstraints{ make in
-                make.leading.equalTo(view.snp.centerX).offset(gap*2)
-                make.height.width.equalTo(100)
-                make.top.equalTo(view.snp.centerY).offset(gap*3)
+        }
         
-            }
+        nameLabel.snp.makeConstraints{ make in
+            make.top.equalTo(photo.snp.bottom).offset(gap)
+            make.height.equalTo(50)
+            make.centerX.equalToSuperview()
+        }
+        
+        bulb.snp.makeConstraints{ make in
+            make.leading.equalTo(view.snp.centerX).offset(gap*2)
+            make.height.width.equalTo(100)
+            make.top.equalTo(view.snp.centerY).offset(gap*3)
+            
+        }
     }
     
     func checkLoggedIn(){
@@ -161,26 +161,26 @@ class ProfileViewController: UIViewController {
         navigationController?.pushViewController(signInViewController, animated: true)
     }
     
-
+    
 }
 
 extension NSMutableAttributedString {
-
+    
     func setColorFont(color: UIColor, font: UIFont, forText stringValue: String) {
-       let range: NSRange = self.mutableString.range(of: stringValue, options: .caseInsensitive)
+        let range: NSRange = self.mutableString.range(of: stringValue, options: .caseInsensitive)
         self.addAttributes([NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.font: font], range: range)
     }
-
+    
 }
 
 //rounded photo
 extension UIImageView {
-
+    
     func makeRounded() {
         self.layer.cornerRadius = self.frame.height / 2
-        self.layer.borderWidth = 2
+        //self.layer.borderWidth = 2
         self.layer.masksToBounds = false
-        self.layer.borderColor = UIColor.customyellow.cgColor
+        //self.layer.borderColor = UIColor.customyellow.cgColor
         self.clipsToBounds = true
     }
 }

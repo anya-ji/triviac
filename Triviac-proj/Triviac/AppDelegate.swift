@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         userDefaults.register(defaults: [
             "data": [Data()],
             "lastUpdated": Date(),
-            "currentPlayerName": ""
+            "currentPlayer": Data()
         ])
         FirebaseApp.configure()
         

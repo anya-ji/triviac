@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct Player {
+struct Player: Codable {
     var name: String!
     var uid: String!
     var email: String!

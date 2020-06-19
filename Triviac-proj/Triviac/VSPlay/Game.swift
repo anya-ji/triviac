@@ -10,8 +10,8 @@ import Foundation
 
 class Game{
     
-    var id = ""
-    var host: String
+    //var id = ""
+    var host = ""
     var joiner: String
     var gameState: Int
     var endpoint: String
@@ -21,8 +21,8 @@ class Game{
      3: ended - game ended
      */
     
-    init(host: String, joiner: String, gameState: Int, endpoint: String){
-        self.host = host
+    init(joiner: String, gameState: Int, endpoint: String){
+       // self.host = host
         self.joiner = joiner
         self.gameState = gameState
         self.endpoint = endpoint
@@ -30,7 +30,7 @@ class Game{
     
     func forDatabase() -> [String: Any] {
         return [
-            "host": host,
+            //"host": host,
             "joiner": joiner,
             "gameState": gameState,
             "endpoint": endpoint
@@ -38,11 +38,11 @@ class Game{
     }
     
     static func fromDatabase(object: [String: Any]) -> Game {
-        let host = object["host"] as! String
+        //let host = object["host"] as! String
         let joiner = object["joiner"] as! String
         let gameState = object["gameState"] as! Int
         let endpoint = object["endpoint"] as! String
         
-        return Game(host: host, joiner: joiner, gameState: gameState, endpoint: endpoint)
+        return Game(joiner: joiner, gameState: gameState, endpoint: endpoint)
     }
 }

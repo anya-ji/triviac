@@ -472,16 +472,12 @@ class CreateViewController: UIViewController {
         buttonAnimate(button: invite, shadow: .shadowcolor)
 
         makeEndpoint()
-    
-     
        
             if Auth.auth().currentUser?.uid == nil {
                 self.tabBarController!.selectedIndex = 2
             }
             else{
-                let host = Auth.auth().currentUser?.uid
-                let joiner = ""
-                let newGame = Game.init(host: host!, joiner: joiner, gameState: 0, endpoint: CreateViewController.endpoint)
+                let newGame = Game.init(joiner: "", gameState: 0, endpoint: CreateViewController.endpoint)
                 DatabaseManager.createGame(game: newGame)
                  DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     let waitingVC = WaitingViewController()

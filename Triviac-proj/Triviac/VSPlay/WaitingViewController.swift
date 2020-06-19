@@ -74,7 +74,7 @@ class WaitingViewController: UIViewController {
     }
     
     func listenForStartGame(){
-        DatabaseManager.ref.child("games").child(DatabaseManager.currentGameID).observe(.value) { (snapshot) in
+        DatabaseManager.ref.child("games").child(DatabaseManager.currentGame.host).observe(.value) { (snapshot) in
             if let gameDict = snapshot.value as? [String: Any]{
                 let game = Game.fromDatabase(object: gameDict)
                 if game.gameState == 1{

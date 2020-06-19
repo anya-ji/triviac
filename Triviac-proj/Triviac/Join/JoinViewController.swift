@@ -56,9 +56,9 @@ class JoinViewController: UIViewController {
         DatabaseManager.ref.child("games").queryOrdered(byChild: "gameState").queryEqual(toValue: 0).observeSingleEvent(of: .value, with: { (snapshot) in
             if let gameDict = snapshot.value as? [String : Any]{
                 //print(gameDict)
-                gameDict.forEach { (gameID, gameObj) in
+                gameDict.forEach { (hostID, gameObj) in
                     let game = Game.fromDatabase(object: gameObj as! [String : Any])
-                    game.id = gameID
+                    game.host = hostID
                     //print(game.id)
                     if game.host != Auth.auth().currentUser?.uid {
                         self.roomlist.append(game)
@@ -99,9 +99,14 @@ extension JoinViewController: UITableViewDelegate {
         return 100
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let gameID = roomlist[indexPath.row].id
+        let hostID = roomlist[indexPath.row].host
         let joinerID = Auth.auth().currentUser?.uid
-        DatabaseManager.confirmJoin(gameID: gameID, joinerID: joinerID!)
+        DatabaseManager.confirmJoin(hostID: hostID, joinerID: joinerID!)
+        DatabaseManager.findPlayerByUid(uid: hostID){
+            (player) in
+            let startingVC = StartingViewController(opponent: player)
+            self.navigationController?.pushViewController(startingVC, animated: true)
+        }
         
     }
 }
