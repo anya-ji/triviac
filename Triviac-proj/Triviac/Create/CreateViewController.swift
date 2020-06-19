@@ -33,6 +33,10 @@ class CreateViewController: UIViewController {
     var invite: UIButton!
     var join: UIButton!
     
+    var notfoundView: UIView!
+    var ok: UIButton!
+    var prompt: UILabel!
+    
     let ls = CGFloat(25)
     
     
@@ -55,7 +59,7 @@ class CreateViewController: UIViewController {
         
         view.backgroundColor = .bgcolor
         self.navigationItem.title = "Generate a Trivia!"
-        navigationController?.navigationBar.barTintColor = .customyellow
+        navigationController?.navigationBar.barTintColor = .accentbuttoncolor
         navigationController?.navigationBar.titleTextAttributes = [
             // NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20),
             NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -181,53 +185,89 @@ class CreateViewController: UIViewController {
         mode.addTarget(self, action: #selector(changeMode), for: .valueChanged)
         
         //gen
-       
-            gen = UIButton()
-            gen.setTitle("Generate!", for: .normal)
-            gen.backgroundColor = .customyellow
-            gen.setTitleColor(.white, for: .normal)
-            gen.addTarget(self, action: #selector(genf), for: .touchUpInside)
-            gen.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
-            gen.titleLabel?.textAlignment = .center
-            gen.layer.cornerRadius = 20
-            gen.layer.borderWidth = 3
-            gen.layer.borderColor = UIColor.white.cgColor
-            gen.titleLabel?.adjustsFontSizeToFitWidth = true
-            applyShadow(button: gen, shadow: .shadowcolor)
-            view.addSubview(gen)
-    
-            
-            invite = UIButton()
-            invite.setTitle("Invite", for: .normal)
-            invite.backgroundColor = .customyellow
-            invite.setTitleColor(.white, for: .normal)
-            invite.addTarget(self, action: #selector(invitef), for: .touchUpInside)
-            invite.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
-            invite.titleLabel?.textAlignment = .center
-            invite.layer.cornerRadius = 20
-            invite.layer.borderWidth = 3
-            invite.layer.borderColor = UIColor.white.cgColor
-            invite.titleLabel?.adjustsFontSizeToFitWidth = true
-            applyShadow(button: invite, shadow: .shadowcolor)
-            view.addSubview(invite)
+        
+        gen = UIButton()
+        gen.setTitle("Generate!", for: .normal)
+        gen.backgroundColor = .accentbuttoncolor
+        gen.setTitleColor(.white, for: .normal)
+        gen.addTarget(self, action: #selector(genf), for: .touchUpInside)
+        gen.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
+        gen.titleLabel?.textAlignment = .center
+        gen.layer.cornerRadius = 20
+        gen.layer.borderWidth = 3
+        gen.layer.borderColor = UIColor.white.cgColor
+        gen.titleLabel?.adjustsFontSizeToFitWidth = true
+        applyShadow(button: gen, shadow: .shadowcolor)
+        view.addSubview(gen)
+        
+        
+        invite = UIButton()
+        invite.setTitle("Invite", for: .normal)
+        invite.backgroundColor = .accentbuttoncolor
+        invite.setTitleColor(.white, for: .normal)
+        invite.addTarget(self, action: #selector(invitef), for: .touchUpInside)
+        invite.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
+        invite.titleLabel?.textAlignment = .center
+        invite.layer.cornerRadius = 20
+        invite.layer.borderWidth = 3
+        invite.layer.borderColor = UIColor.white.cgColor
+        invite.titleLabel?.adjustsFontSizeToFitWidth = true
+        applyShadow(button: invite, shadow: .shadowcolor)
+        view.addSubview(invite)
         invite.isHidden = true
         invite.isEnabled = false
-            
-            join = UIButton()
-            join.setTitle("Join", for: .normal)
-            join.backgroundColor = .btcolor
-            join.setTitleColor(.white, for: .normal)
-            join.addTarget(self, action: #selector(joinf), for: .touchUpInside)
-            join.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
-            join.titleLabel?.textAlignment = .center
-            join.layer.cornerRadius = 20
-            join.layer.borderWidth = 3
-            join.layer.borderColor = UIColor.white.cgColor
-            join.titleLabel?.adjustsFontSizeToFitWidth = true
-            applyShadow(button: join, shadow: .shadowcolor)
-            view.addSubview(join)
-         join.isHidden = true
+        
+        join = UIButton()
+        join.setTitle("Join", for: .normal)
+        join.backgroundColor = .btcolor
+        join.setTitleColor(.white, for: .normal)
+        join.addTarget(self, action: #selector(joinf), for: .touchUpInside)
+        join.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: ls)
+        join.titleLabel?.textAlignment = .center
+        join.layer.cornerRadius = 20
+        join.layer.borderWidth = 3
+        join.layer.borderColor = UIColor.white.cgColor
+        join.titleLabel?.adjustsFontSizeToFitWidth = true
+        applyShadow(button: join, shadow: .shadowcolor)
+        view.addSubview(join)
+        join.isHidden = true
         join.isEnabled = false
+        
+        
+        //not found
+        
+        
+        notfoundView = UIView()
+        notfoundView.backgroundColor = UIColor(white: 1, alpha: 0.9)
+        notfoundView.layer.cornerRadius = 10
+        notfoundView.isHidden = true
+        
+        ok = UIButton()
+        ok.setTitle("OK", for: .normal)
+        ok.backgroundColor = .accentbuttoncolor
+        ok.setTitleColor(.white, for: .normal)
+        ok.addTarget(self, action: #selector(quit), for: .touchUpInside)
+        ok.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
+        ok.titleLabel?.textAlignment = .center
+        ok.layer.cornerRadius = 15
+        ok.layer.borderWidth = 1
+        ok.layer.borderColor = UIColor.white.cgColor
+        ok.titleLabel?.adjustsFontSizeToFitWidth = true
+        ok.layer.shadowOpacity = 0.8
+        ok.layer.shadowOffset = CGSize(width: 4, height: 4)
+        ok.layer.shadowColor = UIColor.darkGray.cgColor
+        
+        
+        
+        prompt = UILabel()
+        prompt.text = "Oops, the trivia doesn't exist.🤯 \nPlease try another combination."
+        prompt.textColor = .lightGray
+        prompt.font = UIFont.init(name: "Chalkduster", size: 20)
+        prompt.textAlignment = .center
+        prompt.adjustsFontSizeToFitWidth = true
+        prompt.lineBreakMode = .byWordWrapping
+        prompt.numberOfLines = 0
+        
         
         view.addSubview(numLabel)
         view.addSubview(numText)
@@ -241,9 +281,17 @@ class CreateViewController: UIViewController {
         view.addSubview(typ)
         view.addSubview(modeLabel)
         view.addSubview(mode)
+        view.addSubview(notfoundView)
+        notfoundView.addSubview(ok)
+        notfoundView.addSubview(prompt)
         
         setup()
         
+    }
+    
+    @objc func quit(){
+        buttonAnimate(button: ok, shadow: UIColor.darkGray)
+        notfoundView.isHidden = true
     }
     
     @objc func changeMode(){
@@ -386,7 +434,7 @@ class CreateViewController: UIViewController {
         }
         
         
-     
+        
         //invite
         invite.snp.makeConstraints{ make in
             make.trailing.equalTo(view.snp.centerX).offset(-gap)
@@ -407,6 +455,29 @@ class CreateViewController: UIViewController {
         }
         join.titleLabel?.snp.makeConstraints{ make in
             make.centerY.equalToSuperview().offset(-3)
+        }
+        
+        //notfound
+        notfoundView.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview()
+            make.height.equalTo(220)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+        }
+        ok.snp.makeConstraints{make in
+            make.height.equalTo(40)
+            make.width.equalTo(60)
+            make.bottom.equalToSuperview().offset(-20)
+            make.centerX.equalToSuperview()
+        }
+        ok.titleLabel?.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview().offset(-3)
+        }
+        prompt.snp.makeConstraints{ make in
+            make.top.equalToSuperview().offset(10)
+            make.bottom.equalTo(ok.snp.top).offset(-10)
+            make.leading.equalToSuperview().offset(10)
+            make.trailing.equalToSuperview().offset(-10)
         }
         
         
@@ -460,76 +531,91 @@ class CreateViewController: UIViewController {
         makeEndpoint()
         
         let chosentyp = typ.titleForSegment(at: typ.selectedSegmentIndex) == "Multiple Choice" ? "multiple" : "boolean"
-        let playViewController = PlayViewController(mode: chosentyp, replay: nil)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.navigationController?.pushViewController(playViewController, animated: true)
+        
+        NetworkManager.getTrivia(){
+            triviaset in
+            if triviaset.isEmpty {
+                self.notfoundView.isHidden = false
+                //TODO: disable background buttons
+            }
+            else{
+                let playViewController = PlayViewController(mode: chosentyp, replay: nil)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.navigationController?.pushViewController(playViewController, animated: true)
+                }
+            }
         }
-        
-        
     }
     
     @objc func invitef(){
         buttonAnimate(button: invite, shadow: .shadowcolor)
-
-        makeEndpoint()
-       
-            if Auth.auth().currentUser?.uid == nil {
-                self.tabBarController!.selectedIndex = 2
-            }
-            else{
-                let newGame = Game.init(joiner: "", gameState: 0, endpoint: CreateViewController.endpoint)
-                DatabaseManager.createGame(game: newGame)
-                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    let waitingVC = WaitingViewController()
-                    self.navigationController?.pushViewController(waitingVC, animated: true)
-                
-            }
-
-        }
-
-    }
-    
-    @objc func joinf(){
-        buttonAnimate(button: join, shadow: .shadowcolor)
-        let joinViewController = JoinViewController()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            if Auth.auth().currentUser?.uid == nil {
-                self.tabBarController!.selectedIndex = 2
-            }
-            else{
-                self.navigationController?.pushViewController(joinViewController, animated: true)
-            }
-            
-        }
-    }
-    
-    func parseJSON(){
-        var rs: [String:String] = [:]
-        var ra: [String] = []
         
-        if let path = Bundle.main.path(forResource: "category", ofType: "json") {
-            
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                let jsonResult = try JSONDecoder().decode(CatResponse.self, from: data)
-                
-                let catsArray = jsonResult.category
-                
-                
-                for cate in catsArray{
-                    rs[cate.cat!] = cate.num
-                    ra.append(cate.cat!)
+        makeEndpoint()
+        
+        NetworkManager.getTrivia(){
+            triviaset in
+            if triviaset.isEmpty {
+                self.notfoundView.isHidden = false
+                //TODO: disable background buttons
+            }
+            else{
+                if Auth.auth().currentUser?.uid == nil {
+                    self.tabBarController!.selectedIndex = 2
                 }
-                
-                
-            } catch {
-                print(error)
+                else{
+                    let newGame = Game.init(joiner: "", gameState: 0, endpoint: CreateViewController.endpoint)
+                    DatabaseManager.createGame(game: newGame)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        let waitingVC = WaitingViewController()
+                        self.navigationController?.pushViewController(waitingVC, animated: true)
+                        
+                    }
+                }
             }
         }
-        CreateViewController.catdic = rs
-        CreateViewController.catarr = ra
     }
     
+
+@objc func joinf(){
+    buttonAnimate(button: join, shadow: .shadowcolor)
+    let joinViewController = JoinViewController()
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        if Auth.auth().currentUser?.uid == nil {
+            self.tabBarController!.selectedIndex = 2
+        }
+        else{
+            self.navigationController?.pushViewController(joinViewController, animated: true)
+        }  
+    }
+}
+
+func parseJSON(){
+    var rs: [String:String] = [:]
+    var ra: [String] = []
+    
+    if let path = Bundle.main.path(forResource: "category", ofType: "json") {
+        
+        do {
+            let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+            let jsonResult = try JSONDecoder().decode(CatResponse.self, from: data)
+            
+            let catsArray = jsonResult.category
+            
+            
+            for cate in catsArray{
+                rs[cate.cat!] = cate.num
+                ra.append(cate.cat!)
+            }
+            
+            
+        } catch {
+            print(error)
+        }
+    }
+    CreateViewController.catdic = rs
+    CreateViewController.catarr = ra
+}
+
 }
 
 extension CreateViewController: CatChangeTextDelegate{
@@ -569,14 +655,5 @@ extension UIViewController {
     }
 }
 
-//uicolor custom
-extension UIColor{
-    static let bgcolor = UIColor(red: 0.27, green: 0.29, blue: 0.30, alpha: 1.00)
-    static let customyellow = UIColor(red: 0.96, green: 0.83, blue: 0.37, alpha: 1.00)
-    static let btcolor = UIColor(red: 0.30, green: 0.31, blue: 0.33, alpha: 1.00)
-    static let textcolor = UIColor.white
-    static let bordercolor = UIColor.white
-    static let shadowcolor = UIColor(red: 0.15, green: 0.16, blue: 0.16, alpha: 1.00)
-    
-}
+
 

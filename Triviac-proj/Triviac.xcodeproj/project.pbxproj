@@ -13,6 +13,8 @@
 		414089FF249B188B00754631 /* JoinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414089FD249B188B00754631 /* JoinTableViewCell.swift */; };
 		41408A0B249B19DE00754631 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41408A06249B19DE00754631 /* DatabaseManager.swift */; };
 		41495ADC249B2E6000D91423 /* StartingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41495ADB249B2E6000D91423 /* StartingViewController.swift */; };
+		41495AE8249C7F6900D91423 /* VSPlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41495AE7249C7F6900D91423 /* VSPlayViewController.swift */; };
+		41495AEA249C882F00D91423 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41495AE9249C882F00D91423 /* UIColorExtensions.swift */; };
 		414FA627248EE2B70089F00A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414FA626248EE2B70089F00A /* ProfileViewController.swift */; };
 		415CC4DE2461187F004CC7F9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415CC4DD2461187F004CC7F9 /* TabBarController.swift */; };
 		415CC4E624611C37004CC7F9 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415CC4E524611C37004CC7F9 /* CreateViewController.swift */; };
@@ -44,6 +46,8 @@
 		414089FD249B188B00754631 /* JoinTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinTableViewCell.swift; sourceTree = "<group>"; };
 		41408A06249B19DE00754631 /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		41495ADB249B2E6000D91423 /* StartingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingViewController.swift; sourceTree = "<group>"; };
+		41495AE7249C7F6900D91423 /* VSPlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSPlayViewController.swift; sourceTree = "<group>"; };
+		41495AE9249C882F00D91423 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		414FA626248EE2B70089F00A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		415CC4DD2461187F004CC7F9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		415CC4E524611C37004CC7F9 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +114,7 @@
 				416251DA249B1EC7002C19B2 /* WaitingViewController.swift */,
 				41BC6DDF24972E2700AB4C36 /* Game.swift */,
 				41495ADB249B2E6000D91423 /* StartingViewController.swift */,
+				41495AE7249C7F6900D91423 /* VSPlayViewController.swift */,
 			);
 			path = VSPlay;
 			sourceTree = "<group>";
@@ -135,6 +140,7 @@
 		417E1914245FB8E10008DABD /* Triviac */ = {
 			isa = PBXGroup;
 			children = (
+				41495AE9249C882F00D91423 /* UIColorExtensions.swift */,
 				41100FA7248D8AD60051EA2C /* GoogleService-Info.plist */,
 				4180B07824625ED600FA04C4 /* Saved */,
 				4180B07724625EBE00FA04C4 /* Create */,
@@ -327,6 +333,7 @@
 				4180B07624625D5800FA04C4 /* SavedCollectionViewCell.swift in Sources */,
 				41408A0B249B19DE00754631 /* DatabaseManager.swift in Sources */,
 				4180B0892463D7FF00FA04C4 /* Trivia.swift in Sources */,
+				41495AEA249C882F00D91423 /* UIColorExtensions.swift in Sources */,
 				414FA627248EE2B70089F00A /* ProfileViewController.swift in Sources */,
 				415CC4E624611C37004CC7F9 /* CreateViewController.swift in Sources */,
 				4180B094246637C100FA04C4 /* State.swift in Sources */,
@@ -337,6 +344,7 @@
 				414089FF249B188B00754631 /* JoinTableViewCell.swift in Sources */,
 				4180B0702462444B00FA04C4 /* Cat.swift in Sources */,
 				415CC4E824611C3F004CC7F9 /* SavedViewController.swift in Sources */,
+				41495AE8249C7F6900D91423 /* VSPlayViewController.swift in Sources */,
 				41DA1EF2248F3F43003EBCD4 /* Player.swift in Sources */,
 				414089FE249B188B00754631 /* JoinViewController.swift in Sources */,
 				417E1918245FB8E10008DABD /* SceneDelegate.swift in Sources */,

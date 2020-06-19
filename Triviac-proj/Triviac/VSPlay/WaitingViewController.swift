@@ -24,7 +24,7 @@ class WaitingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .bgcolor
-        navigationController?.navigationBar.barTintColor = .customyellow
+        navigationController?.navigationBar.barTintColor = .accentbuttoncolor
         navigationController?.navigationBar.titleTextAttributes = [
             // NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20),
             NSAttributedString.Key.foregroundColor: UIColor.white]

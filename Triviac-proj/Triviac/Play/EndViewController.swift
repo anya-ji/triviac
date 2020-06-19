@@ -124,7 +124,7 @@ class EndViewController: UIViewController {
         
         saveName = UIButton()
         saveName.setTitle("OK", for: .normal)
-        saveName.backgroundColor = .customyellow
+        saveName.backgroundColor = .accentbuttoncolor
         saveName.setTitleColor(.white, for: .normal)
         saveName.addTarget(self, action: #selector(done), for: .touchUpInside)
         saveName.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)

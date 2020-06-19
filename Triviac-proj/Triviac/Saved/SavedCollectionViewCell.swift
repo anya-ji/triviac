@@ -32,7 +32,7 @@ class SavedCollectionViewCell: UICollectionViewCell {
         layer.borderColor = UIColor.white.cgColor
         layer.borderWidth = 5
         layer.cornerRadius = 10
-        backgroundColor = .customyellow
+        backgroundColor = .accentbuttoncolor
         
         titleLabel = UILabel()
         titleLabel.contentMode = .scaleToFill

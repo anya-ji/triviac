@@ -23,7 +23,7 @@ class JoinViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .bgcolor
         self.navigationItem.title = "Join a game!"
-        navigationController?.navigationBar.barTintColor = .customyellow
+        navigationController?.navigationBar.barTintColor = .accentbuttoncolor
         navigationController?.navigationBar.titleTextAttributes = [
             // NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20),
             NSAttributedString.Key.foregroundColor: UIColor.white]

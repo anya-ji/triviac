@@ -47,6 +47,8 @@ class DatabaseManager{
             currentGame = game
             currentGame.host = hostID
             //update static current game
+            CreateViewController.endpoint = currentGame.endpoint
+            //update endpoint
         }
         //change state
          ref.child("games").child(hostID).updateChildValues(["gameState" : 1, "joiner": joinerID])

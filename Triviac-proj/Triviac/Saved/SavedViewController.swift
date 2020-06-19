@@ -50,7 +50,7 @@ class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.barTintColor = .customyellow
+        navigationController?.navigationBar.barTintColor = .accentbuttoncolor
         navigationController?.navigationBar.titleTextAttributes = [
             // NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20),
             NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -100,7 +100,7 @@ class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
         
         delete = UIButton()
         delete.setTitle("Delete", for: .normal)
-        delete.backgroundColor = .customyellow
+        delete.backgroundColor = .accentbuttoncolor
         delete.setTitleColor(.white, for: .normal)
         delete.addTarget(self, action: #selector(check), for: .touchUpInside)
         delete.titleLabel?.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
