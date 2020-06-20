@@ -15,6 +15,7 @@
 		41495ADC249B2E6000D91423 /* StartingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41495ADB249B2E6000D91423 /* StartingViewController.swift */; };
 		41495AE8249C7F6900D91423 /* VSPlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41495AE7249C7F6900D91423 /* VSPlayViewController.swift */; };
 		41495AEA249C882F00D91423 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41495AE9249C882F00D91423 /* UIColorExtensions.swift */; };
+		41495AEC249DB26000D91423 /* VSState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41495AEB249DB26000D91423 /* VSState.swift */; };
 		414FA627248EE2B70089F00A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414FA626248EE2B70089F00A /* ProfileViewController.swift */; };
 		415CC4DE2461187F004CC7F9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415CC4DD2461187F004CC7F9 /* TabBarController.swift */; };
 		415CC4E624611C37004CC7F9 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415CC4E524611C37004CC7F9 /* CreateViewController.swift */; };
@@ -48,6 +49,7 @@
 		41495ADB249B2E6000D91423 /* StartingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingViewController.swift; sourceTree = "<group>"; };
 		41495AE7249C7F6900D91423 /* VSPlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSPlayViewController.swift; sourceTree = "<group>"; };
 		41495AE9249C882F00D91423 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+		41495AEB249DB26000D91423 /* VSState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSState.swift; sourceTree = "<group>"; };
 		414FA626248EE2B70089F00A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		415CC4DD2461187F004CC7F9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		415CC4E524611C37004CC7F9 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				41BC6DDF24972E2700AB4C36 /* Game.swift */,
 				41495ADB249B2E6000D91423 /* StartingViewController.swift */,
 				41495AE7249C7F6900D91423 /* VSPlayViewController.swift */,
+				41495AEB249DB26000D91423 /* VSState.swift */,
 			);
 			path = VSPlay;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				4180B06E24623D9100FA04C4 /* CatTableViewCell.swift in Sources */,
 				4180B07624625D5800FA04C4 /* SavedCollectionViewCell.swift in Sources */,
 				41408A0B249B19DE00754631 /* DatabaseManager.swift in Sources */,
+				41495AEC249DB26000D91423 /* VSState.swift in Sources */,
 				4180B0892463D7FF00FA04C4 /* Trivia.swift in Sources */,
 				41495AEA249C882F00D91423 /* UIColorExtensions.swift in Sources */,
 				414FA627248EE2B70089F00A /* ProfileViewController.swift in Sources */,

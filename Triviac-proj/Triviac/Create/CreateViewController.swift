@@ -235,8 +235,6 @@ class CreateViewController: UIViewController {
         
         
         //not found
-        
-        
         notfoundView = UIView()
         notfoundView.backgroundColor = UIColor(white: 1, alpha: 0.9)
         notfoundView.layer.cornerRadius = 10
@@ -256,8 +254,6 @@ class CreateViewController: UIViewController {
         ok.layer.shadowOpacity = 0.8
         ok.layer.shadowOffset = CGSize(width: 4, height: 4)
         ok.layer.shadowColor = UIColor.darkGray.cgColor
-        
-        
         
         prompt = UILabel()
         prompt.text = "Oops, the trivia doesn't exist.🤯 \nPlease try another combination."
@@ -522,7 +518,7 @@ class CreateViewController: UIViewController {
         let tpcat = CreateViewController.catdic[(cat.titleLabel?.text)!]
         let chosencat = tpcat == "any" ?  "" : "&category=\(tpcat!)"
         CreateViewController.endpoint = "\(ed)\(chosennum)\(chosencat)&difficulty=\(chosendif!)&type=\(chosentyp)"
-        print(CreateViewController.endpoint)
+        //print(CreateViewController.endpoint)
     }
     
     @objc func genf(){
@@ -563,7 +559,7 @@ class CreateViewController: UIViewController {
                     self.tabBarController!.selectedIndex = 2
                 }
                 else{
-                    let newGame = Game.init(joiner: "", gameState: 0, endpoint: CreateViewController.endpoint)
+                    let newGame = Game.init(joiner: "", gameState: 0, triviaset: triviaset)
                     DatabaseManager.createGame(game: newGame)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         let waitingVC = WaitingViewController()

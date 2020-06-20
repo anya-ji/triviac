@@ -1,20 +1,21 @@
 1. invalid input for user/email show red
-2. multiplayers
+2. fancy starting screen before play
 3. view saved game
 4. sound effects
 5. better logo
-6.search on join
-7.
+6. search on join
+7. more details when joining(#q, category..), starting
 8. show points when search
 9. add button at search
 10. delete button at invite
 11. square border at profile
 12. pull to refresh join
 13. handle host quit invite
+14. timed rounds
+15. create view disable all when notfound
+16. confirm password
+17. no same username
 
-##Deprecated:
-email auth
-6. confirm password
-7. no same username
+
 
 

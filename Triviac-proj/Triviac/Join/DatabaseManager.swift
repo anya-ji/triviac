@@ -15,7 +15,7 @@ class DatabaseManager{
     }
     
     //static var currentGameID = ""
-    static var currentGame = Game(joiner: "", gameState: -1, endpoint: "")
+    static var currentGame = Game(joiner: "", gameState: -1, triviaset: [])
     
     //createVC
     static func createGame(game: Game){
@@ -47,8 +47,7 @@ class DatabaseManager{
             currentGame = game
             currentGame.host = hostID
             //update static current game
-            CreateViewController.endpoint = currentGame.endpoint
-            //update endpoint
+            currentGame.triviaset = game.triviaset
         }
         //change state
          ref.child("games").child(hostID).updateChildValues(["gameState" : 1, "joiner": joinerID])

@@ -77,6 +77,7 @@ class StartingViewController: UIViewController {
         view.addSubview(opNameLabel)
         
         setup()
+        startGame()
         
     }
     
@@ -109,6 +110,13 @@ class StartingViewController: UIViewController {
             make.height.equalTo(50)
             make.trailing.equalTo(opImageView.snp.leading).offset(-10)
             make.centerY.equalTo(opImageView.snp.centerY)
+        }
+    }
+    
+    func startGame(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            let vsPlayVC = VSPlayViewController(opponent: self.opponent)
+            self.navigationController?.pushViewController(vsPlayVC, animated: true)
         }
     }
     
