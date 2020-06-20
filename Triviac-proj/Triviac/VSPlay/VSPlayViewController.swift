@@ -40,7 +40,7 @@ class VSPlayViewController: UIViewController {
     let gap: CGFloat = 30
     let padding: CGFloat = 8
     
-    var triviaset = [Trivia]()
+    var triviaset: [Trivia]!
     var turnsleft: Int = 0
     
     var opponent: Player!
@@ -56,13 +56,12 @@ class VSPlayViewController: UIViewController {
     
     init(opponent: Player){
         super.init(nibName: nil, bundle: nil)
-//        let arr = CreateViewController.endpoint.components(separatedBy: "=")
-//        let chosentyp = arr.last
         let chosentyp = DatabaseManager.currentGame.triviaset[0].type
         self.mode = chosentyp
         self.opponent = opponent
         let currentPlayerData = userDefaults.data(forKey: "currentPlayer")! as Data
         self.currentPlayer = try? PropertyListDecoder().decode(Player.self, from: currentPlayerData)
+        self.triviaset = DatabaseManager.currentGame.triviaset
     }
     
     required init?(coder: NSCoder) {
@@ -467,11 +466,7 @@ class VSPlayViewController: UIViewController {
     
     
     func getTrivia() {
-        NetworkManager.getTrivia(){
-            triviaset in
-            
-            self.triviaset = triviaset
-            
+    
             self.turnsleft = self.triviaset.count
             self.state = State.init(all: self.turnsleft)
             self.qLabel.text = self.triviaset[0].question.htmlUnescape()
@@ -495,8 +490,6 @@ class VSPlayViewController: UIViewController {
                 self.tButton.isHidden = false
                 self.fButton.isHidden = false
             }
-        }
-        
     }
 }
 

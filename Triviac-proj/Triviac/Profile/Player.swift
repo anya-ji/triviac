@@ -13,7 +13,7 @@ struct Player: Codable {
     var name: String!
     var uid: String!
     var email: String!
-    //var points: Int!
+    var points: Int!
     var color: String!
     
     init(name: String, uid: String, email: String, color: String) {
