@@ -156,6 +156,8 @@ class VSPlayViewController: UIViewController {
         setup()
         getTrivia()
         
+        showOpponentResult()
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -407,25 +409,20 @@ class VSPlayViewController: UIViewController {
             
             updateProgress()
             
-           
-            
             DatabaseManager.ref.child("games/\(DatabaseManager.currentGame.host)").child("progress").child("\(state.all - turnsleft)").observe(.value) { (snapshot) in
-                print(snapshot.childrenCount)
+                
                 if snapshot.childrenCount == 2{
+                    
                     self.turnsleft = self.turnsleft - 1
-                    //let seconds = 2.0
-                    //DatabaseManager.ref.child("games/\(DatabaseManager.currentGame.host)").child("progress").child("\(self.state.all - self.turnsleft)").removeAllObservers()
+                   
                     if self.turnsleft == 0 {
-                        //DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                   
                         Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.endGame), userInfo: nil, repeats: false)
-                            //self.endGame()
-                        //}
-                    } else {
                        
-                       // DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                        Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.refresh), userInfo: nil, repeats: false)
-                            
-                        //}
+                    } else {
+                        
+                        Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.mcrefresh), userInfo: nil, repeats: false)
+                        
                     }
                 }
             }
@@ -436,6 +433,7 @@ class VSPlayViewController: UIViewController {
         {
             tButton.isEnabled = false
             fButton.isEnabled = false
+            
             let correctans = current.correct_answer == "True" ? true : false
             let yourans = sender.titleLabel?.text == "T" ? true : false
             ansIsCorrect = correctans == yourans
@@ -448,29 +446,57 @@ class VSPlayViewController: UIViewController {
             
             updateProgress()
             
-            turnsleft = turnsleft - 1
-            
-            let seconds = 2.0
-            if turnsleft == 0 {
-                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                    self.endGame()
-                }
-            } else {
-                let next = triviaset[self.triviaset.count - self.turnsleft]
-                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                    self.qLabel.text = next.question.htmlUnescape()
-                    self.stateLabel.text = "\(self.state.all - self.turnsleft+1)/\(self.state.all)"
-                    self.myrsLabel.text = ""
-                    self.setToNormal(button: sender)
-                    self.tButton.isEnabled = true
-                    self.fButton.isEnabled = true
+            DatabaseManager.ref.child("games/\(DatabaseManager.currentGame.host)").child("progress").child("\(state.all - turnsleft)").observe(.value) { (snapshot) in
+                
+                if snapshot.childrenCount == 2{
+                    self.turnsleft = self.turnsleft - 1
+                   
+                    if self.turnsleft == 0 {
+                      
+                        Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.endGame), userInfo: nil, repeats: false)
+                      
+                    } else {
+                       
+                        Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.tfrefresh), userInfo: nil, repeats: false)
+
+                    }
                 }
             }
         }
     }
     
-    @objc func refresh(){
-         let next = self.triviaset[self.triviaset.count - self.turnsleft]
+    func showOpponentResult(){
+        DatabaseManager.ref.child("games/\(DatabaseManager.currentGame.host)").child("progress").child("\(state.all - turnsleft)").child(opponent.uid).observe(.value) { (snapshot) in
+            if let opponentRs = snapshot.value as? Bool{
+                print(opponentRs)
+                if opponentRs{
+                    self.oprsLabel.text = "🤓"
+                }
+                else{
+                    self.oprsLabel.text = "🤯"
+                }
+            }
+        }
+    }
+    
+    @objc func tfrefresh(){
+        let next = triviaset[self.triviaset.count - self.turnsleft]
+        self.qLabel.text = next.question.htmlUnescape()
+        self.stateLabel.text = "\(self.state.all - self.turnsleft+1)/\(self.state.all)"
+        self.myrsLabel.text = ""
+        self.setToNormal(button: tButton)
+        self.setToNormal(button: fButton)
+        self.tButton.isEnabled = true
+        self.fButton.isEnabled = true
+        
+        self.oprsLabel.text = ""
+        
+        self.showOpponentResult()
+
+    }
+    
+    @objc func mcrefresh(){
+        let next = self.triviaset[self.triviaset.count - self.turnsleft]
         self.qLabel.text = next.question.htmlUnescape()
         self.stateLabel.text = "\(self.state.all - self.turnsleft+1)/\(self.state.all)"
         self.myrsLabel.text = ""
@@ -486,6 +512,10 @@ class VSPlayViewController: UIViewController {
         self.bButton.setTitle(self.choices[1], for: .normal)
         self.cButton.setTitle(self.choices[2], for: .normal)
         self.dButton.setTitle(self.choices[3], for: .normal)
+        
+        self.oprsLabel.text = ""
+        
+        self.showOpponentResult()
     }
     
     @objc func endGame(){
