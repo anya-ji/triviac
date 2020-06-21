@@ -77,7 +77,8 @@ class StartingViewController: UIViewController {
         view.addSubview(opNameLabel)
         
         setup()
-        startGame()
+        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(startGame), userInfo: nil, repeats: false)
+        //startGame()
         
     }
     
@@ -113,11 +114,11 @@ class StartingViewController: UIViewController {
         }
     }
     
-    func startGame(){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+    @objc func startGame(){
+       // DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             let vsPlayVC = VSPlayViewController(opponent: self.opponent)
             self.navigationController?.pushViewController(vsPlayVC, animated: true)
-        }
+       // }
     }
     
     

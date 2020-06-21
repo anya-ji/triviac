@@ -78,12 +78,12 @@ class WaitingViewController: UIViewController {
             if let gameDict = snapshot.value as? [String: Any]{
                 let game = Game.fromDatabase(object: gameDict)
                 if game.gameState == 1{
+                    DatabaseManager.ref.child("games").child(DatabaseManager.currentGame.host).removeAllObservers()
                     DatabaseManager.findPlayerByUid(uid: game.joiner){
                         (player) in
                         let startingVC = StartingViewController(opponent: player)
                         self.navigationController?.pushViewController(startingVC, animated: true)
                     }
-                    
                 }
             }
         }

@@ -28,6 +28,7 @@ class DatabaseManager{
 //            }
 
         ref.child("games").child(game.host).updateChildValues(game.forDatabase())
+        ref.child("games").child(game.host).child("progress").removeValue()
       
 }
     //joinVC

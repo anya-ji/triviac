@@ -42,6 +42,7 @@ class VSPlayViewController: UIViewController {
     
     var triviaset: [Trivia]!
     var turnsleft: Int = 0
+    var ansIsCorrect: Bool!
     
     var opponent: Player!
     var currentPlayer: Player!
@@ -225,7 +226,7 @@ class VSPlayViewController: UIViewController {
         
         myImageView.snp.makeConstraints{ make in
             make.height.width.equalTo(40)
-            make.top.equalTo(stateLabel.snp.bottom).offset(gap)
+            make.top.equalTo(stateLabel.snp.bottom).offset(10)
             make.trailing.equalTo(view.snp.centerX).offset(-gap)
         }
         
@@ -237,7 +238,7 @@ class VSPlayViewController: UIViewController {
         
         opImageView.snp.makeConstraints{ make in
             make.height.width.equalTo(40)
-            make.top.equalTo(myImageView.snp.bottom).offset(gap)
+            make.top.equalTo(myImageView.snp.bottom).offset(10)
             make.trailing.equalTo(view.snp.centerX).offset(-gap)
         }
         
@@ -369,6 +370,12 @@ class VSPlayViewController: UIViewController {
         button.layer.shadowColor = UIColor.clear.cgColor
     }
     
+    func updateProgress(){
+        //DispatchQueue.main.async{
+        DatabaseManager.ref.child("games/\(DatabaseManager.currentGame.host)").child("progress").child("\(self.state.all - self.turnsleft)").child(self.currentPlayer.uid).setValue(self.ansIsCorrect!)
+        //}
+    }
+    
     @objc func sl(sender: UIButton){
         setToSelected(button: sender)
         let current = triviaset[self.triviaset.count - self.turnsleft]
@@ -380,7 +387,8 @@ class VSPlayViewController: UIViewController {
             dButton.isEnabled = false
             let correctans = current.correct_answer.htmlUnescape()
             let yourans = sender.titleLabel?.text
-            if correctans == yourans {
+            ansIsCorrect = correctans == yourans
+            if ansIsCorrect {
                 state.update_correct()
                 myrsLabel.text = "🤓"
             }
@@ -396,34 +404,33 @@ class VSPlayViewController: UIViewController {
                     setToCorrect(button: dButton)
                 }
             }
-            turnsleft = turnsleft - 1
             
-            let seconds = 2.0
+            updateProgress()
             
-            if turnsleft == 0 {
-                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                    self.endGame()
-                }
-            } else {
-                let next = triviaset[self.triviaset.count - self.turnsleft]
-                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                    self.qLabel.text = next.question.htmlUnescape()
-                    self.stateLabel.text = "\(self.state.all - self.turnsleft+1)/\(self.state.all)"
-                    self.myrsLabel.text = ""
-                    self.setToNormal(button: self.aButton)
-                    self.setToNormal(button: self.bButton)
-                    self.setToNormal(button: self.cButton)
-                    self.setToNormal(button: self.dButton)
-                    var c = next.incorrect_answers
-                    c.append(next.correct_answer)
-                    self.choices = c.map{ $0.htmlUnescape() }
-                    self.choices.shuffle()
-                    self.aButton.setTitle(self.choices[0], for: .normal)
-                    self.bButton.setTitle(self.choices[1], for: .normal)
-                    self.cButton.setTitle(self.choices[2], for: .normal)
-                    self.dButton.setTitle(self.choices[3], for: .normal)
+           
+            
+            DatabaseManager.ref.child("games/\(DatabaseManager.currentGame.host)").child("progress").child("\(state.all - turnsleft)").observe(.value) { (snapshot) in
+                print(snapshot.childrenCount)
+                if snapshot.childrenCount == 2{
+                    self.turnsleft = self.turnsleft - 1
+                    //let seconds = 2.0
+                    //DatabaseManager.ref.child("games/\(DatabaseManager.currentGame.host)").child("progress").child("\(self.state.all - self.turnsleft)").removeAllObservers()
+                    if self.turnsleft == 0 {
+                        //DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                        Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.endGame), userInfo: nil, repeats: false)
+                            //self.endGame()
+                        //}
+                    } else {
+                       
+                       // DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                        Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.refresh), userInfo: nil, repeats: false)
+                            
+                        //}
+                    }
                 }
             }
+            
+            
         }
         else
         {
@@ -431,12 +438,15 @@ class VSPlayViewController: UIViewController {
             fButton.isEnabled = false
             let correctans = current.correct_answer == "True" ? true : false
             let yourans = sender.titleLabel?.text == "T" ? true : false
-            if correctans == yourans {
+            ansIsCorrect = correctans == yourans
+            if ansIsCorrect {
                 state.update_correct()
                 myrsLabel.text = "🤓"
             }else{
                 myrsLabel.text = "🤯"
             }
+            
+            updateProgress()
             
             turnsleft = turnsleft - 1
             
@@ -459,37 +469,56 @@ class VSPlayViewController: UIViewController {
         }
     }
     
-    func endGame(){
+    @objc func refresh(){
+         let next = self.triviaset[self.triviaset.count - self.turnsleft]
+        self.qLabel.text = next.question.htmlUnescape()
+        self.stateLabel.text = "\(self.state.all - self.turnsleft+1)/\(self.state.all)"
+        self.myrsLabel.text = ""
+        self.setToNormal(button: self.aButton)
+        self.setToNormal(button: self.bButton)
+        self.setToNormal(button: self.cButton)
+        self.setToNormal(button: self.dButton)
+        var c = next.incorrect_answers
+        c.append(next.correct_answer)
+        self.choices = c.map{ $0.htmlUnescape() }
+        self.choices.shuffle()
+        self.aButton.setTitle(self.choices[0], for: .normal)
+        self.bButton.setTitle(self.choices[1], for: .normal)
+        self.cButton.setTitle(self.choices[2], for: .normal)
+        self.dButton.setTitle(self.choices[3], for: .normal)
+    }
+    
+    @objc func endGame(){
         
         
     }
     
     
     func getTrivia() {
-    
-            self.turnsleft = self.triviaset.count
-            self.state = State.init(all: self.turnsleft)
-            self.qLabel.text = self.triviaset[0].question.htmlUnescape()
-            self.stateLabel.text = "\(self.state.all - self.turnsleft+1)/\(self.state.all)"
-            //mc
-            if self.mode == "multiple"{
-                var c = self.triviaset[0].incorrect_answers
-                c.append(self.triviaset[0].correct_answer)
-                self.choices = c.map{ $0.htmlUnescape() }
-                self.choices.shuffle()
-                self.aButton.isHidden = false
-                self.bButton.isHidden = false
-                self.cButton.isHidden = false
-                self.dButton.isHidden = false
-                self.aButton.setTitle(self.choices[0], for: .normal)
-                self.bButton.setTitle(self.choices[1], for: .normal)
-                self.cButton.setTitle(self.choices[2], for: .normal)
-                self.dButton.setTitle(self.choices[3], for: .normal)
-            }
-            else {
-                self.tButton.isHidden = false
-                self.fButton.isHidden = false
-            }
+        
+        self.turnsleft = self.triviaset.count
+        self.state = State.init(all: self.turnsleft)
+        self.qLabel.text = self.triviaset[0].question.htmlUnescape()
+        self.stateLabel.text = "\(self.state.all - self.turnsleft+1)/\(self.state.all)"
+        //mc
+        if self.mode == "multiple"{
+            var c = self.triviaset[0].incorrect_answers
+            c.append(self.triviaset[0].correct_answer)
+            self.choices = c.map{ $0.htmlUnescape() }
+            self.choices.shuffle()
+            self.aButton.isHidden = false
+            self.bButton.isHidden = false
+            self.cButton.isHidden = false
+            self.dButton.isHidden = false
+            self.aButton.setTitle(self.choices[0], for: .normal)
+            self.bButton.setTitle(self.choices[1], for: .normal)
+            self.cButton.setTitle(self.choices[2], for: .normal)
+            self.dButton.setTitle(self.choices[3], for: .normal)
+        }
+        else {
+            self.tButton.isHidden = false
+            self.fButton.isHidden = false
+        }
     }
 }
 
