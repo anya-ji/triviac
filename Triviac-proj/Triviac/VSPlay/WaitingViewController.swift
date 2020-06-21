@@ -82,7 +82,10 @@ class WaitingViewController: UIViewController {
                     //need to remove observer! or it will come back here on every change
                     DatabaseManager.findPlayerByUid(uid: game.joiner){
                         (player) in
-                        let startingVC = StartingViewController(opponent: player)
+                        
+                        DatabaseManager.opponent = player
+                        
+                        let startingVC = StartingViewController()
                         self.navigationController?.pushViewController(startingVC, animated: true)
                     }
                 }

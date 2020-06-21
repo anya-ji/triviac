@@ -10,8 +10,6 @@ import UIKit
 
 class StartingViewController: UIViewController {
     
-    var opponent: Player!
-    
     var myImageView: UIImageView!
     var myNameLabel: UILabel!
     
@@ -20,15 +18,6 @@ class StartingViewController: UIViewController {
     
     // instantiate UserDefaults
     let userDefaults = UserDefaults.standard
-    
-    init(opponent: Player){
-        super.init(nibName: nil, bundle: nil)
-        self.opponent = opponent
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -46,18 +35,18 @@ class StartingViewController: UIViewController {
         navigationController?.navigationBar.tintColor = .white
         
         let currentPlayer = userDefaults.data(forKey: "currentPlayer")! as Data
-        let playerDecoded = try? PropertyListDecoder().decode(Player.self, from: currentPlayer)
+        DatabaseManager.currentPlayer = try? PropertyListDecoder().decode(Player.self, from: currentPlayer)
         
         myImageView = UIImageView()
         myImageView.image = UIImage(named: "head")?.withRenderingMode(.alwaysTemplate)
         myImageView.backgroundColor = .clear
-        myImageView.tintColor = UIColor.init(hex: playerDecoded!.color)
+        myImageView.tintColor = UIColor.init(hex: DatabaseManager.currentPlayer.color)
         view.addSubview(myImageView)
         
         myNameLabel = UILabel()
         myNameLabel.textColor = .white
-        myNameLabel.text = playerDecoded!.name
-        myNameLabel.font = UIFont.init(name: "Chalkduster", size: 20)
+        myNameLabel.text = DatabaseManager.currentPlayer.name
+        myNameLabel.font = UIFont.init(name: "Chalkduster", size: 25)
         myNameLabel.textAlignment = .left
         myNameLabel.adjustsFontSizeToFitWidth = true
         view.addSubview(myNameLabel)
@@ -65,13 +54,13 @@ class StartingViewController: UIViewController {
         opImageView = UIImageView()
         opImageView.image = UIImage(named: "head")?.withRenderingMode(.alwaysTemplate)
         opImageView.backgroundColor = .clear
-        opImageView.tintColor = UIColor.init(hex: opponent.color)
+        opImageView.tintColor = UIColor.init(hex: DatabaseManager.opponent.color)
         view.addSubview(opImageView)
         
         opNameLabel = UILabel()
         opNameLabel.textColor = .white
-        opNameLabel.text = opponent.name
-        opNameLabel.font = UIFont.init(name: "Chalkduster", size: 20)
+        opNameLabel.text = DatabaseManager.opponent.name
+        opNameLabel.font = UIFont.init(name: "Chalkduster", size: 25)
         opNameLabel.textAlignment = .left
         opNameLabel.adjustsFontSizeToFitWidth = true
         view.addSubview(opNameLabel)
@@ -116,7 +105,7 @@ class StartingViewController: UIViewController {
     
     @objc func startGame(){
        // DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            let vsPlayVC = VSPlayViewController(opponent: self.opponent)
+            let vsPlayVC = VSPlayViewController()
             self.navigationController?.pushViewController(vsPlayVC, animated: true)
        // }
     }

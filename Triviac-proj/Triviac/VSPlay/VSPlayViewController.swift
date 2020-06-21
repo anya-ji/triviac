@@ -10,7 +10,14 @@ import UIKit
 import HTMLEntities
 
 
+
 class VSPlayViewController: UIViewController {
+    
+    enum Result{
+        case win
+        case tie
+        case lose
+    }
     
     // instantiate UserDefaults
     let userDefaults = UserDefaults.standard
@@ -41,10 +48,9 @@ class VSPlayViewController: UIViewController {
     let padding: CGFloat = 8
     
     var triviaset: [Trivia]!
-    var turnsleft: Int = 0
+    var turnsleft: Int!
     var ansIsCorrect: Bool!
     
-    var opponent: Player!
     var currentPlayer: Player!
     
     var myImageView: UIImageView!
@@ -55,14 +61,16 @@ class VSPlayViewController: UIViewController {
     var state: State!
     var mode: String!
     
-    init(opponent: Player){
+    var result: Result!
+    
+    init(){
         super.init(nibName: nil, bundle: nil)
         let chosentyp = DatabaseManager.currentGame.triviaset[0].type
         self.mode = chosentyp
-        self.opponent = opponent
         let currentPlayerData = userDefaults.data(forKey: "currentPlayer")! as Data
         self.currentPlayer = try? PropertyListDecoder().decode(Player.self, from: currentPlayerData)
         self.triviaset = DatabaseManager.currentGame.triviaset
+        self.turnsleft = 0
     }
     
     required init?(coder: NSCoder) {
@@ -145,7 +153,7 @@ class VSPlayViewController: UIViewController {
         opImageView = UIImageView()
         opImageView.image = UIImage(named: "head")?.withRenderingMode(.alwaysTemplate)
         opImageView.backgroundColor = .clear
-        opImageView.tintColor = UIColor.init(hex: opponent.color)
+        opImageView.tintColor = UIColor.init(hex: DatabaseManager.opponent.color)
         view.addSubview(opImageView)
         
         oprsLabel = UILabel()
@@ -413,12 +421,16 @@ class VSPlayViewController: UIViewController {
                 
                 if snapshot.childrenCount == 2{
                     
+                    DatabaseManager.ref.child("games/\(DatabaseManager.currentGame.host)").child("progress").child("\(self.state.all - self.turnsleft)").removeAllObservers()
+                    
                     self.turnsleft = self.turnsleft - 1
                    
                     if self.turnsleft == 0 {
-                   
+                        
                         Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.endGame), userInfo: nil, repeats: false)
-                       
+                        
+                        DatabaseManager.ref.child("games/\(DatabaseManager.currentGame.host)").child("progress").child("\(self.state.all - self.turnsleft)").removeAllObservers()
+                        
                     } else {
                         
                         Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.mcrefresh), userInfo: nil, repeats: false)
@@ -426,7 +438,6 @@ class VSPlayViewController: UIViewController {
                     }
                 }
             }
-            
             
         }
         else
@@ -449,11 +460,16 @@ class VSPlayViewController: UIViewController {
             DatabaseManager.ref.child("games/\(DatabaseManager.currentGame.host)").child("progress").child("\(state.all - turnsleft)").observe(.value) { (snapshot) in
                 
                 if snapshot.childrenCount == 2{
+                    
+                    DatabaseManager.ref.child("games/\(DatabaseManager.currentGame.host)").child("progress").child("\(self.state.all - self.turnsleft)").removeAllObservers()
+                    
                     self.turnsleft = self.turnsleft - 1
                    
                     if self.turnsleft == 0 {
                       
                         Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.endGame), userInfo: nil, repeats: false)
+                        
+                        DatabaseManager.ref.child("games/\(DatabaseManager.currentGame.host)").child("progress").child("\(self.state.all - self.turnsleft)").removeAllObservers()
                       
                     } else {
                        
@@ -466,9 +482,9 @@ class VSPlayViewController: UIViewController {
     }
     
     func showOpponentResult(){
-        DatabaseManager.ref.child("games/\(DatabaseManager.currentGame.host)").child("progress").child("\(state.all - turnsleft)").child(opponent.uid).observe(.value) { (snapshot) in
+        DatabaseManager.ref.child("games/\(DatabaseManager.currentGame.host)").child("progress").child("\(state.all - turnsleft)").child(DatabaseManager.opponent.uid).observe(.value) { (snapshot) in
             if let opponentRs = snapshot.value as? Bool{
-                print(opponentRs)
+
                 if opponentRs{
                     self.oprsLabel.text = "🤓"
                 }
@@ -520,7 +536,26 @@ class VSPlayViewController: UIViewController {
     
     @objc func endGame(){
         
+        DatabaseManager.ref.child("games/\(DatabaseManager.currentGame.host)").child("scores").child(self.currentPlayer.uid).setValue(state.correct)
         
+        
+        DatabaseManager.getOpponentScore(opponent: DatabaseManager.opponent.uid, completion: { (opscore) in
+            
+            DatabaseManager.opponent.score = opscore
+            
+            if self.state.correct > opscore{
+                           self.result = .win
+                       } else if self.state.correct < opscore{
+                           self.result = .lose
+                       } else{
+                           self.result = .tie
+                       }
+            
+            let vsEndVC = VSEndViewController(state: self.state, result: self.result)
+            self.navigationController?.pushViewController(vsEndVC, animated: true)
+            
+                   })
+  
     }
     
     

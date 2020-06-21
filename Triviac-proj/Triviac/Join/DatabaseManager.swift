@@ -14,8 +14,10 @@ class DatabaseManager{
           return Database.database().reference(fromURL: "https://triviac-63843.firebaseio.com/")
     }
     
-    //static var currentGameID = ""
+    //static vars
     static var currentGame = Game(joiner: "", gameState: -1, triviaset: [])
+    static var opponent: Player!
+    static var currentPlayer: Player!
     
     //createVC
     static func createGame(game: Game){
@@ -26,9 +28,8 @@ class DatabaseManager{
 //            (error, ref) in
 //            currentGame.id = ref.key! //add current game id
 //            }
-
+        ref.child("games").child(game.host).removeValue()
         ref.child("games").child(game.host).updateChildValues(game.forDatabase())
-        ref.child("games").child(game.host).child("progress").removeValue()
       
 }
     //joinVC
@@ -52,6 +53,11 @@ class DatabaseManager{
         }
         //change state
          ref.child("games").child(hostID).updateChildValues(["gameState" : 1, "joiner": joinerID])
+        
+        //set opponent
+        findPlayerByUid(uid: hostID) { (player) in
+            opponent = player
+        }
     }
     
     static func getCurrentGameInfo(hostID: String, completion: @escaping (Game) -> Void){
@@ -59,6 +65,16 @@ class DatabaseManager{
             if let gameDict = snapshot.value as? [String : Any]{
                 let game = Game.fromDatabase(object: gameDict)
                 completion(game)
+            }
+        }
+    }
+    
+    //VSEndVC
+    static func getOpponentScore(opponent: String, completion: @escaping (Int) -> Void){
+        ref.child("games").child(currentGame.host).child("scores").child(opponent).observe(.value) { (snapshot) in
+            if let opscore = snapshot.value as? Int{
+                ref.child("games").child(currentGame.host).child("scores").child(opponent).removeAllObservers()
+                completion(opscore)
             }
         }
     }

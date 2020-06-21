@@ -104,7 +104,7 @@ extension JoinViewController: UITableViewDelegate {
         DatabaseManager.confirmJoin(hostID: hostID, joinerID: joinerID!)
         DatabaseManager.findPlayerByUid(uid: hostID){
             (player) in
-            let startingVC = StartingViewController(opponent: player)
+            let startingVC = StartingViewController()
             self.navigationController?.pushViewController(startingVC, animated: true)
         }
         

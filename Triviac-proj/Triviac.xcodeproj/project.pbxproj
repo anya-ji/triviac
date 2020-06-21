@@ -15,7 +15,6 @@
 		41495ADC249B2E6000D91423 /* StartingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41495ADB249B2E6000D91423 /* StartingViewController.swift */; };
 		41495AE8249C7F6900D91423 /* VSPlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41495AE7249C7F6900D91423 /* VSPlayViewController.swift */; };
 		41495AEA249C882F00D91423 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41495AE9249C882F00D91423 /* UIColorExtensions.swift */; };
-		41495AEC249DB26000D91423 /* VSState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41495AEB249DB26000D91423 /* VSState.swift */; };
 		414FA627248EE2B70089F00A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414FA626248EE2B70089F00A /* ProfileViewController.swift */; };
 		415CC4DE2461187F004CC7F9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415CC4DD2461187F004CC7F9 /* TabBarController.swift */; };
 		415CC4E624611C37004CC7F9 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415CC4E524611C37004CC7F9 /* CreateViewController.swift */; };
@@ -35,6 +34,7 @@
 		4180B08B2463D9C800FA04C4 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B08A2463D9C800FA04C4 /* PlayViewController.swift */; };
 		4180B094246637C100FA04C4 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B093246637C100FA04C4 /* State.swift */; };
 		4180B09624663F3A00FA04C4 /* EndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180B09524663F3A00FA04C4 /* EndViewController.swift */; };
+		41A17E2E249EFD6100D118AF /* VSEndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A17E2D249EFD6100D118AF /* VSEndViewController.swift */; };
 		41BC6DE024972E2700AB4C36 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BC6DDF24972E2700AB4C36 /* Game.swift */; };
 		41DA1EF2248F3F43003EBCD4 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DA1EF1248F3F43003EBCD4 /* Player.swift */; };
 		7CFC89DEC6785B6D5D8C7590 /* Pods_Triviac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97D214F22E18EA6F2F948A0F /* Pods_Triviac.framework */; };
@@ -49,7 +49,6 @@
 		41495ADB249B2E6000D91423 /* StartingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingViewController.swift; sourceTree = "<group>"; };
 		41495AE7249C7F6900D91423 /* VSPlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSPlayViewController.swift; sourceTree = "<group>"; };
 		41495AE9249C882F00D91423 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
-		41495AEB249DB26000D91423 /* VSState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSState.swift; sourceTree = "<group>"; };
 		414FA626248EE2B70089F00A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		415CC4DD2461187F004CC7F9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		415CC4E524611C37004CC7F9 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
@@ -71,6 +70,7 @@
 		4180B08A2463D9C800FA04C4 /* PlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
 		4180B093246637C100FA04C4 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		4180B09524663F3A00FA04C4 /* EndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndViewController.swift; sourceTree = "<group>"; };
+		41A17E2D249EFD6100D118AF /* VSEndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSEndViewController.swift; sourceTree = "<group>"; };
 		41BC6DDF24972E2700AB4C36 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		41DA1EF1248F3F43003EBCD4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		8673069DFB06EC73BA6A8C8A /* Pods-Triviac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triviac.release.xcconfig"; path = "Target Support Files/Pods-Triviac/Pods-Triviac.release.xcconfig"; sourceTree = "<group>"; };
@@ -117,7 +117,7 @@
 				41BC6DDF24972E2700AB4C36 /* Game.swift */,
 				41495ADB249B2E6000D91423 /* StartingViewController.swift */,
 				41495AE7249C7F6900D91423 /* VSPlayViewController.swift */,
-				41495AEB249DB26000D91423 /* VSState.swift */,
+				41A17E2D249EFD6100D118AF /* VSEndViewController.swift */,
 			);
 			path = VSPlay;
 			sourceTree = "<group>";
@@ -335,10 +335,10 @@
 				4180B06E24623D9100FA04C4 /* CatTableViewCell.swift in Sources */,
 				4180B07624625D5800FA04C4 /* SavedCollectionViewCell.swift in Sources */,
 				41408A0B249B19DE00754631 /* DatabaseManager.swift in Sources */,
-				41495AEC249DB26000D91423 /* VSState.swift in Sources */,
 				4180B0892463D7FF00FA04C4 /* Trivia.swift in Sources */,
 				41495AEA249C882F00D91423 /* UIColorExtensions.swift in Sources */,
 				414FA627248EE2B70089F00A /* ProfileViewController.swift in Sources */,
+				41A17E2E249EFD6100D118AF /* VSEndViewController.swift in Sources */,
 				415CC4E624611C37004CC7F9 /* CreateViewController.swift in Sources */,
 				4180B094246637C100FA04C4 /* State.swift in Sources */,
 				41100FAF248DD2580051EA2C /* SignInViewController.swift in Sources */,

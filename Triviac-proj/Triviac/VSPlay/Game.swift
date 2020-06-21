@@ -10,18 +10,16 @@ import Foundation
 
 class Game{
     
-    //var id = ""
     var host = ""
     var joiner: String
     var gameState: Int
     var triviaset: [Trivia]
     /*0: invited - invitations sent
      1: ready/start - all players joined, starts the game
-     2: ended - game ended
      */
     
     init(joiner: String, gameState: Int, triviaset: [Trivia]){
-       // self.host = host
+      
         self.joiner = joiner
         self.gameState = gameState
         self.triviaset = triviaset

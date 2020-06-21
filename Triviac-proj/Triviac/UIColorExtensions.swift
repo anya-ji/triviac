@@ -21,6 +21,7 @@ extension UIColor{
     static let correctcolor = UIColor(red: 0.54, green: 0.80, blue: 0.53, alpha: 1.00)
     static let borderslcolor = UIColor(red: 0.93, green: 0.54, blue: 0.20, alpha: 1.00)
     static let bordercorrectcolor = UIColor(red: 0.45, green: 0.76, blue: 0.44, alpha: 1.00)
+    static let tiecolor = UIColor(red: 0.37, green: 0.34, blue: 0.41, alpha: 1.00)
 }
 
 extension UIColor {

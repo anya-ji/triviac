@@ -13,8 +13,10 @@ struct Player: Codable {
     var name: String!
     var uid: String!
     var email: String!
-    var points: Int!
     var color: String!
+    
+    var points: Int!
+    var score: Int!
     
     init(name: String, uid: String, email: String, color: String) {
         self.name = name

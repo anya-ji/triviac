@@ -5,9 +5,9 @@
 5. better logo
 6. search on join
 7. more details when joining(#q, category..), starting
-8. show points when search
-9. add button at search
-10. delete button at invite
+8. 
+9. 
+10.
 11. square border at profile
 12. pull to refresh join
 13. handle host quit invite
@@ -15,6 +15,12 @@
 15. create view disable all when notfound
 16. confirm password
 17. no same username
+
+#### before release beta:
+better sign in page
+no same username
+quit invite
+cumulative points
 
 
 
