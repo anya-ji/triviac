@@ -25,6 +25,8 @@ class VSEndViewController: UIViewController {
     var myImageView: UIImageView!
     var opImageView: UIImageView!
     
+    var confettiView: SAConfettiView!
+    
     init(state: State, result: VSPlayViewController.Result){
         super.init(nibName: nil, bundle: nil)
         self.score = state.correct
@@ -51,7 +53,7 @@ class VSEndViewController: UIViewController {
         case .win:
             rsLabel.font = UIFont.init(name: "Chalkduster", size: 50)
         case .tie:
-            rsLabel.font = UIFont.init(name: "Chalkduster", size: 50)
+            rsLabel.font = UIFont.init(name: "Chalkduster", size: 35)
         case .lose:
             rsLabel.font = UIFont.init(name: "Chalkduster", size: 25)
         case .none:
@@ -85,7 +87,7 @@ class VSEndViewController: UIViewController {
         case .win:
             oprsLabel.font = UIFont.init(name: "Chalkduster", size: 25)
         case .tie:
-            oprsLabel.font = UIFont.init(name: "Chalkduster", size: 50)
+            oprsLabel.font = UIFont.init(name: "Chalkduster", size: 35)
         case .lose:
             oprsLabel.font = UIFont.init(name: "Chalkduster", size: 50)
         case .none:
@@ -130,7 +132,19 @@ class VSEndViewController: UIViewController {
         quitButton.layer.borderColor = UIColor.gray.cgColor
         applyShadow(button: quitButton, shadow: .shadowcolor)
         
-         
+        //confetti
+        switch result {
+        case .win:
+             confettiView = SAConfettiView(frame: self.view.bounds)
+             confettiView.isUserInteractionEnabled = false
+                   self.view.addSubview(confettiView)
+                   confettiView.type = .confetti
+             confettiView.colors = UIColor.confetticolors
+                   confettiView.intensity = 1
+                   confettiView.startConfetti()
+        default:
+            break
+        }
         
         
         setup()
@@ -278,6 +292,9 @@ class VSEndViewController: UIViewController {
     
     @objc func quit(sender: UIButton){
         buttonAnimate(button: sender, shadow: .shadowcolor)
+        if self.confettiView != nil{
+            self.confettiView.stopConfetti()
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.navigationController?.popToRootViewController(animated: true)
         }

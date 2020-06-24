@@ -9,11 +9,11 @@
 import UIKit
 import AMTabView
 
-class SavedViewController: UIViewController, UIGestureRecognizerDelegate, TabItem {
+class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
     
-    var tabImage: UIImage? {
-         return UIImage(named: "saved")
-       }
+//    var tabImage: UIImage? {
+//         return UIImage(named: "saved")
+//       }
     
     var savedView: UICollectionView!
     

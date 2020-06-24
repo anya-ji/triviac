@@ -15,11 +15,11 @@ protocol CatChangeTextDelegate: class {
     func catTextChanged(to newCat: String)
 }
 
-class CreateViewController: UIViewController, TabItem {
+class CreateViewController: UIViewController {
     
-    var tabImage: UIImage? {
-      return UIImage(named: "home")
-    }
+//    var tabImage: UIImage? {
+//      return UIImage(named: "home")
+//    }
     
     var numLabel: UILabel!
     var numText: UITextField!

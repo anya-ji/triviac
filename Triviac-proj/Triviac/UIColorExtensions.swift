@@ -22,6 +22,13 @@ extension UIColor{
     static let borderslcolor = UIColor(red: 0.93, green: 0.54, blue: 0.20, alpha: 1.00)
     static let bordercorrectcolor = UIColor(red: 0.45, green: 0.76, blue: 0.44, alpha: 1.00)
     static let tiecolor = UIColor(red: 0.37, green: 0.34, blue: 0.41, alpha: 1.00)
+    static let confetticolors =
+        [UIColor(red: 0.96, green: 0.56, blue: 0.59, alpha: 1.00), //pink
+            UIColor(red: 0.99, green: 0.98, blue: 0.18, alpha: 1.00), //yellow
+            UIColor(red: 0.87, green: 0.70, blue: 0.96, alpha: 1.00), //purple
+            UIColor(red: 0.95, green: 0.96, blue: 1.00, alpha: 1.00), //white
+            UIColor(red: 0.33, green: 0.84, blue: 0.76, alpha: 1.00) // blue
+    ]
 }
 
 extension UIColor {

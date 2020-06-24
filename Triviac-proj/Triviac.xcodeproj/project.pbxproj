@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4101058824A3B7250088468C /* SAConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4101058724A3B7250088468C /* SAConfettiView.swift */; };
 		41100FA8248D8AD60051EA2C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41100FA7248D8AD60051EA2C /* GoogleService-Info.plist */; };
 		41100FAF248DD2580051EA2C /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41100FAE248DD2580051EA2C /* SignInViewController.swift */; };
 		414089FE249B188B00754631 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414089FC249B188B00754631 /* JoinViewController.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4101058724A3B7250088468C /* SAConfettiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAConfettiView.swift; sourceTree = "<group>"; };
 		41100FA7248D8AD60051EA2C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		41100FAE248DD2580051EA2C /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		414089FC249B188B00754631 /* JoinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			children = (
 				41495AE9249C882F00D91423 /* UIColorExtensions.swift */,
 				41100FA7248D8AD60051EA2C /* GoogleService-Info.plist */,
+				4101058724A3B7250088468C /* SAConfettiView.swift */,
 				4180B07824625ED600FA04C4 /* Saved */,
 				4180B07724625EBE00FA04C4 /* Create */,
 				4152B530249B2934001D9B58 /* VSPlay */,
@@ -338,6 +341,7 @@
 				4180B0892463D7FF00FA04C4 /* Trivia.swift in Sources */,
 				41495AEA249C882F00D91423 /* UIColorExtensions.swift in Sources */,
 				414FA627248EE2B70089F00A /* ProfileViewController.swift in Sources */,
+				4101058824A3B7250088468C /* SAConfettiView.swift in Sources */,
 				41A17E2E249EFD6100D118AF /* VSEndViewController.swift in Sources */,
 				415CC4E624611C37004CC7F9 /* CreateViewController.swift in Sources */,
 				4180B094246637C100FA04C4 /* State.swift in Sources */,

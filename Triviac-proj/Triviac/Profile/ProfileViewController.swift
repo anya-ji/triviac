@@ -10,11 +10,11 @@ import UIKit
 import Firebase
 import AMTabView
 
-class ProfileViewController: UIViewController, TabItem {
+class ProfileViewController: UIViewController{
     
-    var tabImage: UIImage? {
-         return UIImage(named: "profile")
-       }
+//    var tabImage: UIImage? {
+//         return UIImage(named: "profile")
+//       }
     
     var exitButton: UIBarButtonItem!
     
