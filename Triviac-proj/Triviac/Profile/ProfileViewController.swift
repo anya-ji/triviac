@@ -21,12 +21,13 @@ class ProfileViewController: UIViewController {
     var player: Player?
     var photo: UIImageView!
     var nameLabel: UILabel!
-    var percent: UILabel!
+    //var percent: UILabel!
     var bulb: UIImageView!
-    var points: UILabel!
+    var pointsLabel: UILabel!
     
+    var infoLabel: UILabel!
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         checkLoggedIn()
     }
     
@@ -43,6 +44,8 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = bgcolor
         self.navigationItem.title = "Profile"
         
+       // let player = DatabaseManager.currentPlayer
+        
         topView = UIView()
         topView.backgroundColor = .shadowcolor
         view.addSubview(topView)
@@ -57,25 +60,41 @@ class ProfileViewController: UIViewController {
         photo.image = UIImage(named: "head")?.withRenderingMode(.alwaysTemplate)
         photo.backgroundColor = .clear
         photo.tintColor = .clear
-        topView.addSubview(photo)
+        view.addSubview(photo)
+        
+       infoLabel = UILabel()
+               infoLabel.textColor = .white
+               infoLabel.font = UIFont.init(name: "Chalkduster", size: 20)
+               infoLabel.textAlignment = .left
+               infoLabel.adjustsFontSizeToFitWidth = true
+               view.addSubview(infoLabel)
         
         nameLabel = UILabel()
         nameLabel.textColor = .white
         nameLabel.font = UIFont.init(name: "Chalkduster", size: 20)
         nameLabel.textAlignment = .left
         nameLabel.adjustsFontSizeToFitWidth = true
-        topView.addSubview(nameLabel)
+        view.addSubview(nameLabel)
         
-        bulb = UIImageView()
-        bulb.image = UIImage(named: "bulb")
-        view.addSubview(bulb)
+//        bulb = UIImageView()
+//        bulb.image = UIImage(named: "bulb")
+//        view.addSubview(bulb)
+        
+        pointsLabel = UILabel()
+        pointsLabel.textColor = .white
+        pointsLabel.font = UIFont.init(name: "Chalkduster", size: 50)
+        pointsLabel.textAlignment = .center
+        pointsLabel.adjustsFontSizeToFitWidth = true
+        view.addSubview(pointsLabel)
         
         setup()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        photo.makeRounded()
+        DispatchQueue.main.async{
+            self.photo.makeRounded()
+        }
     }
     
     
@@ -103,12 +122,13 @@ class ProfileViewController: UIViewController {
         topView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.bottom.equalTo(view.snp.centerY).offset(-gap*4)
+            make.bottom.equalTo(view.snp.centerY).offset(-gap*6)
         }
         photo.snp.makeConstraints{ make in
-            make.top.equalToSuperview().offset(gap*3)
-            make.height.width.equalTo(80)
+            //make.top.equalToSuperview().offset(gap*3)
+            make.height.width.equalTo(120)
             make.centerX.equalToSuperview()
+            make.centerY.equalTo(topView.snp.bottom)
         }
         
         nameLabel.snp.makeConstraints{ make in
@@ -117,11 +137,18 @@ class ProfileViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
         
-        bulb.snp.makeConstraints{ make in
-            make.leading.equalTo(view.snp.centerX).offset(gap*2)
-            make.height.width.equalTo(100)
-            make.top.equalTo(view.snp.centerY).offset(gap*3)
-            
+//        bulb.snp.makeConstraints{ make in
+//            make.leading.equalTo(view.snp.centerX).offset(gap*2)
+//            make.height.width.equalTo(100)
+//            make.top.equalTo(view.snp.centerY).offset(gap*3)
+//
+//        }
+        
+        pointsLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(nameLabel.snp.bottom).offset(30)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(60)
+            make.leading.trailing.equalToSuperview()
         }
     }
     
@@ -131,7 +158,8 @@ class ProfileViewController: UIViewController {
             exit()
         }
         else{
-            
+            DispatchQueue.main.async {
+
             let uid = Auth.auth().currentUser?.uid
             //print(uid!)
             Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -141,11 +169,14 @@ class ProfileViewController: UIViewController {
                     self.nameLabel.text = self.player!.name
                     self.photo.tintColor = UIColor(hex: self.player!.color)
                     self.photo.backgroundColor = .shadowcolor
+                    self.pointsLabel.text = "\(self.player?.points ?? 0) pts"
                     self.view.setNeedsDisplay()
                     self.view.layoutIfNeeded()
                     //print(dict)
                 }
             }, withCancel: nil)
+                
+            }
         }
     }
     
@@ -178,9 +209,9 @@ extension UIImageView {
     
     func makeRounded() {
         self.layer.cornerRadius = self.frame.height / 2
-        //self.layer.borderWidth = 2
+        self.layer.borderWidth = 2
         self.layer.masksToBounds = false
-        //self.layer.borderColor = UIColor.customyellow.cgColor
+        self.layer.borderColor = UIColor.accentbuttoncolor.cgColor
         self.clipsToBounds = true
     }
 }

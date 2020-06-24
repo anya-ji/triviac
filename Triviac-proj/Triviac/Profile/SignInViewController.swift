@@ -168,7 +168,7 @@ class SignInViewController: UIViewController {
                 }
                 let ref = Database.database().reference(fromURL: "https://triviac-63843.firebaseio.com/")
                 let usersRef = ref.child("users").child(uid)
-                let values = Player.init(name: name, uid: uid, email: email, color: UIColor.randomColor().toHex(alpha: true)!).forDatabase()
+                let values = Player.init(name: name, uid: uid, email: email, color: UIColor.randomColor().toHex(alpha: true)!, points: 0).forDatabase()
                 usersRef.updateChildValues(values) { (err, ref) in
                     if err != nil {
                         print(err!)

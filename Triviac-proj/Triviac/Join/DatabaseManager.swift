@@ -79,6 +79,21 @@ class DatabaseManager{
         }
     }
     
+    //VSPlayVC
+    static func getPoints(completion: @escaping (Int) -> Void){
+        ref.child("users").child(currentPlayer.uid).child("points").observeSingleEvent(of: .value) { (snapshot) in
+            if let mypoints = snapshot.value as? Int{
+                completion(mypoints)
+            }
+        }
+    }
+    static func updatePoints(addPoints: Int){
+        getPoints { (mypoints) in
+            let newTotal = mypoints + addPoints
+            ref.child("users").child(currentPlayer.uid).child("points").setValue(newTotal)
+        }
+    }
+    
     
     
 }

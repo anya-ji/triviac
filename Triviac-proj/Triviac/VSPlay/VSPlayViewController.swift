@@ -51,7 +51,7 @@ class VSPlayViewController: UIViewController {
     var turnsleft: Int!
     var ansIsCorrect: Bool!
     
-    var currentPlayer: Player!
+   // var currentPlayer: Player!
     
     var myImageView: UIImageView!
     var myrsLabel: UILabel!
@@ -67,8 +67,8 @@ class VSPlayViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         let chosentyp = DatabaseManager.currentGame.triviaset[0].type
         self.mode = chosentyp
-        let currentPlayerData = userDefaults.data(forKey: "currentPlayer")! as Data
-        self.currentPlayer = try? PropertyListDecoder().decode(Player.self, from: currentPlayerData)
+//        let currentPlayerData = userDefaults.data(forKey: "currentPlayer")! as Data
+//        self.currentPlayer = try? PropertyListDecoder().decode(Player.self, from: currentPlayerData)
         self.triviaset = DatabaseManager.currentGame.triviaset
         self.turnsleft = 0
     }
@@ -142,7 +142,7 @@ class VSPlayViewController: UIViewController {
         myImageView = UIImageView()
         myImageView.image = UIImage(named: "head")?.withRenderingMode(.alwaysTemplate)
         myImageView.backgroundColor = .clear
-        myImageView.tintColor = UIColor.init(hex: currentPlayer.color)
+        myImageView.tintColor = UIColor.init(hex: DatabaseManager.currentPlayer.color)
         view.addSubview(myImageView)
         
         myrsLabel = UILabel()
@@ -382,7 +382,7 @@ class VSPlayViewController: UIViewController {
     
     func updateProgress(){
         //DispatchQueue.main.async{
-        DatabaseManager.ref.child("games/\(DatabaseManager.currentGame.host)").child("progress").child("\(self.state.all - self.turnsleft)").child(self.currentPlayer.uid).setValue(self.ansIsCorrect!)
+        DatabaseManager.ref.child("games/\(DatabaseManager.currentGame.host)").child("progress").child("\(self.state.all - self.turnsleft)").child(DatabaseManager.currentPlayer.uid).setValue(self.ansIsCorrect!)
         //}
     }
     
@@ -535,10 +535,20 @@ class VSPlayViewController: UIViewController {
     }
     
     @objc func endGame(){
+        //update user's score
+        DatabaseManager.ref.child("games/\(DatabaseManager.currentGame.host)").child("scores").child(DatabaseManager.currentPlayer.uid).setValue(state.correct)
         
-        DatabaseManager.ref.child("games/\(DatabaseManager.currentGame.host)").child("scores").child(self.currentPlayer.uid).setValue(state.correct)
+        //add user's cumulative points to firebase
+        DatabaseManager.updatePoints(addPoints: state.correct)
+        //update static current player
+        DatabaseManager.currentPlayer.points = DatabaseManager.currentPlayer.points + state.correct
+        //update user defaults
+        let playerEncoded = try? PropertyListEncoder().encode(DatabaseManager.currentPlayer)
+        self.userDefaults.set(playerEncoded, forKey: "currentPlayer")
+        self.userDefaults.set(Date(), forKey: "lastUpdated")
+        self.userDefaults.synchronize()
         
-        
+        //calculate winner and push view
         DatabaseManager.getOpponentScore(opponent: DatabaseManager.opponent.uid, completion: { (opscore) in
             
             DatabaseManager.opponent.score = opscore
