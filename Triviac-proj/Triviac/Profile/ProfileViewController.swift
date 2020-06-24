@@ -12,9 +12,9 @@ import AMTabView
 
 class ProfileViewController: UIViewController{
     
-//    var tabImage: UIImage? {
-//         return UIImage(named: "profile")
-//       }
+    //    var tabImage: UIImage? {
+    //         return UIImage(named: "profile")
+    //       }
     
     var exitButton: UIBarButtonItem!
     
@@ -49,7 +49,7 @@ class ProfileViewController: UIViewController{
         view.backgroundColor = bgcolor
         self.navigationItem.title = "Profile"
         
-       // let player = DatabaseManager.currentPlayer
+        // let player = DatabaseManager.currentPlayer
         
         topView = UIView()
         topView.backgroundColor = .shadowcolor
@@ -67,12 +67,15 @@ class ProfileViewController: UIViewController{
         photo.tintColor = .clear
         view.addSubview(photo)
         
-       infoLabel = UILabel()
-               infoLabel.textColor = .white
-               infoLabel.font = UIFont.init(name: "Chalkduster", size: 20)
-               infoLabel.textAlignment = .left
-               infoLabel.adjustsFontSizeToFitWidth = true
-               view.addSubview(infoLabel)
+        infoLabel = UILabel()
+        infoLabel.textColor = .accentbuttoncolor
+        infoLabel.text = "📝 To earn points: \n\nInvite friends to a game or join a game!"
+        infoLabel.font = UIFont.init(name: "Chalkduster", size: 12)
+        infoLabel.lineBreakMode = .byWordWrapping
+        infoLabel.numberOfLines = 0
+        infoLabel.textAlignment = .center
+        infoLabel.adjustsFontSizeToFitWidth = true
+        view.addSubview(infoLabel)
         
         nameLabel = UILabel()
         nameLabel.textColor = .white
@@ -81,9 +84,9 @@ class ProfileViewController: UIViewController{
         nameLabel.adjustsFontSizeToFitWidth = true
         view.addSubview(nameLabel)
         
-//        bulb = UIImageView()
-//        bulb.image = UIImage(named: "bulb")
-//        view.addSubview(bulb)
+        //        bulb = UIImageView()
+        //        bulb.image = UIImage(named: "bulb")
+        //        view.addSubview(bulb)
         
         pointsLabel = UILabel()
         pointsLabel.textColor = .white
@@ -142,18 +145,25 @@ class ProfileViewController: UIViewController{
             make.centerX.equalToSuperview()
         }
         
-//        bulb.snp.makeConstraints{ make in
-//            make.leading.equalTo(view.snp.centerX).offset(gap*2)
-//            make.height.width.equalTo(100)
-//            make.top.equalTo(view.snp.centerY).offset(gap*3)
-//
-//        }
+        //        bulb.snp.makeConstraints{ make in
+        //            make.leading.equalTo(view.snp.centerX).offset(gap*2)
+        //            make.height.width.equalTo(100)
+        //            make.top.equalTo(view.snp.centerY).offset(gap*3)
+        //
+        //        }
         
         pointsLabel.snp.makeConstraints { (make) in
             make.top.equalTo(nameLabel.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
             make.height.equalTo(60)
             make.leading.trailing.equalToSuperview()
+        }
+        
+        infoLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(pointsLabel.snp.bottom).offset(gap)
+            make.width.equalTo(300)
+            make.height.equalTo(70)
+            make.centerX.equalToSuperview()
         }
     }
     
@@ -164,22 +174,22 @@ class ProfileViewController: UIViewController{
         }
         else{
             DispatchQueue.main.async {
-
-            let uid = Auth.auth().currentUser?.uid
-            //print(uid!)
-            Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
-                //print(snapshot.value)
-                if let dict = snapshot.value as? [String: Any]{
-                    self.player = Player.fromDatabase(object: dict)
-                    self.nameLabel.text = self.player!.name
-                    self.photo.tintColor = UIColor(hex: self.player!.color)
-                    self.photo.backgroundColor = .shadowcolor
-                    self.pointsLabel.text = "\(self.player?.points ?? 0) pts"
-                    self.view.setNeedsDisplay()
-                    self.view.layoutIfNeeded()
-                    //print(dict)
-                }
-            }, withCancel: nil)
+                
+                let uid = Auth.auth().currentUser?.uid
+                //print(uid!)
+                Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
+                    //print(snapshot.value)
+                    if let dict = snapshot.value as? [String: Any]{
+                        self.player = Player.fromDatabase(object: dict)
+                        self.nameLabel.text = self.player!.name
+                        self.photo.tintColor = UIColor(hex: self.player!.color)
+                        self.photo.backgroundColor = .shadowcolor
+                        self.pointsLabel.text = "\(self.player?.points ?? 0) pts"
+                        self.view.setNeedsDisplay()
+                        self.view.layoutIfNeeded()
+                        //print(dict)
+                    }
+                }, withCancel: nil)
                 
             }
         }

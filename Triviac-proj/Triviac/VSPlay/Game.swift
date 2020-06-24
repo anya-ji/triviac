@@ -16,6 +16,7 @@ class Game{
     var triviaset: [Trivia]
     /*0: invited - invitations sent
      1: ready/start - all players joined, starts the game
+     2: canceled - hosted canceled invite
      */
     
     init(joiner: String, gameState: Int, triviaset: [Trivia]){

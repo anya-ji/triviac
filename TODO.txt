@@ -8,18 +8,17 @@
 8. add back tick/cross
 9. might be better way update user default, static player, firebase player...(not separately each time?)in VSplay, endgame()
 10. animations, counting points anima, etc
-11. square border at profile
-12. pull to refresh join
-13. handle host quit invite
+11. hide register button only when text is filled
+12. pick profile photo
+13. 
 14. timed rounds
 15. create view disable all when notfound
 16. confirm password
-17. no same username
+17. 
 
 #### before release beta:
 better sign in page
 no same username
-quit invite
 
 
 

@@ -125,6 +125,7 @@ class SignInViewController: UIViewController {
         guard let name = userText.text, let password = pwText.text, let email = emailText.text else{
             //MARK: TODO: invalid, handle empty etc
             print("invalid form")
+            self.signInRegisterButton.shake(duration: 0.5, values: [-12.0, 12.0, -12.0, 12.0, -6.0, 6.0, -3.0, 3.0, 0.0])
             return
         }
         
@@ -134,6 +135,7 @@ class SignInViewController: UIViewController {
                 (result, error) in
                 if error != nil{
                     print(error!)//MARK: error
+                    self.signInRegisterButton.shake(duration: 0.5, values: [-12.0, 12.0, -12.0, 12.0, -6.0, 6.0, -3.0, 3.0, 0.0])
                     return
                 }
                 
@@ -161,6 +163,7 @@ class SignInViewController: UIViewController {
             Auth.auth().createUser(withEmail: email, password: password, completion: { (result, error) in
                 if error != nil{
                     print(error!)//MARK: error
+                    self.signInRegisterButton.shake(duration: 0.5, values: [-12.0, 12.0, -12.0, 12.0, -6.0, 6.0, -3.0, 3.0, 0.0])
                     return
                 }
                 guard let uid = result?.user.uid else{
@@ -175,14 +178,15 @@ class SignInViewController: UIViewController {
                         return
                     }
                 }
+                //MARK: Some message
+                self.sc.selectedSegmentIndex = 0
+                self.signInRegisterButton.setTitle("Sign In", for: .normal)
+                self.unhide.deactivate()
+                self.hide.activate()
+                self.unhidegap.deactivate()
+                self.hidegap.activate()
             })
-            //MARK: Some message
-            sc.selectedSegmentIndex = 0
-            signInRegisterButton.setTitle("Sign In", for: .normal)
-            unhide.deactivate()
-            hide.activate()
-            unhidegap.deactivate()
-            hidegap.activate()
+            
         }
         
     }
@@ -234,7 +238,7 @@ class SignInViewController: UIViewController {
         }
         
         bulb.snp.makeConstraints{ make in
-            make.bottom.equalTo(sc.snp.top).offset(-gap*3)
+            make.bottom.equalTo(sc.snp.top).offset(-gap*2.5)
             make.height.width.equalTo(120)
             make.centerX.equalToSuperview()
         }
@@ -244,4 +248,25 @@ class SignInViewController: UIViewController {
     
 }
 
+
+extension UIView {
+
+
+// Using CAMediaTimingFunction
+func shake(duration: TimeInterval = 0.5, values: [CGFloat]) {
+    let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+
+    // Swift 4.2 and above
+    animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+
+    // Swift 4.1 and below
+    animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+
+
+    animation.duration = duration // You can set fix duration
+    animation.values = values  // You can set fix values here also
+    self.layer.add(animation, forKey: "shake")
+}
+    
+}
 

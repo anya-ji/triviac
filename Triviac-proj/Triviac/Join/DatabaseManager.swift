@@ -94,6 +94,14 @@ class DatabaseManager{
         }
     }
     
+    //waitingVC
+    static func cancelInvite(){
+        //update firebase state
+        DatabaseManager.ref.child("games").child(currentGame.host).updateChildValues(["gameState" : 2])
+        //change static state
+        currentGame.gameState = 2
+    }
+    
     
     
 }

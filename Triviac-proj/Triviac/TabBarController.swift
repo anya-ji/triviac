@@ -9,7 +9,6 @@
 import UIKit
 import Firebase
 import AMTabView
-import SOTabBar
 
 
 

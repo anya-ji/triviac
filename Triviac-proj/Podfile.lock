@@ -83,7 +83,6 @@ PODS:
   - PromisesObjC (1.2.9)
   - SlidingNumberView (0.0.6)
   - SnapKit (5.0.1)
-  - SOTabBar (1.1.3)
 
 DEPENDENCIES:
   - Alamofire
@@ -94,7 +93,6 @@ DEPENDENCIES:
   - HTMLEntities (from `https://github.com/IBM-Swift/swift-html-entities.git`)
   - SlidingNumberView
   - SnapKit
-  - SOTabBar
 
 SPEC REPOS:
   trunk:
@@ -117,7 +115,6 @@ SPEC REPOS:
     - PromisesObjC
     - SlidingNumberView
     - SnapKit
-    - SOTabBar
 
 EXTERNAL SOURCES:
   HTMLEntities:
@@ -149,8 +146,7 @@ SPEC CHECKSUMS:
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   SlidingNumberView: b4701f14bcb02e4f3627f9f43cf4254b7012402d
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  SOTabBar: 27aea95bd6b39d1be3535c867a2cd3b5adc172e6
 
-PODFILE CHECKSUM: 0984494d93c7eb57b604f6e3176339b1d6ae34a8
+PODFILE CHECKSUM: ed305343b9fb3de51252d864f8d2c4d6fcaac167
 
 COCOAPODS: 1.9.3

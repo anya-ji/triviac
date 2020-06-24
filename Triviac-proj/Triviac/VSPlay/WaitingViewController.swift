@@ -65,12 +65,30 @@ class WaitingViewController: UIViewController {
         cancelButton.layer.borderColor = UIColor.gray.cgColor
         applyShadow(button: cancelButton, shadow: .shadowcolor)
         
+        let gap = view.frame.height / 83
+        cancelButton.snp.makeConstraints{ make in
+            make.centerX.equalTo(view.snp.centerX)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-gap*5)
+            make.height.equalTo(60)
+            make.width.equalTo(150)
+        }
+        cancelButton.titleLabel?.snp.makeConstraints{ make in
+            make.centerY.equalToSuperview().offset(-3)
+        }
+        
         listenForStartGame()
         
     }
     
     @objc func cancel(){
+        buttonAnimate(button: cancelButton, shadow: .shadowcolor)
         
+        DatabaseManager.cancelInvite()
+       
+        DispatchQueue.main.async {
+            self.navigationController?.popViewController(animated: true)
+        }
+       
     }
     
     func listenForStartGame(){

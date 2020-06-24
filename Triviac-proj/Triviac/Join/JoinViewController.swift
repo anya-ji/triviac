@@ -53,7 +53,8 @@ class JoinViewController: UIViewController {
     
     func listenForRoom(){
         //single or observe??
-        DatabaseManager.ref.child("games").queryOrdered(byChild: "gameState").queryEqual(toValue: 0).observeSingleEvent(of: .value, with: { (snapshot) in
+        DatabaseManager.ref.child("games").queryOrdered(byChild: "gameState").queryEqual(toValue: 0).observe(.value, with: { (snapshot) in
+            self.roomlist = [] //clean up previous roomlist
             if let gameDict = snapshot.value as? [String : Any]{
                 //print(gameDict)
                 gameDict.forEach { (hostID, gameObj) in
@@ -61,14 +62,18 @@ class JoinViewController: UIViewController {
                     game.host = hostID
                     //print(game.id)
                     if game.host != Auth.auth().currentUser?.uid {
-                        self.roomlist.append(game)
-                        //print(self.roomlist)
-                        self.roomTableView.reloadData()
+                       // let hostIDList = self.roomlist.map({$0.host})
+                        //if !hostIDList.contains(game.host){ //no dups
+                            self.roomlist.append(game)
+                            //print(self.roomlist)
+                            
+                        //}
                     }
                     
                 }
                 
             }
+            self.roomTableView.reloadData()
         })
     }
     
@@ -99,6 +104,10 @@ extension JoinViewController: UITableViewDelegate {
         return 100
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        //remove observer
+        DatabaseManager.ref.child("games").queryOrdered(byChild: "gameState").queryEqual(toValue: 0).removeAllObservers()
+        
         let hostID = roomlist[indexPath.row].host
         let joinerID = Auth.auth().currentUser?.uid
         DatabaseManager.confirmJoin(hostID: hostID, joinerID: joinerID!)
