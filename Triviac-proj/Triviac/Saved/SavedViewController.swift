@@ -7,8 +7,14 @@
 //
 
 import UIKit
+import AMTabView
 
-class SavedViewController: UIViewController, UIGestureRecognizerDelegate {
+class SavedViewController: UIViewController, UIGestureRecognizerDelegate, TabItem {
+    
+    var tabImage: UIImage? {
+         return UIImage(named: "saved")
+       }
+    
     var savedView: UICollectionView!
     
     var done: UIBarButtonItem!

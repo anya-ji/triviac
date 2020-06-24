@@ -12,5 +12,7 @@ pod 'HTMLEntities', :git => 'https://github.com/IBM-Swift/swift-html-entities.gi
 pod 'Firebase/Core'
 pod 'Firebase/Database'
 pod 'Firebase/Auth'
+pod 'AMTabView'
+pod 'SlidingNumberView'
 
 end

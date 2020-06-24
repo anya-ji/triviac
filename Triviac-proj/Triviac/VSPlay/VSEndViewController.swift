@@ -130,6 +130,8 @@ class VSEndViewController: UIViewController {
         quitButton.layer.borderColor = UIColor.gray.cgColor
         applyShadow(button: quitButton, shadow: .shadowcolor)
         
+         
+        
         
         setup()
     }

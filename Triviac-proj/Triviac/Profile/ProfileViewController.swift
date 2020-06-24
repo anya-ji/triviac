@@ -8,8 +8,13 @@
 
 import UIKit
 import Firebase
+import AMTabView
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, TabItem {
+    
+    var tabImage: UIImage? {
+         return UIImage(named: "profile")
+       }
     
     var exitButton: UIBarButtonItem!
     

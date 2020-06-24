@@ -9,12 +9,18 @@
 import UIKit
 import SnapKit
 import Firebase
+import AMTabView
 
 protocol CatChangeTextDelegate: class {
     func catTextChanged(to newCat: String)
 }
 
-class CreateViewController: UIViewController {
+class CreateViewController: UIViewController, TabItem {
+    
+    var tabImage: UIImage? {
+      return UIImage(named: "home")
+    }
+    
     var numLabel: UILabel!
     var numText: UITextField!
     var add: UIButton!
