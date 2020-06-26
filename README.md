@@ -5,17 +5,23 @@ A trivia game app on iOS.
 
 * FEATURES:
 1. Customized trivia game auto-generator:
-Select number of questions, category, difficulty, and question types(Multiple choice or True/False), and generate a trivia game!
+
+Select number of questions, category, difficulty, and question types (Multiple choice or True/False), and generate a trivia game!
 
 2. 2-player trivia games: compete with your friends!
+
 Customize the game and open a room by clicking on "invite". 
+
 Or, join an open game room by clicking on "join".
 
 3. Personalized account
+
 Earn more points by inviting friends to your games or joining their games!
 
 4. Play or manage saved games:
+
 Save a game and replay it offline in the future to beat your highest scores. 
+
 Manage games saved earlier.
 
 ## Downloads
