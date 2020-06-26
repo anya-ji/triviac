@@ -75,6 +75,7 @@
 		41A17E2D249EFD6100D118AF /* VSEndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSEndViewController.swift; sourceTree = "<group>"; };
 		41BC6DDF24972E2700AB4C36 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		41DA1EF1248F3F43003EBCD4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		41F55BD924A4234900FC44E7 /* Triviac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Triviac.entitlements; sourceTree = "<group>"; };
 		8673069DFB06EC73BA6A8C8A /* Pods-Triviac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triviac.release.xcconfig"; path = "Target Support Files/Pods-Triviac/Pods-Triviac.release.xcconfig"; sourceTree = "<group>"; };
 		97D214F22E18EA6F2F948A0F /* Pods_Triviac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Triviac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFBF17785A6CAD993F68E0BA /* Pods-Triviac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Triviac.debug.xcconfig"; path = "Target Support Files/Pods-Triviac/Pods-Triviac.debug.xcconfig"; sourceTree = "<group>"; };
@@ -145,6 +146,7 @@
 		417E1914245FB8E10008DABD /* Triviac */ = {
 			isa = PBXGroup;
 			children = (
+				41F55BD924A4234900FC44E7 /* Triviac.entitlements */,
 				41495AE9249C882F00D91423 /* UIColorExtensions.swift */,
 				41100FA7248D8AD60051EA2C /* GoogleService-Info.plist */,
 				4101058724A3B7250088468C /* SAConfettiView.swift */,
@@ -493,6 +495,7 @@
 			baseConfigurationReference = CFBF17785A6CAD993F68E0BA /* Pods-Triviac.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Triviac/Triviac.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MGM7CAKZL4;
 				INFOPLIST_FILE = Triviac/Info.plist;
@@ -512,6 +515,7 @@
 			baseConfigurationReference = 8673069DFB06EC73BA6A8C8A /* Pods-Triviac.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Triviac/Triviac.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MGM7CAKZL4;
 				INFOPLIST_FILE = Triviac/Info.plist;

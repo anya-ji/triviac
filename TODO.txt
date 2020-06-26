@@ -1,4 +1,4 @@
-1. invalid input for user/email show red
+1. 
 2. fancy starting screen before play
 3. view saved game
 4. sound effects
@@ -19,6 +19,7 @@
 #### before release beta:
 better sign in page
 no same username
+dark mode looking weird
 
 
 
