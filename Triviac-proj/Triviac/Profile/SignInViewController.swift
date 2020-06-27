@@ -31,9 +31,27 @@ class SignInViewController: UIViewController {
     // Instantiate UserDefaults
     let userDefaults = UserDefaults.standard
     
+    @objc func keyboardWillShow(notification: NSNotification) {
+//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                //self.view.frame.origin.y -= keyboardSize.height
+                self.view.frame.origin.y -= 120
+            }
+        }
+    //}
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         self.navigationItem.hidesBackButton = true
         view.backgroundColor = bgcolor
@@ -58,6 +76,8 @@ class SignInViewController: UIViewController {
         userText.borderStyle = UITextField.BorderStyle.roundedRect
         userText.textAlignment = .left
         userText.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
+        userText.autocorrectionType = .no
+        userText.autocapitalizationType = .none
         view.addSubview(userText)
         
         pwText = UITextField()
@@ -68,6 +88,8 @@ class SignInViewController: UIViewController {
         pwText.textAlignment = .left
         pwText.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
         pwText.isSecureTextEntry = true
+        pwText.autocorrectionType = .no
+        pwText.autocapitalizationType = .none
         view.addSubview(pwText)
         
         emailText = UITextField()
@@ -77,6 +99,8 @@ class SignInViewController: UIViewController {
         emailText.borderStyle = UITextField.BorderStyle.roundedRect
         emailText.textAlignment = .left
         emailText.font = UIFont.init(name: "ChalkboardSE-Regular", size: 20)
+        emailText.autocorrectionType = .no
+        emailText.autocapitalizationType = .none
         view.addSubview(emailText)
         
         signInRegisterButton = UIButton()
