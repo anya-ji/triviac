@@ -90,7 +90,7 @@ extension JoinViewController: UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: rid, for: indexPath) as! JoinTableViewCell
         let room = roomlist[indexPath.row]
         DatabaseManager.findPlayerByUid(uid: room.host) { (player) in
-            cell.configure(with: player.name)
+            cell.configure(with: player)
         }
         
         return cell

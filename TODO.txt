@@ -3,12 +3,12 @@
 3. view saved game
 4. sound effects
 5. better logo
-6. search on join
-7. more details when joining(#q, category..), starting
+6. 
+7. 
 8. add back tick/cross
 9. might be better way update user default, static player, firebase player...(not separately each time?)in VSplay, endgame()
 10. animations, counting points anima, etc
-11. hide register button only when text is filled
+11. 
 12. pick profile photo
 13. 
 14. timed rounds
@@ -16,10 +16,7 @@
 16. confirm password
 17. 
 
-#### before release beta:
-better sign in page
-no same username
-dark mode looking weird
+
 
 
 

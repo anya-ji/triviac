@@ -18,6 +18,7 @@ class TabBarController: UITabBarController{
         super.viewDidLoad()
         view.backgroundColor = .bgcolor
         
+        overrideUserInterfaceStyle = .light
         // setTabsControllers()
         
 //        // Customize the colors
